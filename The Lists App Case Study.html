@@ -680,6 +680,82 @@
       </div>
     </div>
 
+    <figure class="build-diagram">
+      <style>
+        .build-diagram { margin: var(--s-12) 0 var(--s-4); }
+        .build-diagram svg { width: 100%; height: auto; display: block; }
+        .bd-tag  { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+        .bd-node { font-family: var(--font-sans); font-size: 13.5px; }
+        .bd-pill { font-family: var(--font-sans); font-size: 12px; font-weight: 500; }
+        .bd-res  { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+      </style>
+      <svg viewBox="0 0 920 380" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Two approaches compared. Experiment 01: a single prompt lets the AI make every decision, producing a generic app whose UI drifts screen to screen. Experiment 02: a real brief — brand toolkit, voice and tone, refined prompts — has the AI build to the brief, producing one consistent, intuitive product.">
+        <defs>
+          <marker id="bdArrowMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L8,5 L0,9" fill="none" stroke="var(--ink-faint)" stroke-width="1.4"/>
+          </marker>
+          <marker id="bdArrowAccent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L8,5 L0,9" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+          </marker>
+        </defs>
+
+        <!-- center hairline -->
+        <line x1="24" y1="196" x2="896" y2="196" stroke="var(--line)" stroke-width="1"/>
+
+        <!-- ============ LANE A — Experiment 01 ============ -->
+        <text class="bd-tag" x="24" y="60" fill="var(--ink-faint)">Experiment 01 · Just prompt it</text>
+
+        <rect x="24" y="80" width="150" height="48" rx="10" fill="var(--bg-tint)" stroke="var(--ink-faint)" stroke-width="1"/>
+        <text class="bd-node" x="99" y="109" text-anchor="middle" fill="var(--ink)">A single prompt</text>
+
+        <line x1="178" y1="104" x2="324" y2="104" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#bdArrowMuted)"/>
+
+        <rect x="330" y="74" width="154" height="60" rx="10" fill="var(--bg-tint)" stroke="var(--line)" stroke-width="1"/>
+        <text class="bd-node" x="407" y="100" text-anchor="middle" fill="var(--ink-soft)">AI makes every</text>
+        <text class="bd-node" x="407" y="118" text-anchor="middle" fill="var(--ink-soft)">product decision</text>
+
+        <line x1="488" y1="104" x2="556" y2="104" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#bdArrowMuted)"/>
+
+        <!-- messy output -->
+        <rect x="568" y="72"  width="62" height="28" rx="3" fill="var(--line)"/>
+        <rect x="642" y="66"  width="46" height="40" rx="3" fill="var(--terra-tint)"/>
+        <rect x="700" y="78"  width="40" height="24" rx="3" fill="var(--bg-deep)"/>
+        <rect x="576" y="112" width="52" height="22" rx="3" fill="var(--tint-warm)"/>
+        <rect x="640" y="114" width="70" height="20" rx="3" fill="var(--line)"/>
+        <rect x="724" y="100" width="36" height="34" rx="3" fill="var(--terra-tint)"/>
+        <text class="bd-res" x="568" y="178" fill="var(--ink-faint)">Generic app — UI drifts screen to screen</text>
+
+        <!-- ============ LANE B — Experiment 02 (win) ============ -->
+        <text class="bd-tag" x="24" y="230" fill="var(--accent-deep)">Experiment 02 · Brief it properly</text>
+
+        <rect x="24" y="246" width="170" height="26" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="bd-pill" x="109" y="263" text-anchor="middle" fill="var(--accent-deep)">Brand toolkit</text>
+        <rect x="24" y="278" width="170" height="26" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="bd-pill" x="109" y="295" text-anchor="middle" fill="var(--accent-deep)">Voice &amp; tone</text>
+        <rect x="24" y="310" width="170" height="26" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="bd-pill" x="109" y="327" text-anchor="middle" fill="var(--accent-deep)">Refined prompts</text>
+
+        <line x1="198" y1="291" x2="324" y2="291" stroke="var(--accent)" stroke-width="1.2" marker-end="url(#bdArrowAccent)"/>
+
+        <rect x="330" y="259" width="154" height="64" rx="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="bd-node" x="407" y="286" text-anchor="middle" fill="var(--accent-deep)">AI builds</text>
+        <text class="bd-node" x="407" y="304" text-anchor="middle" fill="var(--accent-deep)">to the brief</text>
+
+        <line x1="488" y1="291" x2="556" y2="291" stroke="var(--accent)" stroke-width="1.2" marker-end="url(#bdArrowAccent)"/>
+
+        <!-- consistent output grid -->
+        <rect x="568" y="263" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <rect x="640" y="263" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <rect x="712" y="263" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <rect x="568" y="299" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <rect x="640" y="299" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <rect x="712" y="299" width="60" height="28" rx="4" fill="var(--accent-light)" stroke="var(--accent)" stroke-width="0.75"/>
+        <text class="bd-res" x="568" y="356" fill="var(--accent-deep)">One consistent, intuitive product</text>
+      </svg>
+      <figcaption class="image-caption"><span class="num">FIG.</span><span>Same idea, two ways of working — a single prompt vs. a real brief.</span></figcaption>
+    </figure>
+
     <p class="body-copy">
       I also switched tools partway through. I started in <strong>Gemini on the Antigravity IDE</strong> — Claude wasn't the obvious choice yet — then moved to <strong>Claude Code</strong>, which was much better at building the product end to end and followed my instructions closely.
     </p>
