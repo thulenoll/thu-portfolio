@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Square Product Visualizations — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+    display: flex;
+    gap: var(--s-3);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .case-hero-status {
+    background: rgba(176, 190, 227, 0.18);
+    border: 1px solid rgba(176, 190, 227, 0.4);
+    color: var(--accent-light);
+    padding: var(--s-1) var(--s-3);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .case-hero-status::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    box-shadow: 0 0 0 0 var(--accent-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(176, 190, 227, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0); }
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* =================== OVERVIEW IMAGE =================== */
+  .overview-image { margin-top: var(--s-16); }
+  .overview-image img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .overview-caption {
+    padding: var(--s-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* =================== LIVE INTERACTIVE EMBED =================== */
+  .fig00-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+    align-items: start;
+    margin-top: var(--s-16);
+  }
+  .fig00-col { display: flex; flex-direction: column; margin: 0; min-width: 0; }
+  .fig00-pair .overview-image { margin-top: 0; }
+  .fig00-pair .overview-caption { padding-top: var(--s-3); }
+
+  .live-embed-window {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #00302F;
+    box-shadow: 0 30px 70px -34px rgba(34, 26, 21, 0.45);
+    min-width: 0;
+  }
+  .live-embed-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    background: var(--bg-tint);
+    border-bottom: 1px solid var(--line);
+  }
+  .live-embed-dots { display: flex; gap: 6px; flex: none; }
+  .live-embed-dots i {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--terra-tint); border: 1px solid var(--line);
+  }
+  .live-embed-url {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: var(--s-1) var(--s-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .live-embed-badge {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    border: 1px solid rgba(84, 104, 165, 0.32);
+    padding: var(--s-1) var(--s-3);
+    border-radius: 999px;
+  }
+  .live-embed-badge::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 var(--accent);
+    animation: pulse 2s infinite;
+  }
+  .live-embed-open {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .live-embed-open:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* scaled "whole page" miniature */
+  .live-shot {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #00302F;
+  }
+  .live-shot-scale {
+    transform-origin: top left;
+    width: 1440px;
+  }
+  .live-shot-scale iframe {
+    width: 1440px;
+    border: 0;
+    display: block;
+    background: #00302F;
+  }
+  @media (max-width: 720px) {
+    .fig00-pair { grid-template-columns: 1fr; gap: var(--s-10); }
+    .live-embed-url { display: none; }
+  }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .ai-subhead {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-top: var(--s-12);
+    margin-bottom: var(--s-3);
+    font-variation-settings: "opsz" 70;
+  }
+  .ai-subhead em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 70;
+  }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+    text-wrap: balance;
+  }
+  .pullquote em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* =================== IMAGE BLOCK =================== */
+  .image-block { margin: var(--s-10) 0 var(--s-4); }
+  .image-block img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  /* =================== SURFACES GRID =================== */
+  .surfaces {
+    margin: var(--s-10) 0 var(--s-4);
+    border-top: 1px solid var(--line);
+  }
+  .surface {
+    display: flex;
+    align-items: center;
+    gap: var(--s-6);
+    padding: var(--s-6) var(--s-1);
+    border-bottom: 1px solid var(--line);
+  }
+  .surface-icon {
+    color: var(--accent);
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+  .surface-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .surface-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+    flex-shrink: 0;
+    width: 90px;
+  }
+  .surface-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 24px;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+  }
+  .surface-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== AI PROJECT LINK =================== */
+  .ai-project-link {
+    margin-top: var(--s-9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--s-6) var(--s-7);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    background: var(--terra-tint);
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .ai-project-link:hover { border-color: var(--accent); }
+  .ai-project-link:hover .ai-project-cta .cta-arrow { transform: translateX(6px); }
+  .ai-project-text { display: flex; flex-direction: column; gap: var(--s-2); }
+  .ai-project-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+  .ai-project-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.15;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+  }
+  .ai-project-title em { font-style: italic; color: var(--accent); font-variation-settings: "opsz" 60; }
+  .ai-project-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .ai-project-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  @media (max-width: 560px) {
+    .ai-project-link { flex-direction: column; align-items: flex-start; gap: var(--s-4); }
+  }
+
+  /* =================== MOTION GRID =================== */
+  .motion-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+  }
+  .motion-item { display: flex; flex-direction: column; gap: var(--s-3); }
+  .motion-item img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--bg-tint);
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .motion-caption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    line-height: 1.4;
+  }
+  .motion-caption .num { color: var(--terra); white-space: nowrap; }
+
+  /* =================== DIAGRAM EMBED =================== */
+  .diagram-embed {
+    width: 100%;
+    margin: var(--s-12) 0 var(--s-4);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow:
+      0 1px 2px rgba(40, 50, 52, 0.04),
+      0 14px 36px rgba(40, 50, 52, 0.10);
+    padding: 25px;
+  }
+  .diagram-embed__inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .diagram-embed__inner iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1092px;
+    height: 1103px;
+    border: 0;
+    transform-origin: top left;
+  }
+
+  /* =================== VIDEO BLOCKS =================== */
+  .video-block { margin: var(--s-10) 0 var(--s-4); }
+  .video-block + .video-block { margin-top: var(--s-12); }
+  .video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-tint);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    overflow: hidden;
+    display: block;
+  }
+  .video-frame video,
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #000;
+    border: 0;
+    object-fit: cover;
+  }
+  .video-meta {
+    margin-top: var(--s-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+  .video-meta-left {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .video-figure {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .video-figure .num { color: var(--terra); }
+  .video-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.3;
+    font-variation-settings: "opsz" 60;
+  }
+  .video-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .video-meta-right {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+  .video-desc {
+    margin-top: var(--s-2);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 720px) {
+    .video-meta { flex-direction: column; gap: var(--s-1); }
+    .video-meta-right { text-align: left; }
+  }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-6);
+    text-wrap: pretty;
+  }
+  .outcome-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+    border-top: 0;
+    max-width: none;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--accent-light);
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+
+  /* =================== NEXT CASE =================== */
+  .next-case {
+    padding: var(--s-24) 0 var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--s-2) 0 var(--s-8);
+    transition: padding 0.3s var(--ease);
+  }
+  .next-case-link:hover { padding-right: var(--s-3); }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-link:hover .next-case-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .next-case-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .next-case-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s var(--ease);
+    text-wrap: balance;
+  }
+  .next-case-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: var(--s-2) var(--s-4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  @media (max-width: 900px) {
+    .motion-grid { grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+  }
+  @media (max-width: 560px) {
+    .motion-grid { grid-template-columns: 1fr; gap: var(--s-5); }
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .surface { gap: var(--s-4); padding: var(--s-5) var(--s-1); }
+    .surface-label { width: 72px; }
+    .surface-title { font-size: 20px; }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+    .next-case { padding: var(--s-16) 0 var(--s-3); }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label,
+  .case-hero-title,
+  .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .case-hero-label { animation-delay: 0.10s; }
+  .case-hero-title { animation-delay: 0.20s; }
+  .case-hero-lede  { animation-delay: 0.45s; }
+</style>
+
+<style id="more-cases-styles">
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+  @media (max-width: 768px) {
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span>Brand × Product<span class="sep">/</span>Juniper Square product visualizations
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">
+      <span>Juniper Square — Product visualization</span>
+      <span class="case-hero-status">Active</span>
+    </div>
+    <h1 class="case-hero-title">A year of making a <em>complex product</em> simple to see.</h1>
+    <p class="case-hero-lede">
+      I joined <em>Juniper Square</em> in April 2025 to make the product easier to see. Since then I've turned its screens into storyboards, monthly videos, two sizzle reels, product and landing pages, and campaign assets. The AI CRM reel is near <em>1M views</em> on YouTube. Lately the whole process runs with AI in the loop — including a brand-system foundation I built <em>inside Claude</em>, so the team can make on-brand marketing all from one place.
+    </p>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Senior Visual Designer</strong><br>Product visualization<br>+ brand</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>Apr 2025 — Present</strong><br>Active engagement</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Product marketing managers (PMMs)<br>Product design<br>Marketing</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Product pages<br>Landing pages<br>Storyboards<br>9 videos<br>Product visuals<br>Social &amp; ads</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value"><strong>Ongoing</strong><br>Across every channel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== VIDEOS =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — On video</div>
+    <h2 class="section-title">Nine videos in a year, <em>1M views</em> on the headline reel.</h2>
+
+    <p class="body-copy">
+      Over the past year I storyboarded and directed nine videos with a video agency — <strong>seven monthly product updates</strong> and <strong>two sizzle reels</strong>. The AI CRM reel below is near <em>1 million views</em> on YouTube, which only happens when people understand what they're watching.
+    </p>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/edU9NVoYuuQ?rel=0"
+          title="AI CRM for Investor Relations — sizzle reel"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 01</span> · Feature launch · 2025</div>
+          <div class="video-title">AI CRM <em>for Investor Relations</em> · sizzle reel</div>
+        </div>
+        <div class="video-meta-right">2:26 · 1080p</div>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <video
+          controls
+          preload="none"
+          poster="assets/jsq/jsq_WhatsNew_Dec_2025-poster.png"
+          playsinline>
+          <source src="assets/jsq/jsq_WhatsNew_Dec%202025.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 02</span> · Monthly release · Dec 2025</div>
+          <div class="video-title">What's New at Juniper Square <em>·</em> December 2025</div>
+        </div>
+        <div class="video-meta-right">0:43 · 1080p</div>
+      </div>
+    </div>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <video
+          controls
+          preload="none"
+          poster="assets/jsq/jsq_WhatsNew_Jan_2026-poster.png"
+          playsinline>
+          <source src="assets/jsq/jsq_WhatsNew_Jan%202026.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 03</span> · Monthly release · Jan 2026</div>
+          <div class="video-title">What's New at Juniper Square <em>·</em> January 2026</div>
+        </div>
+        <div class="video-meta-right">0:55 · 1080p</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =================== 04 IN MOTION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — In motion</div>
+    <h2 class="section-title">Cut down, again and again, until the <em>interaction</em> is clear.</h2>
+
+    <p class="body-copy">
+      Much of the year went into <em>cutting busy screens down</em> to the one thing each piece needs to show. Six examples below — dashboards, AI drafting, investor comments, the investor portal, staff review, and the human checks built into JunieAI. Each is a real moment from the product, trimmed to what a viewer can take in at a glance.
+    </p>
+
+    <div class="motion-grid">
+      <figure class="motion-item">
+        <img src="assets/jsq/Dashboard.gif" alt="Creating a new dashboard in Juniper Square." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 01</span><span>Building a new dashboard — where reporting starts.</span></figcaption>
+      </figure>
+      <figure class="motion-item">
+        <img src="assets/jsq/JunieAI-drafting.gif" alt="JunieAI drafting answers using firm data." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 02</span><span>Each DDQ sharpens the next draft.</span></figcaption>
+      </figure>
+      <figure class="motion-item">
+        <img src="assets/jsq/Human-in-the-loop.gif" alt="Edit history showing a JunieAI suggestion accepted by a human reviewer." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 03</span><span>Page-level citations and full edit history.</span></figcaption>
+      </figure>
+      <figure class="motion-item">
+        <img src="assets/jsq/Staff-review.gif" alt="Configuring when staff review should occur in a workflow." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 04</span><span>Staff review.</span></figcaption>
+      </figure>
+      <figure class="motion-item">
+        <img src="assets/jsq/Investor-Portal.gif" alt="The Juniper Square investor portal, branded as Rye Capital Partners." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 05</span><span>Investor portal.</span></figcaption>
+      </figure>
+      <figure class="motion-item">
+        <img src="assets/jsq/LP-commenting.gif" alt="An LP leaving an inline comment on an investment amount." loading="lazy">
+        <figcaption class="motion-caption"><span class="num">FIG. 06</span><span>LP and GP commenting.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="diagram-embed" id="agentDiagram">
+      <div class="diagram-embed__inner">
+        <iframe src="assets/jsq/agent-control-plane-diagram.html" title="Animated explainer — AI agents over Juniper Square's governed control plane." loading="lazy" scrolling="no"></iframe>
+      </div>
+    </div>
+    <div class="motion-caption"><span class="num">FIG. 07</span><span>Juniper Square's headless GPX.</span></div>
+  </div>
+</section>
+
+
+<!-- =================== 03 SURFACES =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Outputs</div>
+    <h2 class="section-title">Six kinds of work, one brand voice.</h2>
+
+
+    <div class="surfaces">
+      <div class="surface">
+        <div class="surface-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/></svg></div>
+        <div class="surface-label">Output 01</div>
+        <div class="surface-title">Product UI <em>visualizations</em></div>
+      </div>
+      <div class="surface">
+        <div class="surface-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="8.5" x2="21" y2="8.5"/></svg></div>
+        <div class="surface-label">Output 02</div>
+        <div class="surface-title">Product &amp; <em>landing pages</em></div>
+      </div>
+      <div class="surface">
+        <div class="surface-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg></div>
+        <div class="surface-label">Output 03</div>
+        <div class="surface-title"><em>Storyboards</em></div>
+      </div>
+      <div class="surface">
+        <div class="surface-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.4 L16 12 L10 15.6 Z" fill="currentColor" stroke="none"/></svg></div>
+        <div class="surface-label">Output 04</div>
+        <div class="surface-title"><em>Videos</em></div>
+      </div>
+      <div class="surface">
+        <div class="surface-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><line x1="8.1" y1="10.9" x2="15.9" y2="7.1"/><line x1="8.1" y1="13.1" x2="15.9" y2="16.9"/></svg></div>
+        <div class="surface-label">Output 05</div>
+        <div class="surface-title">Social &amp; <em>ads</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 04 WORKING WITH AI =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — Working with AI</div>
+    <h2 class="section-title">A few months of making <em>everything with AI</em>.</h2>
+
+    <p class="body-copy">
+      Lately the whole process runs with AI in the loop — storyboards, copy, layout, production. The clearest piece of it is the brand-system foundation I built for Juniper Square <em>inside Claude</em>: the same visual rules, written so Claude can read them — so the team can make on-brand marketing in Claude Design and the Claude plugin, all from one place.
+    </p>
+
+    <a href="JSQ Brand System Case Study.html" target="_blank" rel="noopener" class="ai-project-link">
+      <div class="ai-project-text">
+        <div class="ai-project-label">Related project</div>
+        <div class="ai-project-title">Juniper Square Brand System in <em>Claude</em></div>
+      </div>
+      <span class="ai-project-cta">View project <span class="cta-arrow">→</span></span>
+    </a>
+
+    <h3 class="ai-subhead">Redesigning the homepage in <em>Claude Design</em>.</h3>
+    <p class="body-copy">
+      On the right is my own experiment: a rebuild of the Juniper Square homepage in Claude Design, using it to refresh the brand and push the product story further than the live page does today.
+    </p>
+  </div>
+
+  <div class="container container--narrow">
+    <div class="fig00-pair">
+    <figure class="fig00-col">
+      <div class="overview-image">
+        <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/f0437a2b-22a6-4657-b8af-54bcfe9fe508/HomePage.png" alt="Juniper Square homepage — product UI visualizations made legible for customers and prospects.">
+      </div>
+      <figcaption class="overview-caption">
+        <span class="num">FIG. 00 · LIVE TODAY</span><span>The current Juniper Square homepage.</span>
+      </figcaption>
+    </figure>
+
+    <figure class="fig00-col">
+      <div class="live-embed-window">
+        <div class="live-shot" id="homepageShot">
+          <div class="live-shot-scale">
+            <iframe src="JSQ Homepage v2.html" title="Juniper Square homepage — live animated build" scrolling="no"></iframe>
+          </div>
+        </div>
+      </div>
+      <figcaption class="overview-caption">
+        <span class="num">FIG. 00 · MY REDESIGN</span><span>My homepage rebuild in Claude Design — a working, animated page.</span>
+      </figcaption>
+    </figure>
+  </div>
+  </div>
+</section>
+
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          A year in, there's one clear product story running across pages, videos, social, and ads. These days AI runs through the whole process — storyboards, copy, layout, production — anchored by a brand-system foundation I built <em>inside Claude</em>, so the team can make on-brand marketing from one place.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>9</em></div>
+            <div class="stat-label">Videos shipped — 7 monthly releases, 2 sizzle reels</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>~1M</em></div>
+            <div class="stat-label">YouTube views on the AI CRM reel</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>6</em></div>
+            <div class="stat-label">Kinds of work — product, landing, storyboard, video, social, ads</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>Live</em></div>
+            <div class="stat-label">Across junipersquare.com and every product campaign</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="Natera Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/natera/Natera-thumbnail.png" alt="Natera homepage after redesign" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Web · Biotech</div>
+        <div class="more-case-title">Natera website overhaul</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="Daiverse Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Enterprise</div>
+        <div class="more-case-title">Daiverse <em>·</em> design system for DAI</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var wrap = document.getElementById('agentDiagram');
+    if (!wrap) return;
+    var inner = wrap.querySelector('.diagram-embed__inner');
+    var ifr = inner.querySelector('iframe');
+    var NATIVE_W = 1092, CROP_TOP = 56, CONTENT_H = 975;
+    function fit() {
+      var s = inner.clientWidth / NATIVE_W;
+      ifr.style.transform = 'translateY(' + (-CROP_TOP * s) + 'px) scale(' + s + ')';
+      inner.style.height = (CONTENT_H * s) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    ifr.addEventListener('load', fit);
+  })();
+</script>
+
+<script>
+  (function () {
+    var wrap = document.getElementById('homepageShot');
+    if (!wrap) return;
+    var scaler = wrap.querySelector('.live-shot-scale');
+    var ifr = scaler.querySelector('iframe');
+    var DESIGN_W = 1440;
+
+    function contentHeight() {
+      try {
+        var d = ifr.contentDocument;
+        if (!d || !d.querySelectorAll('section').length) return 0;
+        return Math.max(
+          d.documentElement.scrollHeight,
+          d.body ? d.body.scrollHeight : 0
+        );
+      } catch (e) { return 0; }
+    }
+
+    function fit() {
+      var s = wrap.clientWidth / DESIGN_W;
+      var ch = contentHeight();
+      scaler.style.transform = 'scale(' + s + ')';
+      if (ch) {
+        ifr.style.height = ch + 'px';
+        wrap.style.height = (ch * s) + 'px';
+      }
+    }
+
+    // The embedded page is a self-unpacking bundle — poll until its
+    // sections exist, refit a few times as fonts/images settle, then stop.
+    var tries = 0;
+    var poll = setInterval(function () {
+      tries++;
+      if (contentHeight()) {
+        fit();
+        setTimeout(fit, 500);
+        setTimeout(fit, 1500);
+        clearInterval(poll);
+      } else if (tries > 80) {
+        clearInterval(poll);
+      }
+    }, 200);
+
+    window.addEventListener('resize', fit);
+    ifr.addEventListener('load', fit);
+  })();
+</script>
+
+</body>
+</html>

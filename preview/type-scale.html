@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-meta">Type scale · Literata + Manrope</div>
+  <div style="display: flex; flex-direction: column; gap: var(--s-2); margin-top: var(--s-3);">
+    <div style="font-family: var(--font-serif); font-size: 60px; line-height: 1; font-weight: 350; letter-spacing: -0.025em; color: var(--ink);">Display</div>
+    <div style="font-family: var(--font-serif); font-size: 40px; line-height: 1.1; font-weight: 400; color: var(--ink);">Section · 40</div>
+    <div style="font-family: var(--font-serif); font-size: 26px; line-height: 1.2; font-weight: 400; color: var(--ink);">Work title · 26</div>
+    <div style="font-family: var(--font-sans); font-size: 17px; color: var(--ink-soft);">Body — Manrope 17 · 1.55</div>
+    <div style="font-family: var(--font-sans); font-size: 14px; color: var(--ink-soft);">Meta value — 14</div>
+    <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Mono kicker — 11</div>
+  </div>
+</div>
+</body>
+</html>

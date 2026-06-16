@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thu LeNoll — Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ---- 4pt spacing scale (every value snaps to a multiple of 4) ---- */
+    --s-1:  4px;
+    --s-2:  8px;
+    --s-3:  12px;
+    --s-4:  16px;
+    --s-5:  20px;
+    --s-6:  24px;
+    --s-7:  28px;
+    --s-8:  32px;
+    --s-9:  36px;
+    --s-10: 40px;
+    --s-12: 48px;
+    --s-14: 56px;
+    --s-16: 64px;
+    --s-18: 72px;
+    --s-20: 80px;
+    --s-22: 88px;
+    --s-24: 96px;
+    --s-28: 112px;
+    --s-32: 128px;
+
+    /* ---- Color ---- */
+    --bg:           #FAEFE3;
+    --bg-deep:      #F8D2C5;
+    --bg-tint:      #FDF7EE;
+    --ink:          #221A15;
+    --ink-soft:     #574A41;
+    --ink-faint:    #6F635A;
+    --line:         #E8D5BE;
+    --line-soft:    rgba(34, 26, 21, 0.08);
+    --line-mid:     rgba(34, 26, 21, 0.12);
+
+    --accent:       #5468A5;
+    --accent-deep:  #3D4F85;
+    --accent-light: #B0BEE3;
+    --accent-soft:  rgba(84, 104, 165, 0.10);
+
+    --terra:        #5C3F28;
+    --terra-deep:   #3D2A1A;
+    --terra-soft:   #9A7C5C;
+    --terra-tint:   #EDDFD1;
+
+    --tint-cool:    #E5E8F0;
+    --tint-warm:    #F2DECF;
+    --tint-terra:   #E9DAC8;
+
+    /* ---- Type ---- */
+    --font-serif: 'Literata', Georgia, serif;
+    --font-sans:  'Manrope', system-ui, sans-serif;
+    --font-mono:  'JetBrains Mono', ui-monospace, monospace;
+
+    /* ---- Layout ---- */
+    --topbar-h: 72px;
+
+    /* ---- Motion ---- */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.55;
+    font-feature-settings: "ss01" on;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--s-8);
+  }
+
+  /* Utility ---------------------------------------------------------- */
+  .mono {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  /* =================== TOP BAR =================== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: var(--s-5) 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+  }
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  .wordmark-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+    padding-top: 1px; /* optical center */
+  }
+  .wordmark-name {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.012em;
+    line-height: 1;
+    font-variation-settings: "opsz" 60;
+  }
+  .topbar-meta {
+    display: flex;
+    gap: var(--s-8);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .topbar-meta a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s var(--ease);
+  }
+  .topbar-meta a:hover { color: var(--accent); }
+  .topbar-meta .status::before {
+    content: "●";
+    color: var(--accent);
+    margin-right: var(--s-2);
+    font-size: 14px;
+    line-height: 0;
+    vertical-align: -1px;
+  }
+
+  /* =================== HERO =================== */
+  .hero {
+    background: var(--terra-deep);
+    color: var(--bg);
+    padding: var(--s-16) 0 var(--s-16);
+  }
+  .hero-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-9);
+  }
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(34px, 4.6vw, 60px);
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    max-width: 20ch;
+    margin-bottom: var(--s-8);
+    font-variation-settings: "opsz" 144;
+    text-wrap: balance;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .hero-subline {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 58ch;
+    margin-bottom: var(--s-9);
+    text-wrap: pretty;
+  }
+  .hero-credentials {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-4);
+  }
+  .hero-credentials span + span::before {
+    content: "·";
+    color: var(--accent-light);
+    opacity: 0.55;
+    margin-right: var(--s-4);
+  }
+
+  /* =================== WORK =================== */
+  .work {
+    padding: 0 0 var(--s-12);
+  }
+  .work-section {
+    padding-top: var(--s-16);
+    margin-bottom: var(--s-12);
+  }
+  .work-section:first-child { padding-top: var(--s-14); }
+  .work-section:last-child  { margin-bottom: 0; }
+
+  .work-section-header {
+    padding-bottom: var(--s-10);
+    margin-bottom: var(--s-10);
+    border-top: 1px solid var(--line);
+    padding-top: var(--s-10);
+  }
+  /* Section-specific accent: a colored bullet on the kicker */
+  .work-section--cool  { --section-accent: var(--accent); }
+  .work-section--warm  { --section-accent: var(--terra); }
+  .work-section--terra { --section-accent: var(--terra-deep); }
+
+  .work-section-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .work-section-number::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--section-accent, var(--accent));
+    display: inline-block;
+  }
+  .work-section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  .work-section-title em {
+    font-style: italic;
+    font-variation-settings: "opsz" 90;
+  }
+  .work-section--cool  .work-section-title em { color: var(--accent-deep); }
+  .work-section--warm  .work-section-title em { color: var(--terra); }
+  .work-section--terra .work-section-title em { color: var(--terra-deep); }
+  .work-section-desc {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-top: var(--s-3);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .work-list { display: flex; flex-direction: column; }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 360px 1fr auto;
+    gap: var(--s-8);
+    align-items: start;
+    padding: var(--s-7) 0;
+    border-bottom: 1px solid var(--line-soft);
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    transition: padding-left 0.3s var(--ease);
+  }
+  .work-item:hover                  { padding-left: var(--s-3); }
+  .work-item:hover .work-title      { color: var(--terra-soft); }
+  .work-item:hover .work-thumb      { transform: scale(1.02); }
+  .work-item:hover .work-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .work-item:hover .work-cta .cta-arrow { transform: translateX(4px); }
+
+  /* Thumbnails */
+  .work-thumb {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-soft);
+    position: relative;
+    transition: transform 0.4s var(--ease);
+  }
+  .work-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .work-thumb iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    pointer-events: none;
+  }
+  .work-thumb-label {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 17px;
+    text-align: center;
+    padding: 0 var(--s-4);
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+    line-height: 1.2;
+  }
+  .work-thumb-meta {
+    position: absolute;
+    bottom: var(--s-2);
+    left: var(--s-3);
+    right: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.6;
+  }
+  .work-thumb--periwinkle       { background: var(--accent); }
+  .work-thumb--periwinkle       .work-thumb-label,
+  .work-thumb--periwinkle       .work-thumb-meta { color: var(--bg); }
+  .work-thumb--terra            { background: #004646; }
+  .work-thumb--terra            .work-thumb-label,
+  .work-thumb--terra            .work-thumb-meta { color: var(--bg); }
+  .work-thumb--terra-deep       { background: var(--terra-deep); }
+  .work-thumb--terra-deep       .work-thumb-label,
+  .work-thumb--terra-deep       .work-thumb-meta { color: var(--accent-light); }
+  .work-thumb--terra-tint       { background: var(--terra-tint); }
+  .work-thumb--terra-tint       .work-thumb-label,
+  .work-thumb--terra-tint       .work-thumb-meta { color: var(--terra-deep); }
+  .work-thumb--blush            { background: var(--bg-deep); }
+  .work-thumb--blush            .work-thumb-label,
+  .work-thumb--blush            .work-thumb-meta { color: var(--ink); }
+  .work-thumb--periwinkle-light { background: var(--accent-light); }
+  .work-thumb--periwinkle-light .work-thumb-label,
+  .work-thumb--periwinkle-light .work-thumb-meta { color: var(--accent-deep); }
+
+  .work-year {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    margin-bottom: var(--s-1);
+  }
+  .work-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .work-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+    transition: color 0.2s var(--ease);
+    text-wrap: balance;
+  }
+  .work-title em {
+    font-style: italic;
+    font-variation-settings: "opsz" 60;
+  }
+  .work-desc {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+  .work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    padding-top: var(--s-3);
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--s-1);
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .tag.is-new {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .work-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    background: transparent;
+    border: 1px solid var(--terra);
+    padding: var(--s-2) var(--s-4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    align-self: start;
+    margin-top: var(--s-1);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background 0.2s var(--ease),
+      color 0.2s var(--ease),
+      border-color 0.2s var(--ease);
+  }
+  .work-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  /* =================== ABOUT =================== */
+  .about {
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .about-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .about-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    letter-spacing: -0.014em;
+    color: var(--bg);
+    max-width: 32ch;
+    font-variation-settings: "opsz" 90;
+    text-wrap: pretty;
+  }
+  .about-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .about-link {
+    margin-top: var(--s-8);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: var(--s-1);
+    display: inline-block;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .about-link:hover {
+    color: var(--bg);
+    border-color: var(--bg);
+  }
+
+  /* =================== FOOTER =================== */
+  .footer {
+    padding: var(--s-20) 0 var(--s-10);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .footer-headline { color: var(--bg); }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--s-8);
+    margin-bottom: var(--s-14);
+    flex-wrap: wrap;
+  }
+  .footer-headline {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(28px, 3.8vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    font-variation-settings: "opsz" 144;
+    text-wrap: balance;
+  }
+  .footer-headline em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+  }
+  .footer-contact a {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.3;
+    color: var(--bg);
+    text-decoration: none;
+    transition: color 0.2s var(--ease), font-style 0.2s var(--ease);
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-contact a:hover {
+    color: var(--accent-light);
+    font-style: italic;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: var(--s-6);
+    border-top: 1px solid rgba(250, 239, 227, 0.18);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--terra-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .container { padding: 0 var(--s-6); }
+    .topbar-meta { display: none; }
+
+    .hero {
+      padding: var(--s-12) 0 var(--s-12);
+    }
+
+    .work { padding: 0 0 var(--s-8); }
+    .work-section { padding-top: var(--s-12); margin-bottom: var(--s-10); }
+    .work-section:first-child { padding-top: var(--s-10); }
+    .work-section-header { padding-top: var(--s-8); padding-bottom: var(--s-8); margin-bottom: var(--s-8); }
+
+    .work-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+      padding: var(--s-6) 0;
+    }
+    .work-item:hover { padding-left: 0; }
+    .work-item:hover .work-thumb { transform: none; }
+
+    .work-thumb { aspect-ratio: 3 / 2; }
+    .work-title { font-size: 22px; }
+    .work-cta { font-size: 10px; padding: var(--s-2) var(--s-3); align-self: flex-start; }
+
+    .about { padding: var(--s-14) 0; }
+    .about-inner { grid-template-columns: 1fr; gap: var(--s-5); }
+
+    .footer { padding: var(--s-14) 0 var(--s-8); }
+    .footer-top { flex-direction: column; align-items: flex-start; margin-bottom: var(--s-10); }
+  }
+
+  /* =================== ENTRANCE =================== */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label,
+  .hero-headline,
+  .hero-subline,
+  .hero-credentials {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .hero-label       { animation-delay: 0.10s; }
+  .hero-headline    { animation-delay: 0.20s; }
+  .hero-subline     { animation-delay: 0.45s; }
+  .hero-credentials { animation-delay: 0.60s; }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="wordmark">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </div>
+    <nav class="topbar-meta">
+      <a href="#work">Work</a>
+      <a href="About.html">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== HERO =================== -->
+<section class="hero" style="background-color: rgb(61, 42, 26)">
+  <div class="container">
+    <div class="hero-label">A portfolio, 2014 — Present</div>
+    <h1 class="hero-headline">
+      I design brands, products, and the <em>systems</em> that hold them together.
+    </h1>
+    <p class="hero-subline">
+      Bridging brand and product through design systems and AI-native foundations. Currently Senior Visual Designer at Juniper Square — building the brand system, creating product visual stories in Figma and Claude Design, and experimenting with Claude Code to build my own tools.
+    </p>
+    <div class="hero-credentials">
+      <span>Bay Area</span><span>11 years</span><span>Fintech · Biotech · SaaS · Consulting</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== WORK =================== -->
+<section class="work" id="work">
+  <div class="container">
+
+    <!-- 01 -->
+    <div class="work-section work-section--warm">
+      <header class="work-section-header" style="padding: 20px 0px; border-width: 4px 0px 0px">
+
+        <h2 class="work-section-title">Brand <em>·</em> System <em>·</em> Product</h2>
+        <p class="work-section-desc">Where marketing surfaces, product UI, and the system between them have to feel like one thing — from biotech to private markets to live multi-sport platforms.</p>
+      </header>
+      <div class="work-list">
+
+        <a class="work-item" href="JSQ Product Viz Case Study.html">
+          <div class="work-thumb">
+            <img src="assets/jsq/Investor-Portal.gif" alt="Juniper Square investor portal — the full LP-facing surface, in one frame.">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2025—Now</div>
+            <h3 class="work-title">Juniper Square product visualizations</h3>
+            <p class="work-desc">Turning complex B2B product screens into clear marketing stories. Storyboards, prototypes, and shipped marketing pages — increasingly made together with Claude Design.</p>
+            <div class="work-tags">
+              <span class="tag">Brand × Product</span>
+              <span class="tag">B2B SaaS</span>
+              <span class="tag">Claude Design</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+        <a class="work-item" href="DSLeague Case Study.html">
+          <div class="work-thumb">
+            <img src="assets/dsleague/DSL_Add_zoom.gif" alt="DSLeague Add Player flow — zooms into the sport-aware add/drop modal." style="object-fit: contain; background: #eef2f8;">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2024—Now</div>
+            <h3 class="work-title">DSLeague <em>·</em> Founding Designer</h3>
+            <p class="work-desc">Brand, design system, and component library for a live multi-sport fantasy app with 100+ monthly users. Sole designer end to end — ten sports, one consistent system, built for light and dark mode, shipping for real.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">Brand</span>
+              <span class="tag">Product UX</span>
+              <span class="tag">Live</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+        <a class="work-item" href="Daiverse Case Study.html">
+          <div class="work-thumb">
+            <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2023—25</div>
+            <h3 class="work-title">Daiverse <em>·</em> design system for DAI</h3>
+            <p class="work-desc">16 months researching, designing the application, and building the design system for DAI's planned replacement of 13 separate apps across 150+ countries — the full system, component library, and documentation, plus the tested product it was built for. The project closed in early 2025 when USAID was dismantled; the system is intact.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">Figma Variables</span>
+              <span class="tag">Enterprise</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+        <a class="work-item" href="Natera Case Study.html">
+          <div class="work-thumb">
+            <img src="assets/natera/Natera-thumbnail.png" alt="Natera — the redesigned marketing site across web and mobile.">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2020—23</div>
+            <h3 class="work-title">Natera website overhaul</h3>
+            <p class="work-desc">Led visual design and site structure on the full marketing site rebuild. A new design system, a clearer structure, and a brand language that scaled across hundreds of pages of clinical and consumer content.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">IA</span>
+              <span class="tag">Biotech</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+        <a class="work-item" href="PhotoBooker Case Study.html">
+          <div class="work-thumb">
+            <img src="assets/photobooker/PB-thumbnail.png" alt="PhotoBooker — search, browse, and book photographers, shown across three floating mobile screens.">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2017—20</div>
+            <h3 class="work-title">PhotoBooker <em>·</em> Zenfolio</h3>
+            <p class="work-desc">UI and brand design for a new marketplace product as Visual Design Lead at Zenfolio. Product visuals, A/B-tested marketing, and brand guidelines — three years connecting marketing and product.</p>
+            <div class="work-tags">
+              <span class="tag">Product UI</span>
+              <span class="tag">Brand</span>
+              <span class="tag">Marketplace</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="work-section work-section--cool">
+      <header class="work-section-header" style="padding: 20px 0px; border-width: 4px 0px 0px">
+
+        <h2 class="work-section-title"><em>AI</em>-native design</h2>
+        <p class="work-section-desc">Where the tools that build alongside me become part of the design medium — design systems Claude can read, products I ship with Claude Code.</p>
+      </header>
+      <div class="work-list">
+
+        <a class="work-item" href="JSQ Brand System Case Study.html">
+          <div class="work-thumb work-thumb--terra">
+            <span class="work-thumb-label">Juniper Square × Claude</span>
+          </div>
+          <div class="work-main">
+            <div class="work-year">2026</div>
+            <h3 class="work-title">Juniper Square Brand System in <em>Claude</em></h3>
+            <p class="work-desc">Built Juniper Square's brand system inside Claude so the team can make on-brand marketing in one place everyone works from. Where brand meets product — design-system thinking applied to AI tools.</p>
+            <div class="work-tags">
+              <span class="tag is-new">New</span>
+              <span class="tag">Design system</span>
+              <span class="tag">AI</span>
+              <span class="tag">Juniper Square</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+        <a class="work-item" href="The Lists App Case Study.html">
+          <div class="work-thumb">
+            <img src="assets/thelists/thumb.png" alt="The Lists app — home, a reusable checklist, and the Magic Generator.">
+          </div>
+          <div class="work-main">
+            <div class="work-year">2026</div>
+            <h3 class="work-title">The Lists <em>·</em> built with Claude Code</h3>
+            <p class="work-desc">A mobile app I designed, built, and use every day — checklists made to be reused, ready-made templates, and AI-generated Magic Lists. The whole thing, start to finish, built with Claude Code.</p>
+            <div class="work-tags">
+              <span class="tag is-new">New</span>
+              <span class="tag">Product UX</span>
+              <span class="tag">Claude Code</span>
+              <span class="tag">Shipped</span>
+            </div>
+          </div>
+          <div class="work-cta">View project <span class="cta-arrow">→</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

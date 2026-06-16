@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natera Website Redesign — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* =================== OVERVIEW IMAGE =================== */
+  .overview-image {
+    margin-top: var(--s-16);
+  }
+  .overview-grid {
+    margin-top: var(--s-16);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+    align-items: start;
+  }
+  .overview-grid figure { display: flex; flex-direction: column; gap: var(--s-3); }
+  .overview-grid img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    aspect-ratio: 7 / 15;
+    object-fit: cover;
+    object-position: top center;
+    background: var(--bg-tint);
+  }
+  .overview-image img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .overview-caption {
+    padding: var(--s-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+    text-wrap: balance;
+  }
+  .pullquote em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* =================== SUB LABEL =================== */
+  .sub-label {
+    margin: var(--s-14) 0 var(--s-4);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+
+  /* =================== IMAGE BLOCKS =================== */
+  .image-block { margin: var(--s-10) 0 var(--s-4); }
+  .image-block img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .image-block .mobile-embed-wrap {
+    height: 430px;
+    overflow: hidden;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    background: #e9e2d8;
+  }
+  .image-block .mobile-embed {
+    width: 200%;
+    height: 860px;
+    display: block;
+    border: 0;
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  .image-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .image-grid img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+
+  /* =================== SURVEY RESULTS =================== */
+  .survey {
+    margin: var(--s-10) 0 var(--s-3);
+    padding: var(--s-10) var(--s-8);
+    background: var(--bg-tint);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+  }
+  .survey-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-12);
+  }
+  .survey-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+  }
+  .survey-col-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: -0.012em;
+    color: var(--terra-deep);
+    font-variation-settings: "opsz" 60;
+    margin-bottom: var(--s-1);
+  }
+  .survey-col-title em {
+    font-style: italic;
+    color: var(--terra);
+  }
+  .survey-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .survey-pct {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.012em;
+    color: var(--accent);
+    font-variation-settings: "opsz" 60;
+    text-align: right;
+  }
+  .survey-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-3);
+    align-items: center;
+    padding: var(--s-4) var(--s-5);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    min-height: 72px;
+  }
+  .survey-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--terra-deep);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 1px;
+  }
+  .survey-text {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 760px) {
+    .survey { padding: var(--s-6) var(--s-4); }
+    .survey-grid { grid-template-columns: 1fr; gap: var(--s-8); }
+    .survey-row { grid-template-columns: 44px 1fr; gap: var(--s-3); }
+    .survey-pct { font-size: 22px; }
+  }
+
+  /* =================== BEFORE / AFTER LABEL =================== */
+  .before-after {
+    background: var(--terra-tint);
+    padding: var(--s-3) var(--s-5);
+    border-radius: var(--s-1);
+    margin: var(--s-10) 0 var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra-deep);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-4);
+  }
+  .before-after + .image-block { margin-top: 0; }
+
+  /* =================== BEFORE / AFTER WIPE (animated) =================== */
+  .ba-wipe {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--ba-ratio, 0.4);
+    overflow: hidden;
+    background: var(--bg-tint);
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    isolation: isolate;
+  }
+  .ba-wipe-layer {
+    position: absolute;
+    inset: 0;
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-position-y: top;
+    background-color: var(--bg-tint);
+  }
+  .ba-wipe-before { background-position-x: 0%; }
+  .ba-wipe-after  {
+    background-position-x: 100%;
+    clip-path: inset(0 0 0 100%);
+    animation: ba-wipe-anim 6s cubic-bezier(.77,0,.18,1) infinite;
+  }
+  .ba-wipe-edge {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 100%;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--bg);
+    box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 0 18px rgba(0,0,0,.18);
+    animation: ba-edge-anim 6s cubic-bezier(.77,0,.18,1) infinite;
+    pointer-events: none;
+    z-index: 3;
+  }
+  @keyframes ba-wipe-anim {
+    0%, 12%   { clip-path: inset(0 0 0 100%); }
+    45%, 62%  { clip-path: inset(0 0 0 0%); }
+    95%, 100% { clip-path: inset(0 0 0 100%); }
+  }
+  @keyframes ba-edge-anim {
+    0%, 12%   { left: 100%; opacity: 0; }
+    18%       { opacity: 1; }
+    45%, 62%  { left: 0%; opacity: 1; }
+    72%       { opacity: 1; }
+    95%, 100% { left: 100%; opacity: 0; }
+  }
+  .ba-tag {
+    position: absolute;
+    top: var(--s-3);
+    z-index: 4;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 6px 10px;
+    border-radius: 2px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(6px);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    line-height: 1;
+  }
+  .ba-tag--before {
+    left: var(--s-3);
+    animation: ba-tag-before 6s cubic-bezier(.77,0,.18,1) infinite;
+  }
+  .ba-tag--after {
+    right: var(--s-3);
+    background: var(--terra);
+    color: #fff;
+    border-color: var(--terra);
+    animation: ba-tag-after 6s cubic-bezier(.77,0,.18,1) infinite;
+  }
+  @keyframes ba-tag-before {
+    0%, 18%   { opacity: 1; }
+    42%, 62%  { opacity: 0; }
+    78%, 100% { opacity: 1; }
+  }
+  @keyframes ba-tag-after {
+    0%, 18%   { opacity: 0; }
+    42%, 62%  { opacity: 1; }
+    78%, 100% { opacity: 0; }
+  }
+  .ba-wipe-caption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    line-height: 1.4;
+  }
+  .ba-wipe-caption .num { color: var(--terra); white-space: nowrap; }
+  .ba-wipe-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-8) var(--s-5);
+  }
+  .ba-wipe-grid > figure {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .ba-wipe-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra-deep);
+    background: var(--terra-tint);
+    padding: var(--s-2) var(--s-3);
+    border-radius: var(--s-1);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-2);
+  }
+  .ba-wipe-title .num { color: var(--terra); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ba-wipe-after,
+    .ba-wipe-edge,
+    .ba-tag--before,
+    .ba-tag--after { animation: none; }
+    .ba-wipe-after { clip-path: inset(0 0 0 50%); }
+    .ba-wipe-edge { left: 50%; opacity: 1; }
+    .ba-tag--before, .ba-tag--after { opacity: 1; }
+  }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-6);
+    text-wrap: pretty;
+  }
+  .outcome-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+    border-top: 0;
+    max-width: none;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--accent-light);
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+
+  /* =================== NEXT CASE =================== */
+  .next-case {
+    padding: var(--s-24) 0 var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--s-2) 0 var(--s-8);
+    transition: padding 0.3s var(--ease);
+  }
+  .next-case-link:hover { padding-right: var(--s-3); }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-link:hover .next-case-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .next-case-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .next-case-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s var(--ease);
+    text-wrap: balance;
+  }
+  .next-case-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: var(--s-2) var(--s-4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .image-grid { grid-template-columns: 1fr; gap: var(--s-3); }
+    .before-after { flex-direction: column; gap: var(--s-1); }
+    .ba-wipe-grid { grid-template-columns: 1fr; gap: var(--s-6); }
+    .overview-grid { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+    .next-case { padding: var(--s-16) 0 var(--s-3); }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label,
+  .case-hero-title,
+  .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .case-hero-label { animation-delay: 0.10s; }
+  .case-hero-title { animation-delay: 0.20s; }
+  .case-hero-lede  { animation-delay: 0.45s; }
+</style>
+
+<style id="more-cases-styles">
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+  @media (max-width: 768px) {
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span>Brand × Product<span class="sep">/</span>Natera website redesign
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">Natera — Website overhaul</div>
+    <h1 class="case-hero-title">Hundreds of pages. <em>One</em> design language.</h1>
+    <p class="case-hero-lede">
+      The visual system, site structure, and brand language behind <em>Natera's</em> marketing site rebuild — built to carry one brand voice across clinical and consumer audiences with very different needs.
+    </p>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Lead Visual Designer</strong><br>Visual system + IA</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>Jun 2020 — Jun 2021</strong><br>12 months · Launched</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">VP Marketing<br>Brand Director<br>PMMs · Digital marketing<br>Devs · Design agency</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Design system<br>IA + sitemap<br>Templates<br>Icons · Infographics<br>Brand language</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value"><strong>Live</strong> since Jan 2021<br>Scaled across 100s of pages<br><a href="https://natera.com">natera.com →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OVERVIEW IMAGES =================== -->
+<div class="container container--narrow">
+  <div class="overview-grid">
+    <figure>
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/30355412-a31b-4031-9a15-3123bb9e1b39/pf_Natera-homepage-h2.jpg" alt="Natera homepage after redesign — the new visual system applied.">
+      <figcaption class="overview-caption">
+        <span class="num">FIG. 00</span><span>Redesigned homepage — the system at its most visible surface.</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="assets/natera/Natera-about-us-page-h2.webp" alt="Natera About Us page after redesign — the new visual system applied to the company narrative.">
+      <figcaption class="overview-caption">
+        <span class="num">FIG. 00b</span><span>Redesigned About Us — the same system, carried through the company narrative.</span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- =================== 01 CONTEXT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Context</div>
+    <h2 class="section-title">One company. <em>Two</em> audiences. Hundreds of pages.</h2>
+
+    <p class="body-copy">
+      <strong>Natera</strong> makes genetic testing products used across women's health, oncology, and organ health. Its marketing site has to serve three audiences at once: <em>clinicians</em> looking for clinical evidence to inform care, <em>patients</em> navigating a diagnosis, and a broader public learning about the company. The old site struggled with all three — an inconsistent look, a confusing structure, and a brand that didn't match the company's clinical authority.
+    </p>
+
+    <p class="body-copy">
+      The brief: rebuild the site, but more importantly rebuild the <strong>system underneath it</strong> — the templates, structure, brand language, and reusable patterns that could carry the new brand across hundreds of pages as Natera kept publishing.
+    </p>
+
+    <blockquote class="pullquote">
+      The hard part of designing for biotech isn't the brand. It's building the system that lets one voice speak to a <em>clinician</em> on one page and a <em>patient</em> on the next.
+      <div class="pullquote-cite">Notes from mapping the site</div>
+    </blockquote>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/3d3b84bd-9c08-42c9-b320-971b223d0845/NAT_before.png" alt="The Natera website before the redesign — fragmented and dated visual language.">
+      <div class="image-caption"><span class="num">FIG. 01</span><span>Before — an inconsistent look across pages, a dated brand, and a confusing structure.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 02 AUDIENCE & IA =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — Audience &amp; information architecture</div>
+    <h2 class="section-title">Mapping the two journeys <em>first</em>.</h2>
+
+    <p class="body-copy">
+      Before any visual work, we mapped the actual paths each audience took through the site. Two primary personas anchored the work — <strong>Dr. Amy</strong>, a physician searching for clinical evidence behind a test, and <strong>Rachel</strong>, a patient working through a diagnosis. We mapped their journeys separately, then reconciled them into a navigation that branches at the homepage and keeps the two audiences on separate paths.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/6247fd93-a697-4c64-9829-125ca56df138/Natera+personas.png" alt="Natera personas — Dr. Amy the physician and Rachel the patient.">
+      <div class="image-caption"><span class="num">FIG. 02</span><span>Two personas, two different sets of needs from the same site.</span></div>
+    </div>
+
+    <p class="body-copy">
+      We mapped each persona's journey separately — the questions they'd ask, the content they'd need, the steps to get from "I have a question" to "I have an answer or a next action."
+    </p>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/a60a82a1-2625-4ceb-88a1-0403d3d2c846/Amy%27s+user+journey.png" alt="Dr. Amy's user journey through the Natera site.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/d5485c3a-8412-46a6-8da4-a1721852a84d/Rachel%27s+user+journey.png" alt="Rachel's user journey through the Natera site.">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 03</span><span>Amy's journey (left) and Rachel's (right) — mapped separately so we could see where they diverge and where they overlap.</span></div>
+
+    <p class="body-copy">
+      Feedback from earlier user research grouped into five themes — navigation, product detail, resources, search and forms, and brand look and feel. Those themes became the checklist the new structure had to meet.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/ac927fcb-7c18-45bb-91fc-8bf34f97d665/affinity+diagram_old+website.png" alt="Affinity diagram clustering feedback on the old site into five themes.">
+      <div class="image-caption"><span class="num">FIG. 04</span><span>Grouping the feedback — five themes that became our checklist for the new structure.</span></div>
+    </div>
+
+    <p class="body-copy">
+      The new sitemap split the two audience paths right at the navigation and kept each product category on its own — so a clinician didn't have to wade through patient content (and vice versa) to find what they came for.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/da4e7fbe-083e-4f64-a33b-29673b373717/NAT_sitemap.png" alt="The new Natera sitemap — restructured around the two primary audiences.">
+      <div class="image-caption"><span class="num">FIG. 05</span><span>The redesigned sitemap — navigation built around each audience, with product categories kept separate.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 03 SYSTEM =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — The system</div>
+    <h2 class="section-title">A system built to <em>repeat</em>, not just to launch.</h2>
+
+    <p class="body-copy">
+      The visual system covered everything from page templates and component patterns to icons, charts, infographics, and brand language. The templates carried most of the work — ready-made page layouts the marketing team could pull from to keep making pages without breaking the look.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/51b4ad23-c28e-48d5-8ee1-5430291af87c/Nat_web+templates.png" alt="Standardized Figma templates for Natera web pages and campaign landing pages.">
+      <div class="image-caption"><span class="num">FIG. 06</span><span>Standardized Figma templates — the same patterns reused across product pages and campaign landing pages.</span></div>
+    </div>
+
+    <p class="body-copy">
+      The visual language extended into a custom icon set, redesigned charts and infographics for clinical content, and a consistent treatment of complex data so technical pages read as part of the same brand as patient stories.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5b3e379f-6fab-41a1-969e-df9baa04955c/icons-infographics.jpg" alt="Custom icon set, infographics, and charts created for the Natera site.">
+      <div class="image-caption"><span class="num">FIG. 07</span><span>Icons, infographics, and charts — the language that made clinical content feel as on-brand as patient stories.</span></div>
+    </div>
+
+    <div class="sub-label">Accessibility, baked in</div>
+    <p class="body-copy">
+      Alt text for every image, chart, and infographic for screen readers. Icons paired with text so navigation didn't depend on visual recognition. Contrast ratios verified on text and background pairings across the system. The brand had to be legible to every user, not just visual ones.
+    </p>
+  </div>
+</section>
+
+<!-- =================== 04 IN PRODUCT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — In product</div>
+    <h2 class="section-title">One language, applied across <em>three product lines</em>.</h2>
+
+    <p class="body-copy">
+      Women's Health, Oncology, and Organ Health — three product lines, each with their own clinical specifics, all carrying the same brand. The before-and-afters show the visual change clearly; the structure work underneath is what let it scale across hundreds of pages of clinical evidence and patient stories.
+    </p>
+
+    <div class="ba-wipe-grid">
+      <figure>
+        <div class="ba-wipe-title"><span><span class="num">01</span> · Natera Homepage</span><span>Before → After</span></div>
+        <div class="ba-wipe" style="--ba-ratio: 0.405;">
+          <div class="ba-wipe-layer ba-wipe-before" style="background-image: url('assets/natera/Natera-HP-before-after.webp');" role="img" aria-label="Natera Homepage before the redesign."></div>
+          <div class="ba-wipe-layer ba-wipe-after" style="background-image: url('assets/natera/Natera-HP-before-after.webp');" role="img" aria-label="Natera Homepage after the redesign."></div>
+          <span class="ba-tag ba-tag--before">Before</span>
+          <span class="ba-tag ba-tag--after">After</span>
+          <span class="ba-wipe-edge" aria-hidden="true"></span>
+        </div>
+      </figure>
+
+      <figure>
+        <div class="ba-wipe-title"><span><span class="num">02</span> · Organ Health Overview</span><span>Before → After</span></div>
+        <div class="ba-wipe" style="--ba-ratio: 0.428;">
+          <div class="ba-wipe-layer ba-wipe-before" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1c79dee1-07e7-43b6-a99f-1cda22ce92bd/Natera-OH-before-after.jpg');" role="img" aria-label="Natera Organ Health Overview page before the redesign."></div>
+          <div class="ba-wipe-layer ba-wipe-after" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1c79dee1-07e7-43b6-a99f-1cda22ce92bd/Natera-OH-before-after.jpg');" role="img" aria-label="Natera Organ Health Overview page after the redesign."></div>
+          <span class="ba-tag ba-tag--before">Before</span>
+          <span class="ba-tag ba-tag--after">After</span>
+          <span class="ba-wipe-edge" aria-hidden="true"></span>
+        </div>
+      </figure>
+
+      <figure>
+        <div class="ba-wipe-title"><span><span class="num">03</span> · Oncology Patients</span><span>Before → After</span></div>
+        <div class="ba-wipe" style="--ba-ratio: 0.391;">
+          <div class="ba-wipe-layer ba-wipe-before" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/3971f8a5-e004-4691-a113-883cfd451fb2/Natera-ONC-before-after.jpg');" role="img" aria-label="Natera Oncology Patients page before the redesign."></div>
+          <div class="ba-wipe-layer ba-wipe-after" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/3971f8a5-e004-4691-a113-883cfd451fb2/Natera-ONC-before-after.jpg');" role="img" aria-label="Natera Oncology Patients page after the redesign."></div>
+          <span class="ba-tag ba-tag--before">Before</span>
+          <span class="ba-tag ba-tag--after">After</span>
+          <span class="ba-wipe-edge" aria-hidden="true"></span>
+        </div>
+      </figure>
+
+      <figure>
+        <div class="ba-wipe-title"><span><span class="num">04</span> · Women's Health · Horizon Clinician</span><span>Before → After</span></div>
+        <div class="ba-wipe" style="--ba-ratio: 0.383;">
+          <div class="ba-wipe-layer ba-wipe-before" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/bd672041-3e6e-4ffc-8c8d-1359b1174e97/Natera-WH-before-after-2.jpg');" role="img" aria-label="Natera Women's Health Horizon Clinician page before the redesign."></div>
+          <div class="ba-wipe-layer ba-wipe-after" style="background-image: url('https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/bd672041-3e6e-4ffc-8c8d-1359b1174e97/Natera-WH-before-after-2.jpg');" role="img" aria-label="Natera Women's Health Horizon Clinician page after the redesign."></div>
+          <span class="ba-tag ba-tag--before">Before</span>
+          <span class="ba-tag ba-tag--after">After</span>
+          <span class="ba-wipe-edge" aria-hidden="true"></span>
+        </div>
+      </figure>
+    </div>
+
+    <div class="image-block">
+      <div class="mobile-embed-wrap">
+        <iframe class="mobile-embed" src="Natera%20Mobile%20Mockups.html" title="The redesigned Natera site on mobile — interactive screens." loading="lazy" scrolling="no"></iframe>
+      </div>
+      <div class="image-caption"><span class="num">FIG. 08</span><span>Mobile</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 05 VALIDATION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">05 — Validation</div>
+    <h2 class="section-title">Tested with the people <em>using it</em>.</h2>
+
+    <p class="body-copy">
+      Before launch, we ran moderated usability tests with <strong>nine participants</strong> — physicians, genetic counselors, and patients, including one person who uses assistive technology. Each session ran 30 minutes, remote, in the US. We tested the new design against the same five themes from the start and used the results to refine the final build.
+    </p>
+
+    <div class="survey">
+      <div class="survey-grid">
+        <div class="survey-column">
+          <h4 class="survey-col-title"><em>Functions</em></h4>
+          <div class="survey-row">
+            <div class="survey-pct">93%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Easily look for detailed information about Natera's tests that suit their needs</div>
+            </div>
+          </div>
+          <div class="survey-row">
+            <div class="survey-pct">99%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Easily find the resources to learn more about the tests</div>
+            </div>
+          </div>
+          <div class="survey-row">
+            <div class="survey-pct">90%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Easily find the information about the pricing, insurance, and ordering process</div>
+            </div>
+          </div>
+          <div class="survey-row">
+            <div class="survey-pct">100%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Can ask questions about anything they want to know more about the tests</div>
+            </div>
+          </div>
+        </div>
+        <div class="survey-column">
+          <h4 class="survey-col-title"><em>Look and feel</em></h4>
+          <div class="survey-row">
+            <div class="survey-pct">100%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Modern &amp; consistent UI</div>
+            </div>
+          </div>
+          <div class="survey-row">
+            <div class="survey-pct">100%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Strong brand identity</div>
+            </div>
+          </div>
+          <div class="survey-row">
+            <div class="survey-pct">100%</div>
+            <div class="survey-card">
+              <div class="survey-check">✓</div>
+              <div class="survey-text">Trustworthy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 09</span><span>Survey results across the five feedback themes — our checklist before launch.</span></div>
+
+    <p class="body-copy">
+      <strong>96%</strong> of participants rated the new design as intuitive and easy to navigate. <strong>100%</strong> rated the brand as modern and trustworthy. We took the rest of the feedback — homepage clarity, clearer hover cues, redundant menus — into the launch revisions.
+    </p>
+  </div>
+</section>
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          Launched January 2021. The system has scaled across <em>hundreds of pages</em> of clinical and consumer content in the years since — every new product launch, campaign landing page, and patient story built on the same foundation.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>200%+</em></div>
+            <div class="stat-label">New visitors since launch</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>54%</em></div>
+            <div class="stat-label">Engagement lift in 6 months</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>96%</em></div>
+            <div class="stat-label">Rated functional + intuitive in usability testing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="PhotoBooker Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/photobooker/PB-thumbnail.png" alt="PhotoBooker — search, browse, and book photographers across three mobile screens" loading="lazy"></div>
+        <div class="more-case-meta">Product UI · Marketplace</div>
+        <div class="more-case-title">PhotoBooker <em>·</em> Zenfolio</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="Daiverse Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Enterprise</div>
+        <div class="more-case-title">Daiverse <em>·</em> design system for DAI</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

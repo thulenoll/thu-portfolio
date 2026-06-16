@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daiverse Design System — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* =================== OVERVIEW FULL-BLEED IMAGE =================== */
+  .overview-image { margin: var(--s-16) 0 0; }
+  .overview-image .bigpic-embed {
+    width: 100%;
+    height: 320px;
+    display: block;
+    border: 0;
+    background: #FAEFE3;
+  }
+  .overview-image img {
+    width: 70%;
+    display: block;
+    margin: var(--s-12) auto 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .overview-caption {
+    padding: var(--s-4) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .pullquote em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* =================== SUB LABEL =================== */
+  .sub-label {
+    margin: var(--s-14) 0 var(--s-4);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+
+  /* =================== IMAGE BLOCKS =================== */
+  .image-block { margin: var(--s-10) 0 var(--s-4); }
+  .image-block img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  .image-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .image-grid img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .image-grid img.span-2 { grid-column: 1 / -1; }
+
+  /* =================== TOKEN HIERARCHY =================== */
+  .hierarchy {
+    margin: var(--s-12) 0 var(--s-4);
+    padding: var(--s-8);
+    background: var(--terra-tint);
+    border-radius: var(--s-1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .hierarchy-step {
+    text-align: center;
+    padding: var(--s-4) var(--s-2);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+  }
+  .hierarchy-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+    margin-bottom: var(--s-2);
+  }
+  .hierarchy-name {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: var(--s-1);
+    font-variation-settings: "opsz" 60;
+  }
+  .hierarchy-desc {
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.45;
+  }
+  .hierarchy-arrow {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--terra);
+    text-align: center;
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-6);
+    text-wrap: pretty;
+  }
+  .outcome-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+    border-top: 0;
+    max-width: none;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--accent-light);
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+
+  /* "What remains" list */
+  .next-steps {
+    margin-top: var(--s-9);
+    padding-top: var(--s-8);
+    border-top: 1px solid rgba(176, 190, 227, 0.2);
+    max-width: 56ch;
+  }
+  .next-steps-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-4);
+  }
+  .next-steps ul { list-style: none; padding: 0; }
+  .next-steps li {
+    padding: var(--s-2) 0 var(--s-2) var(--s-6);
+    position: relative;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--bg);
+    border-bottom: 1px solid rgba(176, 190, 227, 0.15);
+  }
+  .next-steps li:last-child { border-bottom: 0; }
+  .next-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  /* =================== NEXT CASE =================== */
+  .next-case {
+    padding: var(--s-24) 0 var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--s-2) 0 var(--s-8);
+    transition: padding 0.3s var(--ease);
+  }
+  .next-case-link:hover { padding-right: var(--s-3); }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-link:hover .next-case-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .next-case-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .next-case-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s var(--ease);
+    text-wrap: balance;
+  }
+  .next-case-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: var(--s-2) var(--s-4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .image-grid { grid-template-columns: 1fr; gap: var(--s-3); }
+    .hierarchy { grid-template-columns: 1fr; gap: var(--s-2); padding: var(--s-5); }
+    .hierarchy-arrow { transform: rotate(90deg); }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+    .next-case { padding: var(--s-16) 0 var(--s-3); }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label,
+  .case-hero-title,
+  .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .case-hero-label { animation-delay: 0.10s; }
+  .case-hero-title { animation-delay: 0.20s; }
+  .case-hero-lede  { animation-delay: 0.45s; }
+</style>
+
+<style id="more-cases-styles">
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+  @media (max-width: 768px) {
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span><a href="Daiverse Case Study.html">Daiverse</a><span class="sep">/</span>Design System
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">Case study, 03 — Design Systems × AI</div>
+    <h1 class="case-hero-title">Thirteen apps. <em>One</em> design system.</h1>
+    <p class="case-hero-lede">
+      The design system, component library, and documentation for <em>Daiverse</em> — DAI's planned all-in-one team platform, meant to replace 10–13 separate tools for teams working across 150+ countries.
+    </p>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>UI/UX + Design System Designer</strong><br>Brand · Tokens · Components</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>Sep 2023 — Jan 2025</strong><br>18 months of system work</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">UX Designers<br>UX Researcher<br>PMs · SMEs<br>Engineering · Data</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Design system<br>Component library<br>ZeroHeight docs<br>Personas · Prototypes</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Client</div>
+        <div class="meta-value"><strong>DAI</strong> via Myridius<br>Global development<br>150+ countries<br><a href="#">UX research →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OVERVIEW IMAGE =================== -->
+<div class="overview-image">
+  <iframe class="bigpic-embed" src="Daiverse%20Big%20Picture.html" title="The big picture — how one value flows through the Daiverse design system, from a raw token to shipped code." loading="lazy" scrolling="no"></iframe>
+  <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview — tokens, components, and the relationships between them.">
+  <div class="container">
+    <div class="overview-caption">
+      <span class="num">FIG. 00</span><span>The system in one diagram — primitives at the foundation, components at the surface, every layer mapped to the next.</span>
+    </div>
+  </div>
+</div>
+
+<!-- =================== 01 CONTEXT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Context</div>
+    <h2 class="section-title">DAI's teams were using <em>thirteen</em> applications. The brief: replace them with one.</h2>
+
+    <p class="body-copy">
+      <strong>DAI</strong> is a global development organization running social and economic projects across 150+ countries since 1970. Their teams were jumping between 10–13 different applications — SharePoint, Tammis, Oracle, and a long tail of internal tools — just to do the work. The brief from RCG Consulting (now Myridius): build a single unified platform — <em>Daiverse</em> — to replace the stack, and a design system that could hold it together over the next two years.
+    </p>
+    <p class="body-copy">
+      Over 90% of DAI's users work on desktop, so the first version focused there. Dark mode and mobile were planned for later, but I built the system to be ready for them from day one rather than having to bolt them on afterward.
+    </p>
+    <p class="body-copy">
+      <strong>The product never shipped.</strong> In early 2025, USAID was dismantled by the US government, and DAI's US operations — which relied on USAID funding — were forced to wind down before Daiverse reached production. What follows is the system itself: 18 months of work, built in enough detail to outlast the project that ended it.
+    </p>
+
+    <blockquote class="pullquote">
+      Replacing thirteen apps with one means the system has to do more than look good. It has to be the <em>shared foundation</em> that keeps the new product consistent as it grows.
+      <div class="pullquote-cite">Notes from building the system</div>
+    </blockquote>
+  </div>
+</section>
+
+<!-- =================== 02 FOUNDATION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — Foundation</div>
+    <h2 class="section-title">Turning a brand into a foundation a <em>product</em> could be built on.</h2>
+
+    <p class="body-copy">
+      DAI's brand guidelines — colors, type, charts, voice — were made for marketing, not software. I had to stretch them to handle a complex product without losing the look DAI had built over decades. The brand was a starting point, not a limit.
+    </p>
+
+    <div class="sub-label">Colors, type, grid, spacing &amp; elevation</div>
+    <p class="body-copy">
+      I took DAI's core colors and built a full range out of each one, light to dark, as the base palette everything draws from. Proxima Nova carried over from the brand, set into a scale of text sizes (XXS to 6XL) with room for everything from dense data tables to big dashboard headers. Underneath it all, a 4-point grid lines up spacing, sizing, and padding, and a set of shadow styles gives cards, modals, and pop-ups a consistent sense of depth.
+    </p>
+
+    <div class="image-grid">
+      <img class="span-2" src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/08adc576-978c-4359-8813-c4e2c7b3b2da/Daiverse_Primitive+colors.png" alt="Daiverse primitive colors — DAI's hues extended into a 50–900 token scale.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/87556aa0-fbc5-44b5-af7a-81a70ed68deb/Daiverse_Typography.png" alt="Daiverse typography style guide using a T-shirt sized scale from XXS to 6XL.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/c41ca051-74c8-4b3a-83ba-a203f0a20592/Daiverse_Elevation.png" alt="Daiverse elevation styles — token-driven depth scale.">
+      <img class="span-2" src="assets/daiverse/Grid-breakpoints.png" alt="Daiverse responsive grid — column layouts across breakpoints from Desktop Large down to Mobile.">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 01</span><span>The foundation — color range, type scale, grid, and elevation, all drawn from DAI's brand.</span></div>
+  </div>
+</section>
+
+<!-- =================== 03 TOKENS =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Token architecture</div>
+    <h2 class="section-title">Two layers, so the brand can change without <em>breaking</em> anything.</h2>
+
+    <p class="body-copy">
+      The system works in two layers. The bottom layer holds the raw values, the <strong>primitive tokens</strong> — every exact color and size. The top layer gives each value a job, the <strong>semantic tokens</strong> — <strong>background</strong>, <strong>text</strong>, <strong>accent</strong>, <strong>button state</strong> — and that's the only layer the components ever touch. Keeping them separate means the brand can change at the bottom without breaking anything built on top.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/041f07ba-2620-4fb2-bb53-8eec287e6523/Daiverse_Primitive+tokens.png" alt="Daiverse primitive tokens — color, type, and spacing scales as Figma variables.">
+      <div class="image-caption"><span class="num">FIG. 04</span><span>The raw values — every color and size the system can use lives here.</span></div>
+    </div>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/c4fa8d17-9d41-4cf8-949e-cc3b575de8e5/Daiverse_Semantic+tokens.png" alt="Daiverse semantic tokens — primitives mapped to use cases like surface, foreground, accent, state.">
+      <div class="image-caption"><span class="num">FIG. 05</span><span>The roles — each value given a job. Components are only ever built from this layer.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 04 COMPONENTS =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — Composition</div>
+    <h2 class="section-title">A library built from what teams <em>actually used</em>.</h2>
+
+    <p class="body-copy">
+      I only added a component once a feature's design was final.
+    </p>
+
+    <blockquote class="pullquote">
+      It's significantly easier to fill your design system with components you <em>actually need and will use</em> when you have real content and real use cases
+      <div class="pullquote-cite">Dan Mall · Design That Scales</div>
+    </blockquote>
+
+    <p class="body-copy">
+      DAI had no existing product to learn from — just an old marketing site. So I started from the brand's most-used patterns and grew the library as each feature shipped: buttons, navigation, widgets, charts. Light mode came first, with dark mode already wired up underneath so it would follow automatically instead of being added later.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/521ad7b1-8611-4951-9bfa-31accc1e6b3a/steps+by+steps.png" alt="Process diagram showing how components were built feature by feature, not all at once.">
+      <div class="image-caption"><span class="num">FIG. 06</span><span>How it worked — a component was only added after its feature's design was final.</span></div>
+    </div>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/6dbe0ec2-b624-4616-a9e9-2503132a5d2f/components_buttons.png" alt="Daiverse button components in the design system.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/f27221c3-1dcf-4df6-83f6-28bc7934d0d0/components_Navs.png" alt="Daiverse navigation components.">
+    </div>
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/38c1259e-e8b0-434f-87ee-e51d00d7ced0/components_widgets.png" alt="Daiverse widget components.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/4d8f605e-871a-41cc-af42-cb876c8567d5/components_charts.png" alt="Daiverse chart components.">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 07</span><span>Buttons, navigation, widgets, charts — each one built from the shared values and ready for light and dark mode from the start.</span></div>
+  </div>
+</section>
+
+<!-- =================== 05 DOCUMENTATION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">05 — Distribution</div>
+    <h2 class="section-title">A system people could actually <em>use</em>, not just look at.</h2>
+
+    <p class="body-copy">
+      Every value and component got a written description the moment it was created, so the rest of the team understood how to use it, not just what it looked like. <strong>ZeroHeight</strong> became the single home for all of it: the designs, the code, and the guidance on when to use what.
+    </p>
+    <p class="body-copy">
+      I worked directly with engineering to turn the components into code and bring that code back into the docs, so design and development stayed in step as the system grew. It was never just a Figma file — it was a shared agreement between designers and engineers.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/67f1619f-1829-4ca5-b1b5-8af65a03fa9b/description+of+tokens.png" alt="Token descriptions inside Figma — context for designers using the system.">
+      <div class="image-caption"><span class="num">FIG. 08</span><span>Written descriptions in Figma — context attached from day one.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">How it ended</div>
+      <div>
+        <p class="outcome-body">
+          Daiverse never shipped. The design system I built is <em>intact</em>; the product it was built for is not. What follows is a reading of what got made — and what remains usable, learnable, or reusable.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>18</em></div>
+            <div class="stat-label">Months of system work</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>13</em></div>
+            <div class="stat-label">Enterprise apps in scope</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>150+</em></div>
+            <div class="stat-label">Countries the system was built for</div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <div class="next-steps-title">What remains</div>
+          <ul>
+            <li>The full system — both layers of values, complete in Figma</li>
+            <li>Component library — buttons, navigation, widgets, charts — documented and ready to build with</li>
+            <li>ZeroHeight documentation — designs alongside the engineering code</li>
+            <li>4pt grid, full type scale, shadow styles — the complete foundation</li>
+            <li>18 months of practice — how to build a design system engineering can actually use</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="Natera Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/natera/Natera-thumbnail.png" alt="Natera homepage after redesign" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Web · Biotech</div>
+        <div class="more-case-title">Natera website overhaul</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="JSQ Product Viz Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/jsq/Dashboard.gif" alt="Juniper Square dashboard visualization" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Product · B2B SaaS</div>
+        <div class="more-case-title">Juniper Square product visualizations</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

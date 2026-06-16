@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSQ Brand System in Claude Design — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+    display: flex;
+    gap: var(--s-3);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .case-hero-status {
+    background: rgba(176, 190, 227, 0.18);
+    border: 1px solid rgba(176, 190, 227, 0.4);
+    color: var(--accent-light);
+    padding: var(--s-1) var(--s-3);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .case-hero-status::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    box-shadow: 0 0 0 0 var(--accent-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(176, 190, 227, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0); }
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* =================== OVERVIEW IMAGE =================== */
+  .overview-image { margin-top: var(--s-16); }
+  .overview-image img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .overview-caption {
+    padding: var(--s-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+    text-wrap: balance;
+  }
+  .pullquote em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* =================== IMAGE BLOCK =================== */
+  .image-block { margin: var(--s-10) 0 var(--s-4); }
+  .image-block img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  /* =================== SURFACES GRID =================== */
+  .surfaces {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-4);
+  }
+  .surface {
+    padding: var(--s-7);
+    background: var(--terra-tint);
+    border-radius: var(--s-1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .surface-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+    margin-bottom: var(--s-2);
+  }
+  .surface-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+  }
+  .surface-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .surface-desc {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-top: var(--s-2);
+  }
+
+  /* =================== MOTION GRID =================== */
+  .motion-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+  }
+  .motion-item { display: flex; flex-direction: column; gap: var(--s-3); }
+  .motion-item img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--bg-tint);
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+  }
+  .motion-caption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-2);
+    align-items: baseline;
+    line-height: 1.4;
+  }
+  .motion-caption .num { color: var(--terra); white-space: nowrap; }
+
+  /* =================== DIAGRAM EMBED =================== */
+  .diagram-embed {
+    width: 100%;
+    margin: var(--s-12) 0 var(--s-4);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow:
+      0 1px 2px rgba(40, 50, 52, 0.04),
+      0 14px 36px rgba(40, 50, 52, 0.10);
+    padding: 25px;
+  }
+  .diagram-embed__inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  .diagram-embed__inner iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1092px;
+    height: 1103px;
+    border: 0;
+    transform-origin: top left;
+  }
+
+  /* =================== VIDEO BLOCKS =================== */
+  .video-block { margin: var(--s-10) 0 var(--s-4); }
+  .video-block + .video-block { margin-top: var(--s-12); }
+  .video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-tint);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    overflow: hidden;
+    display: block;
+  }
+  .video-frame video,
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #000;
+    border: 0;
+    object-fit: cover;
+  }
+  .video-meta {
+    margin-top: var(--s-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+  }
+  .video-meta-left {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .video-figure {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .video-figure .num { color: var(--terra); }
+  .video-title {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 18px;
+    color: var(--ink);
+    line-height: 1.3;
+    font-variation-settings: "opsz" 60;
+  }
+  .video-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .video-meta-right {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+  .video-desc {
+    margin-top: var(--s-2);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 720px) {
+    .video-meta { flex-direction: column; gap: var(--s-1); }
+    .video-meta-right { text-align: left; }
+  }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-6);
+    text-wrap: pretty;
+  }
+  .outcome-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+    border-top: 0;
+    max-width: none;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--accent-light);
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+
+  /* =================== NEXT CASE =================== */
+  .next-case {
+    padding: var(--s-24) 0 var(--s-4);
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    text-decoration: none;
+    color: inherit;
+    padding: var(--s-2) 0 var(--s-8);
+    transition: padding 0.3s var(--ease);
+  }
+  .next-case-link:hover { padding-right: var(--s-3); }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-link:hover .next-case-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .next-case-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .next-case-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s var(--ease);
+    text-wrap: balance;
+  }
+  .next-case-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: var(--s-2) var(--s-4);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease);
+  }
+
+  @media (max-width: 900px) {
+    .motion-grid { grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+  }
+  @media (max-width: 560px) {
+    .motion-grid { grid-template-columns: 1fr; gap: var(--s-5); }
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .surfaces { grid-template-columns: 1fr; gap: var(--s-3); }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+    .next-case { padding: var(--s-16) 0 var(--s-3); }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label,
+  .case-hero-title,
+  .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .case-hero-label { animation-delay: 0.10s; }
+  .case-hero-title { animation-delay: 0.20s; }
+  .case-hero-lede  { animation-delay: 0.45s; }
+
+  /* =================== PLACEHOLDER IMAGE =================== */
+  .ph {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    background-color: var(--bg-tint);
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent 0, transparent 11px,
+      rgba(92, 63, 40, 0.05) 11px, rgba(92, 63, 40, 0.05) 22px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ph span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    padding: var(--s-2) var(--s-3);
+    border-radius: 999px;
+  }
+</style>
+
+<style id="skills-styles">
+  .skills { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); margin: var(--s-8) 0; }
+  .skill { display: flex; flex-direction: column; gap: 7px; padding: var(--s-4) var(--s-5); border: 1px solid var(--line); border-radius: 12px; background: var(--bg-tint); }
+  .skill-cmd { font-family: var(--font-mono); font-size: 14px; color: var(--terra); letter-spacing: 0.01em; }
+  .skill-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.45; }
+  @media (max-width: 768px) { .skills { grid-template-columns: 1fr; } }
+</style>
+
+<style id="more-cases-styles">
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+  @media (max-width: 768px) {
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <div class="wordmark-circle">th</div>
+      <div class="wordmark-name">Thu LeNoll</div>
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span>Brand × AI<span class="sep">/</span>JSQ brand system in Claude Design
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">
+      <span>Case study — Brand × AI</span>
+      <span class="case-hero-status">Active</span>
+    </div>
+    <h1 class="case-hero-title">A brand system built in Figma, the foundation for <em>Claude</em>.</h1>
+    <p class="case-hero-lede">
+      I built Juniper Square's brand design system in Figma — color, spacing, and typography tokens and styles. It became the foundation for both the JSQ Claude plugin and our brand system in Claude Design.
+    </p>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Brand design system lead</strong><br>Foundations<br>+ AI guardrails</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>2026</strong><br>Active engagement</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Marketing<br>Brand<br>AI enablement</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Figma tokens &amp; styles<br>Web + deck variables<br>Slide-deck specs (JSON)<br>Guidelines &amp; voice (MD)<br>Claude brand plugin</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value"><strong>Published</strong><br>Claude org plugins<br>JSQ brand design system in Claude Design</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 01 THE SYSTEM =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — The system</div>
+    <h2 class="section-title">Built in Figma, from the <em>tokens</em> up.</h2>
+
+    <p class="body-copy">
+      I built Juniper Square's brand design system in Figma — color, spacing, and typography tokens and styles. Because slide presentations are such a common medium at the company, I split it into <strong>two variable systems</strong>: one tuned for web, one for slide-deck design.
+    </p>
+    <p class="body-copy">
+      Alongside the Figma work, I wrote the specs the system needs to travel: <strong>JSON</strong> files for slide-deck specifications, and <strong>Markdown</strong> guidelines for usage, voice, and tone.
+    </p>
+  </div>
+</section>
+
+<!-- =================== 02 THE PLUGIN =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — The Claude plugin</div>
+    <h2 class="section-title">The same system, as a <em>plugin</em> the company designs with.</h2>
+
+    <p class="body-copy">
+      I turned the system into a <strong>Claude plugin</strong> with a set of skills the team can call directly — published in our organization plugins in Claude.
+    </p>
+
+    <div class="skills">
+      <div class="skill"><span class="skill-cmd">/brand-identity</span><span class="skill-desc">Colors, spacing, type, and styles</span></div>
+      <div class="skill"><span class="skill-cmd">/slide-deck-design</span><span class="skill-desc">On-brand presentations from the deck specs</span></div>
+      <div class="skill"><span class="skill-cmd">/voice-and-tone</span><span class="skill-desc">How the brand sounds in writing</span></div>
+      <div class="skill"><span class="skill-cmd">/brand-qa</span><span class="skill-desc">Checks work against the guidelines</span></div>
+    </div>
+
+    <p class="body-copy">
+      The same foundations also power our brand system inside <strong>Claude Design</strong>. I keep developing it — building social-asset and web components and bringing them into Claude Design.
+    </p>
+  </div>
+</section>
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          One brand system, in two places it's actually used — a published Claude plugin and our Claude Design brand system — so people and AI start on-brand by default.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>2</em></div>
+            <div class="stat-label">Variable systems — web + slide deck</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>4</em></div>
+            <div class="stat-label">Plugin skills — identity, deck, voice, QA</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>Live</em></div>
+            <div class="stat-label">In Claude org plugins + Claude Design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="Natera Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/natera/Natera-thumbnail.png" alt="Natera homepage after redesign" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Web · Biotech</div>
+        <div class="more-case-title">Natera website overhaul</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="Daiverse Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Enterprise</div>
+        <div class="more-case-title">Daiverse <em>·</em> design system for DAI</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thu Le — Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAEFE3;
+    --bg-deep: #F8D2C5;
+    --bg-tint: #FDF7EE;
+    --ink: #221A15;
+    --ink-soft: #574A41;
+    --ink-faint: #6F635A;
+    --line: #E8D5BE;
+    --accent: #5468A5;
+    --accent-deep: #3D4F85;
+    --accent-light: #B0BEE3;
+    --accent-soft: rgba(84, 104, 165, 0.10);
+    --terra: #5C3F28;
+    --terra-deep: #3D2A1A;
+    --terra-soft: rgba(92, 63, 40, 0.08);
+    --terra-tint: #EDDFD1;
+    --tint-cool: #E5E8F0;
+    --tint-warm: #F2DECF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    line-height: 1.55;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01" on;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ========== TOP BAR ========== */
+  .topbar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+  }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  .wordmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .wordmark-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+  }
+  .wordmark-name {
+    font-family: 'Literata', serif;
+    font-weight: 500;
+    font-size: 21px;
+    letter-spacing: -0.012em;
+    font-variation-settings: "opsz" 60;
+  }
+  .wordmark-name em {
+    font-style: italic;
+    font-variation-settings: "opsz" 60;
+    color: var(--accent);
+  }
+  .topbar-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 32px;
+  }
+  .topbar-meta .status::before {
+    content: "●";
+    color: var(--accent);
+    margin-right: 6px;
+    font-size: 14px;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    padding: 96px 0 80px;
+    background: var(--terra-deep);
+    color: var(--bg);
+    position: relative;
+  }
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: 36px;
+  }
+  .hero-headline {
+    font-family: 'Literata', serif;
+    font-weight: 350;
+    font-size: clamp(40px, 6.8vw, 88px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--bg);
+    margin-bottom: 40px;
+    font-variation-settings: "opsz" 144;
+    max-width: 17ch;
+  }
+  .hero-headline em {
+    font-style: italic;
+    font-variation-settings: "opsz" 144;
+    color: var(--accent-light);
+  }
+  .hero-subline {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--bg);
+    max-width: 56ch;
+    margin-bottom: 36px;
+  }
+  .hero-credentials {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.8;
+  }
+  .hero-credentials span + span::before {
+    content: " · ";
+    color: var(--accent-light);
+    opacity: 0.5;
+    margin: 0 4px;
+  }
+
+  /* ========== WORK ========== */
+  .work {
+    padding: 80px 0 32px;
+  }
+  .work-section {
+    padding: 40px 0 56px;
+    margin: 0;
+    position: relative;
+  }
+  .work-section-header {
+    padding: 32px 0 32px;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .work-section--cool .work-section-header {
+    background: var(--tint-cool);
+    box-shadow: 0 0 0 100vmax var(--tint-cool);
+    clip-path: inset(0 -100vmax);
+  }
+  .work-section--warm .work-section-header {
+    background: var(--tint-warm);
+    box-shadow: 0 0 0 100vmax var(--tint-warm);
+    clip-path: inset(0 -100vmax);
+  }
+  .work-section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .work-section-title {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.2vw, 40px);
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+  }
+  .work-section-title em {
+    font-style: italic;
+    color: var(--accent-deep);
+    font-variation-settings: "opsz" 90;
+  }
+  /* Alternating warm/cool rhythm across the three work sections */
+  .work-section:nth-of-type(2) .work-section-title em { color: var(--terra); }
+  .work-section:nth-of-type(3) .work-section-title em { color: var(--accent-deep); }
+  .work-section-desc {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-top: 12px;
+    font-size: 16px;
+  }
+  .work-list { display: flex; flex-direction: column; }
+  .work-item {
+    display: grid;
+    grid-template-columns: 220px 60px 1fr auto;
+    gap: 28px;
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(34, 26, 21, 0.10);
+    cursor: pointer;
+    transition: padding-left 0.3s ease;
+  }
+  .work-item:hover {
+    padding-left: 12px;
+  }
+  .work-item:hover .work-title { color: var(--accent); }
+  .work-item:hover .work-thumb { transform: scale(1.02); }
+  .work-item:hover .work-cta {
+    background: var(--terra-deep);
+    color: var(--bg);
+    border-color: var(--terra-deep);
+  }
+  .work-item:hover .work-cta .cta-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Thumbnails */
+  .work-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--bg-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(34, 26, 21, 0.08);
+    position: relative;
+    transition: transform 0.4s ease;
+  }
+  .work-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .work-thumb-label {
+    font-family: 'Literata', serif;
+    font-style: italic;
+    font-size: 17px;
+    text-align: center;
+    padding: 0 16px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+    line-height: 1.2;
+  }
+  .work-thumb-meta {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    right: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.6;
+  }
+  .work-thumb--periwinkle { background: var(--accent); }
+  .work-thumb--periwinkle .work-thumb-label,
+  .work-thumb--periwinkle .work-thumb-meta { color: var(--bg); }
+  .work-thumb--terra-deep { background: var(--terra-deep); }
+  .work-thumb--terra-deep .work-thumb-label { color: var(--accent-light); }
+  .work-thumb--terra-deep .work-thumb-meta { color: var(--accent-light); }
+  .work-thumb--terra-tint { background: var(--terra-tint); }
+  .work-thumb--terra-tint .work-thumb-label,
+  .work-thumb--terra-tint .work-thumb-meta { color: var(--terra-deep); }
+  .work-thumb--blush { background: var(--bg-deep); }
+  .work-thumb--blush .work-thumb-label,
+  .work-thumb--blush .work-thumb-meta { color: var(--ink); }
+  .work-thumb--periwinkle-light { background: var(--accent-light); }
+  .work-thumb--periwinkle-light .work-thumb-label,
+  .work-thumb--periwinkle-light .work-thumb-meta { color: var(--accent-deep); }
+  .work-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    padding-top: 10px;
+  }
+  .work-main { display: flex; flex-direction: column; gap: 6px; }
+  .work-title {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: 27px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    transition: color 0.2s;
+    font-variation-settings: "opsz" 60;
+    line-height: 1.2;
+  }
+  .work-title em {
+    font-style: italic;
+    font-variation-settings: "opsz" 60;
+  }
+  .work-desc {
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin-top: 2px;
+  }
+  .work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 10px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    padding: 4px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .tag.is-new {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .work-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    background: transparent;
+    border: 1px solid var(--terra);
+    padding: 9px 16px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    align-self: start;
+    margin-top: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .work-cta .cta-arrow {
+    transition: transform 0.3s ease;
+    display: inline-block;
+  }
+
+  /* ========== ABOUT ========== */
+  .about {
+    padding: 96px 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .about-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: 12px;
+  }
+  .about-body {
+    font-family: 'Literata', serif;
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 32ch;
+    font-variation-settings: "opsz" 90;
+  }
+  .about-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .about-link {
+    margin-top: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 4px;
+    display: inline-block;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .about-link:hover {
+    color: var(--bg);
+    border-color: var(--bg);
+  }
+
+  /* ========== FOOTER ========== */
+  .footer { padding: 80px 0 40px; }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 60px;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-headline {
+    font-family: 'Literata', serif;
+    font-weight: 350;
+    font-size: clamp(28px, 3.8vw, 50px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-headline em {
+    font-style: italic;
+    color: var(--accent-deep);
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-contact a {
+    font-family: 'Literata', serif;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 4px;
+    transition: color 0.2s;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-contact a:hover {
+    color: var(--terra);
+    font-style: italic;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    .container { padding: 0 22px; }
+    .topbar-meta { display: none; }
+    .hero { padding: 56px 0 48px; }
+    .work-section { padding: 56px 0 32px; }
+    .work-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(34, 26, 21, 0.10);
+    }
+    .work-item:hover { padding-left: 0; transform: none; }
+    .work-item:hover .work-thumb { transform: none; }
+    .work-thumb { aspect-ratio: 16 / 9; }
+    .work-title { font-size: 22px; }
+    .work-cta { font-size: 9.5px; padding: 7px 12px; margin-top: 4px; align-self: flex-start; }
+    .about-inner { grid-template-columns: 1fr; gap: 20px; }
+    .about { padding: 56px 0; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label, .hero-headline, .hero-subline, .hero-credentials {
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-label { animation-delay: 0.1s; }
+  .hero-headline { animation-delay: 0.2s; }
+  .hero-subline { animation-delay: 0.45s; }
+  .hero-credentials { animation-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="wordmark">
+      <div class="wordmark-circle">th</div>
+      <div class="wordmark-name">Thu Le</div>
+    </div>
+    <div class="topbar-meta">
+      <span>Work</span>
+      <span>About</span>
+      <span>Contact</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label" style="font-size: 12px">A portfolio, 2014 — Present</div>
+    <h1 class="hero-headline" style="font-size: 5px">
+      I design brands, products, and the <em>systems</em> that hold them together.
+    </h1>
+    <p class="hero-subline" style="font-size: 18px">
+      Bridging brand and product through design systems and AI-native foundations. Currently Senior Visual Designer at Juniper Square — building the brand system, prototyping in Claude Design, and shipping side products with Claude Code.
+    </p>
+    <div class="hero-credentials">
+      <span>Bay Area</span><span>10+ years</span><span>Fintech · Biotech · SaaS</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work">
+  <div class="container">
+
+    <!-- 01 -->
+    <div class="work-section work-section--cool">
+      <header class="work-section-header">
+        <div class="work-section-number">01 — Selected work</div>
+        <h2 class="work-section-title">Design systems <em>×</em> AI</h2>
+        <p class="work-section-desc">Foundations — built for human teams, and increasingly for the AI tools that build alongside them.</p>
+      </header>
+      <div class="work-list">
+
+        <div class="work-item">
+          <div class="work-thumb work-thumb--periwinkle">
+            <span class="work-thumb-label">JSQ × Claude Design</span>
+            <span class="work-thumb-meta">Design system · AI</span>
+          </div>
+          <div class="work-year">2026</div>
+          <div class="work-main">
+            <h3 class="work-title">JSQ Brand System in <em>Claude Design</em></h3>
+            <p class="work-desc">Built Juniper Square's brand system inside Claude Design so the team generates on-brand marketing assets from a single source of truth. The bridge case study — design system thinking, applied to AI infrastructure.</p>
+            <div class="work-tags">
+              <span class="tag is-new">New</span>
+              <span class="tag">Design system</span>
+              <span class="tag">AI</span>
+              <span class="tag">Juniper Square</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-thumb">
+            <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview">
+          </div>
+          <div class="work-year">2023—25</div>
+          <div class="work-main">
+            <h3 class="work-title">Daiverse <em>·</em> design system for DAI</h3>
+            <p class="work-desc">18 months building the foundational design system for DAI's planned consolidation of 13 enterprise apps across 150+ countries. Token architecture, component library, ZeroHeight documentation. Project closed in early 2025 when USAID was dismantled — the system itself is intact.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">Figma Variables</span>
+              <span class="tag">Enterprise</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-thumb">
+            <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/e48324c6-fa6d-4aa1-a90e-6cb3a32022bf/DSL_Players.jpg" alt="DSLeague Players screen">
+          </div>
+          <div class="work-year">2024—Now</div>
+          <div class="work-main">
+            <h3 class="work-title">DSLeague <em>·</em> Founding Designer</h3>
+            <p class="work-desc">Brand, design system, and component library for a live multi-sport fantasy platform with 100+ monthly active users. Sole designer end to end — primitive and semantic tokens, mode-aware components, real shipping product.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">Brand</span>
+              <span class="tag">Product UX</span>
+              <span class="tag">Live</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="work-section work-section--warm">
+      <header class="work-section-header">
+        <div class="work-section-number">02 — Selected work</div>
+        <h2 class="work-section-title">Brand <em>×</em> Product</h2>
+        <p class="work-section-desc">Where marketing surfaces, product UI, and the system between them have to feel like one thing.</p>
+      </header>
+      <div class="work-list">
+
+        <div class="work-item">
+          <div class="work-thumb work-thumb--terra-tint">
+            <span class="work-thumb-label">Juniper Square × Product UI</span>
+            <span class="work-thumb-meta">B2B SaaS · Brand × Product</span>
+          </div>
+          <div class="work-year">2024—Now</div>
+          <div class="work-main">
+            <h3 class="work-title">Juniper Square product visualizations</h3>
+            <p class="work-desc">Translating complex B2B product UI into clear marketing stories. Storyboards, prototypes, and shipped marketing surfaces — increasingly co-built in Claude Design.</p>
+            <div class="work-tags">
+              <span class="tag">Brand × Product</span>
+              <span class="tag">B2B SaaS</span>
+              <span class="tag">Claude Design</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-thumb work-thumb--blush">
+            <span class="work-thumb-label">Natera</span>
+            <span class="work-thumb-meta">Biotech · Web overhaul</span>
+          </div>
+          <div class="work-year">2020—23</div>
+          <div class="work-main">
+            <h3 class="work-title">Natera website overhaul</h3>
+            <p class="work-desc">Led visual design and information architecture on the full marketing site rebuild. New design system, IA decisions, and a brand language that scaled across hundreds of pages of clinical and consumer content.</p>
+            <div class="work-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">IA</span>
+              <span class="tag">Biotech</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+        <div class="work-item">
+          <div class="work-thumb work-thumb--periwinkle-light">
+            <span class="work-thumb-label">PhotoBooker</span>
+            <span class="work-thumb-meta">Marketplace · 2017—20</span>
+          </div>
+          <div class="work-year">2017—20</div>
+          <div class="work-main">
+            <h3 class="work-title">PhotoBooker <em>·</em> Zenfolio</h3>
+            <p class="work-desc">UI and brand design for a new marketplace product as Visual Design Lead at Zenfolio. Product UI visualizations, A/B testing assets, brand guidelines — three years of bridge work between marketing and product.</p>
+            <div class="work-tags">
+              <span class="tag">Product UI</span>
+              <span class="tag">Brand</span>
+              <span class="tag">Marketplace</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="work-section">
+      <header class="work-section-header">
+        <div class="work-section-number">03 — Selected work</div>
+        <h2 class="work-section-title">Experiments <em>&amp;</em> shipped side projects</h2>
+        <p class="work-section-desc">Shipping, breaking, iterating — where I prove the AI claim with my own hands.</p>
+      </header>
+      <div class="work-list">
+
+        <div class="work-item">
+          <div class="work-thumb work-thumb--terra-deep">
+            <span class="work-thumb-label">Built with Claude Code</span>
+            <span class="work-thumb-meta">Shipped · In daily use</span>
+          </div>
+          <div class="work-year">2026</div>
+          <div class="work-main">
+            <h3 class="work-title">Personal mobile app, built with <em>Claude Code</em></h3>
+            <p class="work-desc">A product I designed, built, and use on my phone every day. Problem framing, IA, interactions, shipping — the full UX loop, in my own hands.</p>
+            <div class="work-tags">
+              <span class="tag is-new">New</span>
+              <span class="tag">Product UX</span>
+              <span class="tag">Claude Code</span>
+              <span class="tag">Shipped</span>
+            </div>
+          </div>
+          <div class="work-cta">View case <span class="cta-arrow">→</span></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-label">About</div>
+      <div>
+        <p class="about-body">
+          Ten years ago I was a brand designer in Australia. Today I'm building design systems that <em>AI tools</em> can read and extend. The throughline — and the thing I'm most curious about — is what holds brand and product together when both keep changing.
+        </p>
+        <a href="#" class="about-link">Read more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu Le</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-meta">Ink · Text + hairlines</div>
+  <div class="swatches" style="grid-template-columns: repeat(4, 1fr);">
+    <div style="display:flex; flex-direction:column; gap: var(--s-2);">
+    <div style="aspect-ratio: 16/10; background: var(--ink); border-radius: var(--s-1); border: 1px solid var(--line-soft);"></div>
+    <div style="display:flex; flex-direction:column; gap: 2px;">
+      <span class="mono" style="font-size: 10px; color: var(--ink); text-transform: none; letter-spacing: 0.02em;">--ink</span>
+      <span class="mono" style="font-size: 9.5px; color: var(--ink-faint);">#221A15</span>
+      <span style="font-size: 11px; color: var(--ink-soft); margin-top: 2px;">Ink · body</span>
+    </div>
+  </div>
+    <div style="display:flex; flex-direction:column; gap: var(--s-2);">
+    <div style="aspect-ratio: 16/10; background: var(--ink-soft); border-radius: var(--s-1); border: 1px solid var(--line-soft);"></div>
+    <div style="display:flex; flex-direction:column; gap: 2px;">
+      <span class="mono" style="font-size: 10px; color: var(--ink); text-transform: none; letter-spacing: 0.02em;">--ink-soft</span>
+      <span class="mono" style="font-size: 9.5px; color: var(--ink-faint);">#574A41</span>
+      <span style="font-size: 11px; color: var(--ink-soft); margin-top: 2px;">Soft · secondary</span>
+    </div>
+  </div>
+    <div style="display:flex; flex-direction:column; gap: var(--s-2);">
+    <div style="aspect-ratio: 16/10; background: var(--ink-faint); border-radius: var(--s-1); border: 1px solid var(--line-soft);"></div>
+    <div style="display:flex; flex-direction:column; gap: 2px;">
+      <span class="mono" style="font-size: 10px; color: var(--ink); text-transform: none; letter-spacing: 0.02em;">--ink-faint</span>
+      <span class="mono" style="font-size: 9.5px; color: var(--ink-faint);">#6F635A</span>
+      <span style="font-size: 11px; color: var(--ink-soft); margin-top: 2px;">Faint · meta</span>
+    </div>
+  </div>
+    <div style="display:flex; flex-direction:column; gap: var(--s-2);">
+    <div style="aspect-ratio: 16/10; background: var(--line); border-radius: var(--s-1); border: 1px solid var(--line-soft);"></div>
+    <div style="display:flex; flex-direction:column; gap: 2px;">
+      <span class="mono" style="font-size: 10px; color: var(--ink); text-transform: none; letter-spacing: 0.02em;">--line</span>
+      <span class="mono" style="font-size: 9.5px; color: var(--ink-faint);">#E8D5BE</span>
+      <span style="font-size: 11px; color: var(--ink-soft); margin-top: 2px;">Line · hairlines</span>
+    </div>
+  </div>
+  </div>
+</div>
+</body>
+</html>

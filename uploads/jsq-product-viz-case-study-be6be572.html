@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juniper Square Product Visualizations — Thu Le</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAEFE3;
+    --bg-deep: #F8D2C5;
+    --bg-tint: #FDF7EE;
+    --ink: #221A15;
+    --ink-soft: #574A41;
+    --ink-faint: #6F635A;
+    --line: #E8D5BE;
+    --accent: #5468A5;
+    --accent-deep: #3D4F85;
+    --accent-light: #B0BEE3;
+    --accent-soft: rgba(84, 104, 165, 0.10);
+    --terra: #5C3F28;
+    --terra-deep: #3D2A1A;
+    --terra-soft: rgba(92, 63, 40, 0.08);
+    --terra-tint: #EDDFD1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400; line-height: 1.55;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .container--narrow { max-width: 920px; }
+
+  /* TOP BAR */
+  .topbar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+  }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .wordmark { display: flex; align-items: center; gap: 12px; }
+  .wordmark-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Literata', serif;
+    font-style: italic; font-weight: 500;
+    font-size: 16px; letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+  }
+  .wordmark-name {
+    font-family: 'Literata', serif;
+    font-weight: 500; font-size: 21px;
+    letter-spacing: -0.012em;
+    font-variation-settings: "opsz" 60;
+  }
+  .topbar-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-soft);
+    display: flex; gap: 32px;
+  }
+  .topbar-meta a { color: inherit; text-decoration: none; }
+  .topbar-meta a:hover { color: var(--terra); }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 28px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra); text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 10px; color: var(--ink-faint); }
+
+  /* HERO */
+  .case-hero {
+    padding: 72px 0 96px;
+    background: var(--terra-deep);
+    color: var(--bg);
+    margin-top: 32px;
+  }
+  .case-hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent-light);
+    margin-bottom: 32px;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .case-hero-status {
+    background: rgba(176, 190, 227, 0.18);
+    border: 1px solid rgba(176, 190, 227, 0.4);
+    color: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .case-hero-status::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-light);
+    box-shadow: 0 0 0 0 var(--accent-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(176, 190, 227, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(176, 190, 227, 0); }
+  }
+  .case-hero-title {
+    font-family: 'Literata', serif;
+    font-weight: 350;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 1.02; letter-spacing: -0.022em;
+    color: var(--bg); margin-bottom: 28px;
+    font-variation-settings: "opsz" 144;
+    max-width: 18ch;
+  }
+  .case-hero-title em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 21px; line-height: 1.5;
+    color: var(--bg);
+    max-width: 60ch;
+  }
+  .case-hero-lede em {
+    font-style: italic; color: var(--accent-light);
+    font-family: 'Literata', serif;
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 6px; }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px; color: var(--ink);
+    line-height: 1.4;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra); text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* OVERVIEW IMAGE */
+  .overview-image { margin: 64px 0 0; }
+  .overview-image img {
+    width: 100%; display: block;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .overview-caption {
+    padding: 16px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-faint);
+    display: flex; gap: 12px; align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* SECTION */
+  .section { padding: 96px 0 16px; }
+  .section + .section { padding-top: 48px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 28px;
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+  }
+  .section-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px; line-height: 1.65;
+    color: var(--ink-soft); max-width: 62ch;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: 'Literata', serif; font-style: italic;
+    color: var(--terra); font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* PULL QUOTE */
+  .pullquote {
+    margin: 56px 0 16px;
+    padding-left: 24px;
+    border-left: 3px solid var(--terra);
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3; color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+  }
+  .pullquote em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+  }
+
+  /* IMAGE BLOCK */
+  .image-block { margin: 40px 0 16px; }
+  .image-block img {
+    width: 100%; display: block;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+  .image-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-faint);
+    margin-top: 12px;
+    display: flex; gap: 12px; align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  /* SURFACES GRID */
+  .surfaces {
+    margin: 40px 0 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .surface {
+    padding: 28px;
+    background: var(--terra-tint);
+    border-radius: 4px;
+  }
+  .surface-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--terra);
+    margin-bottom: 12px;
+  }
+  .surface-title {
+    font-family: 'Literata', serif;
+    font-weight: 450; font-size: 22px;
+    color: var(--ink); margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+  }
+  .surface-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .surface-desc {
+    font-size: 14.5px; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* VIDEO BLOCKS */
+  .video-block { margin: 48px 0 16px; }
+  .video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--terra-deep);
+    display: block;
+  }
+  .video-frame video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .video-meta {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .video-meta-left {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .video-figure {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-faint);
+  }
+  .video-figure .num { color: var(--terra); }
+  .video-title {
+    font-family: 'Literata', serif;
+    font-weight: 450; font-size: 18px;
+    color: var(--ink); letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 60;
+  }
+  .video-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .video-meta-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+    text-align: right;
+  }
+  .video-desc {
+    margin-top: 10px;
+    font-size: 15px; line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  /* OUTCOME (dark) */
+  .outcome {
+    padding: 96px 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+    margin-top: 96px;
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px; align-items: start;
+  }
+  .outcome-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent-light);
+    padding-top: 12px;
+  }
+  .outcome-body {
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32; color: var(--bg);
+    letter-spacing: -0.014em; max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: 24px;
+  }
+  .outcome-body em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(176, 190, 227, 0.2);
+    max-width: 620px;
+  }
+  .stat { display: flex; flex-direction: column; gap: 6px; }
+  .stat-value {
+    font-family: 'Literata', serif; font-weight: 400;
+    font-size: clamp(28px, 3vw, 38px);
+    color: var(--bg); line-height: 1;
+    letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 90;
+  }
+  .stat-value em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--accent-light);
+  }
+
+  /* NEXT CASE */
+  .next-case {
+    padding: 96px 0 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; text-decoration: none; color: inherit;
+    padding: 8px 0 32px;
+    transition: padding 0.3s ease;
+  }
+  .next-case-link:hover { padding-right: 12px; }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta { background: var(--terra-deep); color: var(--bg); border-color: var(--terra-deep); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-text { display: flex; flex-direction: column; gap: 8px; }
+  .next-case-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: 'Literata', serif; font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s;
+  }
+  .next-case-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: 10px 18px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  /* FOOTER */
+  .footer { padding: 80px 0 40px; }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 60px; gap: 32px; flex-wrap: wrap;
+  }
+  .footer-headline {
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(28px, 3.8vw, 50px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    max-width: 18ch;
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-headline em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-contact a {
+    font-family: 'Literata', serif; font-size: 22px;
+    color: var(--ink); text-decoration: none;
+    display: block; margin-bottom: 4px;
+    transition: color 0.2s;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-contact a:hover {
+    color: var(--terra); font-style: italic;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    gap: 12px; flex-wrap: wrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .container { padding: 0 22px; }
+    .topbar-meta { display: none; }
+    .case-hero { padding: 48px 0 64px; margin-top: 20px; }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .section { padding: 64px 0 12px; }
+    .surfaces { grid-template-columns: 1fr; gap: 12px; }
+    .outcome { padding: 64px 0; margin-top: 64px; }
+    .outcome-inner { grid-template-columns: 1fr; gap: 24px; }
+    .outcome-stats { grid-template-columns: 1fr; gap: 20px; }
+    .next-case { padding: 64px 0 12px; }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label, .case-hero-title, .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .case-hero-label { animation-delay: 0.1s; }
+  .case-hero-title { animation-delay: 0.2s; }
+  .case-hero-lede { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="wordmark">
+      <div class="wordmark-circle">th</div>
+      <div class="wordmark-name">Thu Le</div>
+    </div>
+    <div class="topbar-meta">
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="#">Work</a><span class="sep">/</span>Brand × Product<span class="sep">/</span>Juniper Square product visualizations
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="container">
+    <div class="case-hero-label">
+      <span>Case study, 04 — Brand × Product</span>
+      <span class="case-hero-status">Active</span>
+    </div>
+    <h1 class="case-hero-title">Where complex product UI becomes a <em>story</em>.</h1>
+    <p class="case-hero-lede">
+      Product visualizations, landing pages, storyboards, and videos at <em>Juniper Square</em> — translating connected software for private markets into brand surfaces customers and prospects can read at a glance.
+    </p>
+  </div>
+</section>
+
+<!-- META STRIP -->
+<section class="meta-strip">
+  <div class="container">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Senior Visual Designer</strong><br>Product visualization<br>+ brand</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>Apr 2025 — Present</strong><br>Active engagement</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Product marketing managers (PMMs)<br>Product design<br>Marketing</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Web pages<br>Landing pages<br>Storyboards<br>Videos<br>Product UI viz</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value"><strong>Ongoing</strong><br>Across multiple surfaces<br><a href="https://junipersquare.com">junipersquare.com →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW IMAGE -->
+<div class="overview-image">
+  <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/f0437a2b-22a6-4657-b8af-54bcfe9fe508/HomePage.png" alt="Juniper Square homepage — product UI visualizations made legible for customers and prospects.">
+  <div class="container">
+    <div class="overview-caption">
+      <span class="num">FIG. 00</span><span>The Juniper Square homepage — product UI translated into a marketing surface.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 01 CONTEXT -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Context</div>
+    <h2 class="section-title">B2B software is <em>hard to see</em>.</h2>
+
+    <p class="body-copy">
+      <strong>Juniper Square</strong> builds connected software, data, and fund-administration services for the people running private markets — GPs scaling their firms, LPs tracking their investments, fund administrators reconciling the back-office. The product is genuinely complex: dense data tables, multi-step workflows, financial reporting that has to be exact.
+    </p>
+
+    <p class="body-copy">
+      Complex products are hard to <em>see</em>. A screenshot of a fund-admin workflow doesn't sell itself. The job of product visualization is to take that complexity and make it legible to people who haven't used the product yet — to show them what it would feel like before they sign up.
+    </p>
+  </div>
+</section>
+
+<!-- 02 THE BRIDGE -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — The bridge</div>
+    <h2 class="section-title">Between product, PMMs, and the people who buy.</h2>
+
+    <p class="body-copy">
+      My role sits between three groups: <strong>product design</strong>, who builds the actual UI; <strong>product marketing managers</strong>, who own the story of what the product does for the customer; and the <strong>marketing surfaces</strong> where prospects encounter the brand for the first time. The work is translation — taking the real product UI and abstracting it into something a prospect can read in a glance and a story they can follow in a video.
+    </p>
+
+    <blockquote class="pullquote">
+      The hard part isn't making it look good. It's deciding what to <em>leave out</em> so the part that matters can be seen.
+      <div class="pullquote-cite">Notes on product visualization</div>
+    </blockquote>
+
+    <p class="body-copy">
+      A landing page hero, a storyboard for a sales video, a product visualization for a feature page — each one is a different level of abstraction from the real UI. The decisions I make are mostly subtractive: which fields to keep, which to remove, which interaction to freeze on, which to animate. The brand sits underneath all of it as the connective tissue.
+    </p>
+  </div>
+</section>
+
+<!-- 03 SURFACES -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Surfaces</div>
+    <h2 class="section-title">Four kinds of translation, one brand voice.</h2>
+
+    <p class="body-copy">
+      The work shows up across four kinds of surfaces — each with a different audience, a different level of abstraction, and a different role inside the funnel.
+    </p>
+
+    <div class="surfaces">
+      <div class="surface">
+        <div class="surface-label">Surface 01</div>
+        <div class="surface-title">Web &amp; <em>landing pages</em></div>
+        <div class="surface-desc">Product visualizations on the marketing site and campaign landing pages. The highest-traffic surface — every feature page, every campaign destination.</div>
+      </div>
+      <div class="surface">
+        <div class="surface-label">Surface 02</div>
+        <div class="surface-title"><em>Storyboards</em></div>
+        <div class="surface-desc">Frame-by-frame storyboards for marketing videos. The bridge step between PMM message and the final video — where the narrative gets drawn before it gets animated.</div>
+      </div>
+      <div class="surface">
+        <div class="surface-label">Surface 03</div>
+        <div class="surface-title"><em>Videos</em></div>
+        <div class="surface-desc">Product walkthroughs and feature explainers. Storyboards animated into the surfaces sales teams use in demos and prospects watch on the site.</div>
+      </div>
+      <div class="surface">
+        <div class="surface-label">Surface 04</div>
+        <div class="surface-title">Product UI <em>visualizations</em></div>
+        <div class="surface-desc">Abstracted product UI for use on marketing surfaces. Real interactions, simplified enough to read at a glance — without losing fidelity to what's actually in the product.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 IN MOTION -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — In motion</div>
+    <h2 class="section-title">Three videos, three points in the <em>same year</em>.</h2>
+
+    <p class="body-copy">
+      A sample of what this work looks like when it's done. One feature-launch sizzle reel for an AI product, and two monthly "What's New" releases that go out to customers and prospects as part of an ongoing cadence. Each one starts with a real product UI and ends as a brand surface — the translation from one to the other is the work.
+    </p>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <video
+          controls
+          preload="none"
+          poster="jsq-ai-crm-sizzle-poster.jpg"
+          playsinline>
+          <source src="jsq-ai-crm-sizzle.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 01</span> · Feature launch · 2025</div>
+          <div class="video-title">AI CRM <em>for Investor Relations</em> · sizzle reel</div>
+        </div>
+        <div class="video-meta-right">2:26 · 1080p</div>
+      </div>
+      <p class="video-desc">
+        A positioning video for Juniper Square's AI CRM — the kind of complex feature where the product is genuinely new and the brand surface has to translate why it matters in under three minutes.
+      </p>
+    </div>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <video
+          controls
+          preload="none"
+          poster="jsq-whats-new-dec-2025-poster.jpg"
+          playsinline>
+          <source src="jsq-whats-new-dec-2025.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 02</span> · Monthly release · Dec 2025</div>
+          <div class="video-title">What's New at Juniper Square <em>·</em> December 2025</div>
+        </div>
+        <div class="video-meta-right">0:43 · 1080p</div>
+      </div>
+      <p class="video-desc">
+        Monthly product-release video — what shipped in December, framed for the customers and prospects who watch the series each month.
+      </p>
+    </div>
+
+    <div class="video-block">
+      <div class="video-frame">
+        <video
+          controls
+          preload="none"
+          poster="jsq-whats-new-jan-2026-poster.jpg"
+          playsinline>
+          <source src="jsq-whats-new-jan-2026.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 03</span> · Monthly release · Jan 2026</div>
+          <div class="video-title">What's New at Juniper Square <em>·</em> January 2026</div>
+        </div>
+        <div class="video-meta-right">0:55 · 1080p</div>
+      </div>
+      <p class="video-desc">
+        The January release — same series, same brand voice, evolved product UI. The series is part of an ongoing cadence I help carry from product into the marketing surface each month.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOME -->
+<section class="outcome">
+  <div class="container">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          Active and ongoing — translating product UIs across <em>web, storyboards, videos,</em> and the marketing site. Bridge work between product design, PMMs, and the surfaces prospects see first.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>4</em></div>
+            <div class="stat-label">Surfaces — web, landing, storyboard, video</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>3</em></div>
+            <div class="stat-label">Teams — product, PMM, marketing</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>Live</em></div>
+            <div class="stat-label">Visible across junipersquare.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT CASE -->
+<section class="next-case">
+  <div class="container container--narrow">
+    <a href="#" class="next-case-link">
+      <div class="next-case-text">
+        <div class="next-case-label">Next case, 05</div>
+        <div class="next-case-title">Natera <em>·</em> website overhaul</div>
+      </div>
+      <div class="next-case-cta">View case<span class="cta-arrow">→</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu Le</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

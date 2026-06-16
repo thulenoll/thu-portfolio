@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daiverse Design System — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* =================== OVERVIEW FULL-BLEED IMAGE =================== */
+  .overview-image { margin: var(--s-16) 0 0; }
+  .overview-image .bigpic-embed {
+    width: 100%;
+    height: 320px;
+    display: block;
+    border: 0;
+    background: #FAEFE3;
+  }
+  .overview-image img {
+    width: 70%;
+    display: block;
+    margin: var(--s-12) auto 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .overview-caption {
+    padding: var(--s-4) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .pullquote em {
+    font-style: italic;
+    color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: var(--s-3);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+
+  /* =================== SUB LABEL =================== */
+  .sub-label {
+    margin: var(--s-14) 0 var(--s-4);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+
+  /* =================== IMAGE BLOCKS =================== */
+  .image-block { margin: var(--s-10) 0 var(--s-4); }
+  .image-block img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    background: var(--bg-tint);
+  }
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  .research-gallery {
+    margin: var(--s-8) 0 var(--s-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-9);
+  }
+  .research-gallery .image-block { margin: 0; }
+  .research-gallery a { display: block; cursor: zoom-in; }
+  .sub-label--artifacts { margin-top: var(--s-16); }
+
+  .image-grid {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .image-grid img {
+    width: 100%;
+    display: block;
+    border-radius: var(--s-1);
+    border: 1px solid var(--line);
+    background: var(--bg-tint);
+  }
+  .image-grid img.span-2 { grid-column: 1 / -1; }
+
+  /* =================== TOKEN HIERARCHY =================== */
+  .hierarchy {
+    margin: var(--s-12) 0 var(--s-4);
+    padding: var(--s-8);
+    background: var(--terra-tint);
+    border-radius: var(--s-1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-4);
+    align-items: center;
+  }
+  .hierarchy-step {
+    text-align: center;
+    padding: var(--s-4) var(--s-2);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+  }
+  .hierarchy-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+    margin-bottom: var(--s-2);
+  }
+  .hierarchy-name {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: var(--s-1);
+    font-variation-settings: "opsz" 60;
+  }
+  .hierarchy-desc {
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.45;
+  }
+  .hierarchy-arrow {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--terra);
+    text-align: center;
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== RESULT / PRODUCT SCREENS =================== */
+  .result { margin-top: var(--s-12); }
+  .result-note {
+    margin-top: var(--s-5);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    max-width: 64ch;
+  }
+  .result-note strong { color: var(--terra); font-weight: 500; }
+
+  .shot { margin: var(--s-12) 0 0; }
+  .shot img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg-tint);
+  }
+  .shot-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-4);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .shot-caption .num { color: var(--terra); }
+  .shot-caption strong { color: var(--ink); font-weight: 500; }
+
+  .shot-grid {
+    margin: var(--s-4) 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-4);
+  }
+  .shot-grid figure { margin: 0; }
+  .shot-grid img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg-tint);
+  }
+
+  /* =================== UX PROCESS STRIP =================== */
+  .process {
+    margin: var(--s-10) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-4);
+    counter-reset: step;
+  }
+  .process-step {
+    padding: var(--s-5);
+    background: var(--bg-tint);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+  .process-icon {
+    width: 26px;
+    height: 26px;
+    color: var(--accent);
+    margin-bottom: var(--s-1);
+  }
+  .process-icon svg { width: 100%; height: 100%; display: block; }
+  .process-num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+  .process-name {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 17px;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+    line-height: 1.2;
+  }
+  .process-desc {
+    font-size: 13px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  /* =================== DEEP-DIVE CALLOUT =================== */
+  .deepdive {
+    margin: var(--s-14) 0 var(--s-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+    padding: var(--s-8);
+    border: 1px solid var(--line);
+    border-radius: var(--s-1);
+    background: var(--bg-tint);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .deepdive:hover { border-color: var(--terra); background: var(--terra-tint); }
+  .deepdive:hover .deepdive-cta .cta-arrow { transform: translateX(6px); }
+  .deepdive-text { display: flex; flex-direction: column; gap: var(--s-2); }
+  .deepdive-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--terra);
+  }
+  .deepdive-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.15;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+    text-wrap: balance;
+  }
+  .deepdive-title em { font-style: italic; color: var(--terra); font-variation-settings: "opsz" 60; }
+  .deepdive-cta {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: var(--s-3) var(--s-5);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    white-space: nowrap;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .deepdive:hover .deepdive-cta { background: var(--terra-deep); color: var(--bg); border-color: var(--terra-deep); }
+  .deepdive-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-6);
+    text-wrap: pretty;
+  }
+  .outcome-body em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+    border-top: 0;
+    max-width: none;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--accent-light);
+  }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+  .next-steps {
+    margin-top: var(--s-9);
+    padding-top: var(--s-8);
+    border-top: 1px solid rgba(176, 190, 227, 0.2);
+    max-width: 56ch;
+  }
+  .next-steps-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-4);
+  }
+  .next-steps ul { list-style: none; padding: 0; }
+  .next-steps li {
+    padding: var(--s-2) 0 var(--s-2) var(--s-6);
+    position: relative;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--bg);
+    border-bottom: 1px solid rgba(176, 190, 227, 0.15);
+  }
+  .next-steps li:last-child { border-bottom: 0; }
+  .next-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-style: italic;
+  }
+
+  /* =================== MORE CASES =================== */
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .image-grid { grid-template-columns: 1fr; gap: var(--s-3); }
+    .shot-grid { grid-template-columns: 1fr; gap: var(--s-3); }
+    .hierarchy { grid-template-columns: 1fr; gap: var(--s-2); padding: var(--s-5); }
+    .hierarchy-arrow { transform: rotate(90deg); }
+    .process { grid-template-columns: 1fr; }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label,
+  .case-hero-title,
+  .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s var(--ease) forwards;
+  }
+  .case-hero-label { animation-delay: 0.10s; }
+  .case-hero-title { animation-delay: 0.20s; }
+  .case-hero-lede  { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#about">About</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span>Design Systems × AI<span class="sep">/</span>Daiverse Design System
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">Daiverse — unified project management app</div>
+    <h1 class="case-hero-title">Thirteen apps. <em>One</em> design system.</h1>
+    <p class="case-hero-lede">
+      I designed the brand identity, design system, component library, and documentation for <em>Daiverse</em> — DAI's unified platform, built to replace the 10–13 separate tools their teams used across 150+ countries. Every screen in the product was built from this foundation.
+    </p>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>UI/UX + Design System Designer</strong><br>Brand · Tokens · Components</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value">Sep 2023 — November 2025
+</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">UX Designers<br>UX Researcher<br>PMs · SMEs<br>Engineering · Data</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Design system<br>Component library<br>ZeroHeight docs<br>Personas · Prototypes</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Client</div>
+        <div class="meta-value"><strong>DAI</strong> via Myridius<br>Global development<br>150+ countries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OVERVIEW IMAGE =================== -->
+<div class="overview-image">
+  <iframe class="bigpic-embed" src="Daiverse%20Big%20Picture.html" title="The big picture — how one value flows through the Daiverse design system, from a raw token to shipped code." loading="lazy" scrolling="no"></iframe>
+  <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview — tokens, components, and the relationships between them.">
+  <div class="container">
+    <div class="overview-caption">
+      <span class="num">FIG. 00</span><span>The whole system in one diagram — from the basic building blocks up to the finished components.</span>
+    </div>
+  </div>
+</div>
+
+<!-- =================== 01 CONTEXT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Context</div>
+    <h2 class="section-title">DAI's teams were using <em>thirteen</em> applications. The brief: replace them with one.</h2>
+
+    <p class="body-copy">DAI is a global development organization that has worked on social and economic projects in over 150 countries since 1970. To get their work done, their teams were using 10–13 different applications — SharePoint, Tammis, Oracle, and a number of internal tools. RCG (now Myridius) brought me on to help build a single, unified platform — Daiverse — to replace them, along with the design system behind it.</p>
+    <p class="body-copy">
+      Over 90% of DAI's users work on desktop, so we focused there first. Dark mode and mobile were planned for later stages, but I set the system up to support them from the start.
+    </p>
+    <p class="body-copy">Daiverse never made it to production. In early 2025, USAID was dismantled, and DAI's US operations — which relied on that funding — had to wind down before the application shipped. What's left is the design system itself: a year of work, documented in enough detail to stand on its own.</p>
+  </div>
+</section>
+
+<!-- =================== 02 FOUNDATION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — Foundation</div>
+    <h2 class="section-title">Turning a brand into a foundation a <em>product</em> could be built on.</h2>
+
+    <p class="body-copy">
+      DAI's brand guidelines — colors, type, charts, and tone of voice — were made for marketing, not software. I started there, adapting them into a foundation that could carry a complex product while staying true to DAI's identity.
+    </p>
+
+    <div class="sub-label">Colors, type, grid, spacing &amp; elevation</div>
+    <p class="body-copy">
+      I took DAI's main colors and built out a full range of tints and shades for each, coded 50 to 900 — the primitive palette everything draws from. Proxima Nova carried over from the brand, set into a type scale (XXS to 6XL) flexible enough for both dense data tables and large dashboard headers. A 4-point grid governs all the spacing and sizing, and a set of elevation styles keeps depth consistent across cards, modals, and pop-ups.
+    </p>
+
+    <div class="image-grid">
+      <img class="span-2" src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/08adc576-978c-4359-8813-c4e2c7b3b2da/Daiverse_Primitive+colors.png" alt="Daiverse primitive colors — DAI's hues extended into a 50–900 token scale." loading="lazy">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/87556aa0-fbc5-44b5-af7a-81a70ed68deb/Daiverse_Typography.png" alt="Daiverse typography style guide using a T-shirt sized scale from XXS to 6XL." loading="lazy">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/c41ca051-74c8-4b3a-83ba-a203f0a20592/Daiverse_Elevation.png" alt="Daiverse elevation styles — token-driven depth scale." loading="lazy">
+      <img class="span-2" src="assets/daiverse/Grid-breakpoints.png" alt="Daiverse responsive grid — column layouts across breakpoints from Desktop Large down to Mobile." loading="lazy">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 01</span><span>The foundation — color range, type scale, grid, and elevation, all drawn from DAI's brand.</span></div>
+  </div>
+</section>
+
+<!-- =================== 03 TOKENS =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Token architecture</div>
+    <h2 class="section-title">Two layers, so the brand can change without <em>breaking</em> anything.</h2>
+
+    <p class="body-copy">
+      The system is built on two layers of tokens. Primitive tokens hold the raw values — every exact color and size. Semantic tokens take those values and give them a job: background, text, accent, button state. Components only ever use the semantic layer, so the brand can change underneath without breaking anything built on top.
+    </p>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/041f07ba-2620-4fb2-bb53-8eec287e6523/Daiverse_Primitive+tokens.png" alt="Daiverse primitive tokens — color, type, and spacing scales as Figma variables." loading="lazy">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/c4fa8d17-9d41-4cf8-949e-cc3b575de8e5/Daiverse_Semantic+tokens.png" alt="Daiverse semantic tokens — primitives mapped to use cases like surface, foreground, accent, state." loading="lazy">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 04 · 05</span><span>The raw values (left) — every color and size the system can use. The roles (right) — each value given a job like background or accent; this is the layer components are built from.</span></div>
+  </div>
+</section>
+
+<!-- =================== 04 COMPONENTS =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — Composition</div>
+    <h2 class="section-title">A library built from what teams <em>actually used</em>.</h2>
+
+    <p class="body-copy">
+      I only added a component once the design for its feature was final.
+    </p>
+
+    <blockquote class="pullquote">
+      It's significantly easier to fill your design system with components you <em>actually need and will use</em> when you have real content and real use cases
+      <div class="pullquote-cite">Dan Mall · Design That Scales</div>
+    </blockquote>
+
+    <p class="body-copy">
+      DAI had no existing product to learn from — just an outdated marketing site. So I pulled the most-used patterns from their brand and grew the library feature by feature: buttons, navigation, widgets, charts. We started with light mode, with dark mode set up in Figma variables to follow in a later stage.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/521ad7b1-8611-4951-9bfa-31accc1e6b3a/steps+by+steps.png" alt="Process diagram showing how components were built feature by feature, not all at once." loading="lazy">
+      <div class="image-caption"><span class="num">FIG. 06</span><span>How it worked — a component was only added after its feature's design was final.</span></div>
+    </div>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/6dbe0ec2-b624-4616-a9e9-2503132a5d2f/components_buttons.png" alt="Daiverse button components in the design system." loading="lazy">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/f27221c3-1dcf-4df6-83f6-28bc7934d0d0/components_Navs.png" alt="Daiverse navigation components." loading="lazy">
+    </div>
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/38c1259e-e8b0-434f-87ee-e51d00d7ced0/components_widgets.png" alt="Daiverse widget components." loading="lazy">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/4d8f605e-871a-41cc-af42-cb876c8567d5/components_charts.png" alt="Daiverse chart components." loading="lazy">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 07</span><span>Buttons, navigation, widgets, charts — each one built from the shared values and ready for light and dark mode from the start.</span></div>
+  </div>
+</section>
+
+<!-- =================== 05 DOCUMENTATION =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">05 — Distribution</div>
+    <h2 class="section-title">A system people could actually <em>use</em>, not just look at.</h2>
+
+    <p class="body-copy">
+      I documented every token and component the moment it was created — not just what it looked like, but how and when to use it. <strong>ZeroHeight</strong> became the single source of truth: the designs, the code, and the guidance all in one place.
+    </p>
+    <p class="body-copy">
+      I worked closely with engineering to translate the components into code, then brought those code snippets back into ZeroHeight, so design and development stayed in sync as the system grew.
+    </p>
+  </div>
+</section>
+
+<!-- =================== 06 THE RESULT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">06 — The result</div>
+    <h2 class="section-title">The product the system was built to ship.</h2>
+
+    <p class="body-copy">
+      Every screen in Daiverse is built entirely from the system. These are first-version screens — a single dashboard replacing the thirteen tools DAI's teams used to juggle, with every bit of spacing, color, and type tracing back to a token.
+    </p>
+    <p class="result-note"><strong>Note —</strong> all data shown is fictional, replaced to satisfy the NDA on this project. Screens are desktop-first, first version.</p>
+
+    <div class="result">
+      <figure class="shot">
+        <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/2069c354-19bb-442c-93ab-23ebecabcb7c/Dashboard.png" alt="Daiverse dashboard — key project information consolidated into a single view." loading="lazy">
+        <figcaption class="shot-caption"><span class="num">FIG. 08</span><span><strong>Dashboard</strong> — one place for everything, built entirely from system components.</span></figcaption>
+      </figure>
+
+      <div class="shot-grid">
+        <figure>
+          <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/319e9ebb-5148-4925-89a8-c92c9905af71/Our+Finances.png" alt="Daiverse finance overview screen." loading="lazy">
+        </figure>
+        <figure>
+          <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/0924f845-baa6-4c29-87db-0a7c88158195/Workplan+Center.png" alt="Daiverse workplan center screen." loading="lazy">
+        </figure>
+      </div>
+      <div class="shot-caption"><span class="num">FIG. 09</span><span><strong>Finance overview</strong> (left) and <strong>Workplan center</strong> (right) — the chart and widget components in real use.</span></div>
+    </div>
+
+    <div class="sub-label">How the product was made</div>
+    <p class="body-copy">
+      The system didn't come first — the research did. Before defining a single token, we spent months with DAI's teams to understand the work the platform had to support. Here's the short version:
+    </p>
+
+    <div class="process">
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M8 14a5 5 0 1 1 8 0c-.6.7-1 1.3-1 2H9c0-.7-.4-1.3-1-2Z"/><path d="M10 21h4"/></svg></div>
+        <div class="process-num">Step 01</div>
+        <div class="process-name">User interviews</div>
+        <div class="process-desc">Virtual workshops with 21 users across 8 roles — COP, Finance/Ops, PM, IT, HR — using empathy mapping to surface pain points.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 11l2 2 4-4"/></svg></div>
+        <div class="process-num">Step 02</div>
+        <div class="process-name">Personas &amp; journeys</div>
+        <div class="process-desc">Six key users defined; journey maps for the Chief of Party and Director of Finance/Ops built from three weeks of sessions.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <div class="process-num">Step 03</div>
+        <div class="process-name">Affinity mapping</div>
+        <div class="process-desc">Pain points reframed as "How Might We" statements, then grouped into nine themes — from single source of truth to recruitment.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="13"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/></svg></div>
+        <div class="process-num">Step 04</div>
+        <div class="process-name">Prioritization</div>
+        <div class="process-desc">With SMEs, narrowed nine themes to the five the proof of concept had to address — scope locked before design began.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="9" x2="8" y2="20"/></svg></div>
+        <div class="process-num">Step 05</div>
+        <div class="process-name">Wireframes</div>
+        <div class="process-desc">Initial drafts and wireframes for the prioritized areas — structure first, before brand or visual design entered.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div class="process-num">Step 06</div>
+        <div class="process-name">Usability testing</div>
+        <div class="process-desc">Validated with four Chiefs of Party. Unanimous: the unified platform would save time and raise task completion — the green light to build.</div>
+      </div>
+    </div>
+
+    <div class="sub-label sub-label--artifacts">Research artifacts</div>
+    <p class="body-copy">The workshop outputs behind those six steps — empathy maps, personas, journey maps, and the affinity wall. Open any one to see it full size.</p>
+
+    <div class="research-gallery">
+      <div class="image-block">
+        <a href="assets/daiverse/DAI_empathy_mapping.webp" target="_blank" rel="noopener"><img src="assets/daiverse/DAI_empathy_mapping.webp" alt="Empathy-mapping workshop board with sessions grouped by role." loading="lazy"></a>
+        <div class="image-caption"><span class="num">EMPATHY MAP</span><span>Workshops across COP, PM, Finance/Ops, IT, HR and technical staff — what each role says, does, thinks and feels.</span></div>
+      </div>
+      <div class="image-block">
+        <a href="assets/daiverse/DAI_personas.webp" target="_blank" rel="noopener"><img src="assets/daiverse/DAI_personas.webp" alt="Six user personas defined from the research sessions." loading="lazy"></a>
+        <div class="image-caption"><span class="num">PERSONAS</span><span>Six personas drawn from the sessions — goals, responsibilities, environment and pain points for each key role.</span></div>
+      </div>
+      <div class="image-block">
+        <a href="assets/daiverse/DAI_COP_journey_map.webp" target="_blank" rel="noopener"><img src="assets/daiverse/DAI_COP_journey_map.webp" alt="Chief of Party journey map across onboarding, project lifecycle and closedown." loading="lazy"></a>
+        <div class="image-caption"><span class="num">JOURNEY · COP</span><span>Chief of Party journey — feelings, actions and tools mapped from onboarding through closedown.</span></div>
+      </div>
+      <div class="image-block">
+        <a href="assets/daiverse/DAI_Finance_journey_map.webp" target="_blank" rel="noopener"><img src="assets/daiverse/DAI_Finance_journey_map.webp" alt="Director of Operations and Finance journey map." loading="lazy"></a>
+        <div class="image-caption"><span class="num">JOURNEY · FINANCE</span><span>Director of Operations &amp; Finance journey — the emotional highs and lows mapped stage by stage.</span></div>
+      </div>
+      <div class="image-block">
+        <a href="assets/daiverse/DAI_affinity_mapping.webp" target="_blank" rel="noopener"><img src="assets/daiverse/DAI_affinity_mapping.webp" alt="Affinity map grouping pain points into themes." loading="lazy"></a>
+        <div class="image-caption"><span class="num">AFFINITY MAP</span><span>Pain points reframed as How Might We statements, then grouped into nine themes.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">How it ended</div>
+      <div>
+        <p class="outcome-body">
+          Daiverse never shipped, but the design system is <em>intact</em>. It's a complete, documented body of work — still usable, and ready for whatever it becomes part of next.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>16</em></div>
+            <div class="stat-label">Months of research, system &amp; application design</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>13</em></div>
+            <div class="stat-label">Enterprise apps in scope</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>150+</em></div>
+            <div class="stat-label">Countries the system was built for</div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <div class="next-steps-title">What remains</div>
+          <ul>
+            <li>The full system — both layers of values, complete in Figma</li>
+            <li>Component library — buttons, navigation, widgets, charts — documented and ready to build with</li>
+            <li>ZeroHeight documentation — designs alongside the engineering code</li>
+            <li>4pt grid, full type scale, shadow styles — the complete foundation</li>
+            <li>A validated product — research, personas, and tested flows behind every screen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="Natera Case Study.html" class="more-case">
+        <div class="more-case-thumb"><img src="assets/natera/Natera-thumbnail.png" alt="Natera homepage after redesign" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Web · Biotech</div>
+        <div class="more-case-title">Natera website overhaul</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="JSQ Product Viz Case Study.html" class="more-case">
+        <div class="more-case-thumb"><img src="assets/jsq/Dashboard.gif" alt="Juniper Square dashboard visualization" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Product · B2B SaaS</div>
+        <div class="more-case-title">Juniper Square product visualizations</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

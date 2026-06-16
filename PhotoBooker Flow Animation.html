@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhotoBooker — Booking Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAEFE3; --panel:#EAE4DE; --ink:#221A15; --ink-faint:#6F635A;
+    --terra:#5C3F28; --terra-deep:#3D2A1A; --line:#E8D5BE;
+    --font-serif:'Literata',Georgia,serif; --font-mono:'JetBrains Mono',monospace;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    background:var(--bg); overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono);
+  }
+  #stage{position:absolute; top:50%; left:50%; transform-origin:center center;}
+  .scene{
+    position:relative; width:1180px; height:620px;
+  }
+  .panel{
+    position:absolute; inset:14px 16px 14px 16px;
+    background:var(--panel); border-radius:18px;
+    box-shadow:0 1px 0 rgba(255,255,255,0.5) inset;
+  }
+
+  /* phones */
+  .phone{
+    position:absolute; left:var(--l); top:var(--t);
+    opacity:0; transform:translateY(34px);
+    transition:opacity .7s var(--ease), transform .95s var(--ease);
+    will-change:opacity, transform;
+  }
+  .phone.show{opacity:1; transform:translateY(0);}
+  .phone-float{ animation:floaty 6.5s ease-in-out infinite; animation-delay:var(--fd,0s); }
+  .phone img{ display:block; width:var(--w); height:auto; }
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+  /* connecting flow line */
+  .links{ position:absolute; inset:0; width:1180px; height:620px; pointer-events:none; z-index:3; overflow:visible; }
+  .links path.seg{
+    fill:none; stroke:var(--terra); stroke-width:1.6; stroke-linecap:round;
+    stroke-dasharray:var(--len); stroke-dashoffset:var(--len);
+    transition:stroke-dashoffset .6s var(--ease);
+    opacity:.55;
+  }
+  .links path.seg.show{ stroke-dashoffset:0; }
+  .links .node{ fill:var(--terra); opacity:0; transition:opacity .4s var(--ease); }
+  .links .node.show{ opacity:.85; }
+
+  /* step pills */
+  .pill{
+    position:absolute; left:var(--cx); top:var(--cy);
+    transform:translate(-50%,8px); opacity:0;
+    transition:opacity .5s var(--ease), transform .6s var(--ease);
+    z-index:4; display:flex; align-items:center; gap:7px;
+    background:var(--bg); border:1px solid var(--line);
+    padding:5px 10px 5px 6px; border-radius:999px;
+    box-shadow:0 6px 18px -12px rgba(61,42,26,0.6);
+    white-space:nowrap;
+  }
+  .pill.show{ opacity:1; transform:translate(-50%,0); }
+  .pill .num{
+    width:18px; height:18px; border-radius:50%;
+    background:var(--terra-deep); color:var(--bg);
+    font-family:var(--font-mono); font-size:9px; font-weight:500;
+    display:flex; align-items:center; justify-content:center; letter-spacing:0;
+  }
+  .pill .lbl{
+    font-family:var(--font-mono); font-size:10px; font-weight:500;
+    text-transform:uppercase; letter-spacing:0.1em; color:var(--terra-deep);
+  }
+
+  /* caption strip */
+  .legend{
+    position:absolute; left:50%; bottom:-46px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:14px;
+    font-family:var(--font-mono); font-size:11px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;
+  }
+  .legend .dot{ width:6px; height:6px; border-radius:50%; background:var(--terra); opacity:.45; }
+  .legend em{ font-style:normal; color:var(--terra); }
+
+  /* compact mode (small thumbnail): just the phones revealing */
+  .compact .pill, .compact .legend, .compact .links{ display:none; }
+
+  /* thumbnail mode: full-bleed background + annotations, no card/shadow */
+  .thumb body{ background:var(--panel); }
+  .thumb .panel{ display:none; }
+  .thumb .legend{ display:none; }
+</style>
+</head>
+<body>
+  <div id="stage">
+    <div class="scene" id="scene">
+      <div class="panel"></div>
+
+      <svg class="links" viewBox="0 0 1180 620">
+        <path class="seg" style="--len:300" d="M154,53 L440,93"></path>
+        <path class="seg" style="--len:300" d="M440,93 L733,130"></path>
+        <path class="seg" style="--len:300" d="M733,130 L1021,170"></path>
+        <circle class="node" cx="154" cy="53" r="3.7"></circle>
+        <circle class="node" cx="440" cy="93" r="3.7"></circle>
+        <circle class="node" cx="733" cy="130" r="3.7"></circle>
+        <circle class="node" cx="1021" cy="170" r="3.7"></circle>
+      </svg>
+
+      <!-- phones -->
+      <div class="phone" style="--l:32px;  --t:48px; --w:249px; --fd:0s">   <div class="phone-float"><img src="assets/photobooker/p1.png" alt="Search"></div></div>
+      <div class="phone" style="--l:315px; --t:48px; --w:256px; --fd:.8s">  <div class="phone-float"><img src="assets/photobooker/p2.png" alt="Browse matches"></div></div>
+      <div class="phone" style="--l:605px; --t:48px; --w:262px; --fd:1.6s"> <div class="phone-float"><img src="assets/photobooker/p3.png" alt="Compare photographers"></div></div>
+      <div class="phone" style="--l:901px; --t:48px; --w:245px; --fd:2.4s"> <div class="phone-float"><img src="assets/photobooker/p4.png" alt="Book in minutes"></div></div>
+
+      <!-- step pills -->
+      <div class="pill" style="--cx:154px; --cy:29px"><span class="num">01</span><span class="lbl">Search</span></div>
+      <div class="pill" style="--cx:440px; --cy:69px"><span class="num">02</span><span class="lbl">Browse</span></div>
+      <div class="pill" style="--cx:733px; --cy:106px"><span class="num">03</span><span class="lbl">Compare</span></div>
+      <div class="pill" style="--cx:1021px; --cy:146px"><span class="num">04</span><span class="lbl">Book</span></div>
+
+      <div class="legend">
+        <span class="dot"></span> Search
+        <em>→</em> Browse matches
+        <em>→</em> View &amp; compare
+        <em>→</em> Book in minutes
+      </div>
+    </div>
+  </div>
+
+<script>
+  if(location.search.indexOf('compact') !== -1){ document.documentElement.classList.add('compact'); }
+  if(location.search.indexOf('thumb') !== -1){ document.documentElement.classList.add('thumb'); }
+</script>
+<script>
+  // ---- responsive scaling ----
+  const stage = document.getElementById('stage');
+  function fit(){
+    const margin = 0.98;
+    const w = window.innerWidth, h = window.innerHeight;
+    let s = Math.min(w/1180, h/740) * margin;
+    if(s > 1) s = 1; // never upscale past native resolution
+    if(!isFinite(s) || s <= 0){ requestAnimationFrame(fit); return; }
+    stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  if(window.ResizeObserver){ new ResizeObserver(fit).observe(document.documentElement); }
+  fit(); requestAnimationFrame(fit);
+
+  // ---- timeline ----
+  const phones = [...document.querySelectorAll('.phone')];
+  const pills  = [...document.querySelectorAll('.pill')];
+  const segs   = [...document.querySelectorAll('.seg')];
+  const nodes  = [...document.querySelectorAll('.node')];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function clearAll(){
+    phones.forEach(e=>e.classList.remove('show'));
+    pills.forEach(e=>e.classList.remove('show'));
+    segs.forEach(e=>e.classList.remove('show'));
+    nodes.forEach(e=>e.classList.remove('show'));
+  }
+
+  if(reduce){
+    phones.forEach(e=>e.classList.add('show'));
+    pills.forEach(e=>e.classList.add('show'));
+    segs.forEach(e=>e.classList.add('show'));
+    nodes.forEach(e=>e.classList.add('show'));
+  } else {
+    const STEP = 950, START = 450, HOLD = 3600, OUTRO = 950;
+    function cycle(){
+      clearAll();
+      let d = START;
+      for(let i=0;i<4;i++){
+        setTimeout(()=>{ phones[i].classList.add('show'); nodes[i].classList.add('show'); }, d);
+        setTimeout(()=> pills[i].classList.add('show'), d+430);
+        if(i<3) setTimeout(()=> segs[i].classList.add('show'), d+640);
+        d += STEP;
+      }
+      const end = d + HOLD;
+      setTimeout(clearAll, end);
+      setTimeout(cycle, end + OUTRO);
+    }
+    cycle();
+  }
+</script>
+</body>
+</html>

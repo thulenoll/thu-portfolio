@@ -1,0 +1,6 @@
+# Static site — no build step. Publish the repo root as-is.
+[build]
+  publish = "."
+
+# Friendly 404 (optional): serve the homepage for unknown paths is NOT desired
+# for a portfolio, so we leave Netlify's default 404 behavior in place.

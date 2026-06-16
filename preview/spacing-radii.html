@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-meta">Radii · 4 (cards/thumbs) · 999 (pills)</div>
+  <div style="display: flex; gap: var(--s-4); margin-top: var(--s-4); align-items: center;">
+    <div style="width: 96px; height: 96px; background: var(--terra-tint); border: 1px solid var(--line); border-radius: var(--s-1);"></div>
+    <div style="height: 36px; padding: 0 var(--s-4); background: var(--terra-deep); color: var(--bg); border-radius: 999px; display: inline-flex; align-items: center; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;">View case →</div>
+    <div style="padding: var(--s-1) var(--s-2); border: 1px solid var(--accent); color: var(--accent); background: var(--accent-soft); border-radius: var(--s-1); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;">New</div>
+  </div>
+</div>
+</body>
+</html>

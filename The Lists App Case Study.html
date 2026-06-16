@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lists · Built with Claude — Thu LeNoll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="design-system.css">
+<style>
+  /* =================== BREADCRUMB =================== */
+  .breadcrumb {
+    padding: var(--s-7) 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 var(--s-2); color: var(--ink-faint); }
+
+  /* =================== HERO =================== */
+  .case-hero {
+    margin-top: var(--s-8);
+    padding: var(--s-18) 0 var(--s-24);
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .case-hero-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-light);
+    margin-bottom: var(--s-8);
+  }
+  .case-hero-title {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(32px, 4.8vw, 54px);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    color: var(--bg);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 144;
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+  .case-hero-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--bg);
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+  .case-hero-lede em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-family: var(--font-serif);
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* =================== HERO SHOWCASE BAND =================== */
+  .hero-showcase {
+    height: clamp(300px, 32vw, 430px);
+    overflow: hidden;
+    background: linear-gradient(150deg, #F1F2FB 0%, #DFE4F5 58%, #CBD4EE 100%);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-showcase-row {
+    display: flex;
+    gap: clamp(14px, 1.8vw, 28px);
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: clamp(34px, 4vw, 60px);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-showcase-row .phone-shot {
+    flex: 0 0 clamp(150px, 19vw, 208px);
+    box-shadow: 0 30px 56px -28px rgba(64, 76, 128, 0.45);
+  }
+
+  /* =================== META STRIP =================== */
+  .meta-strip {
+    padding: var(--s-10) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--s-8);
+  }
+  .meta-item { display: flex; flex-direction: column; gap: var(--s-2); }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+  }
+  .meta-value { font-size: 14px; color: var(--ink); line-height: 1.5; }
+  .meta-value strong { font-weight: 500; }
+
+  /* =================== SECTION =================== */
+  .section { padding: var(--s-24) 0 var(--s-4); }
+  .section + .section { padding-top: var(--s-12); }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-4);
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(24px, 2.72vw, 35px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: var(--s-7);
+    font-variation-settings: "opsz" 90;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  .section-title em { font-style: italic; color: var(--terra); font-variation-settings: "opsz" 90; }
+  .body-copy {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--terra);
+    font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* =================== PULLQUOTE =================== */
+  .pullquote {
+    margin: var(--s-14) 0 var(--s-4);
+    padding-left: var(--s-6);
+    border-left: 3px solid var(--terra);
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+    text-wrap: balance;
+  }
+  .pullquote em { font-style: italic; color: var(--terra); font-variation-settings: "opsz" 90; }
+
+  /* =================== FEATURE LIST =================== */
+  .feature-grid {
+    margin: var(--s-12) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-8);
+  }
+  .feature {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+  }
+  .feature-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terra);
+  }
+  .feature-name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+  }
+  .feature-desc { font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+
+  /* =================== PHONE SHOWCASE =================== */
+  .showcase {
+    margin: var(--s-10) 0 var(--s-4);
+    border-radius: 24px;
+    background: linear-gradient(135deg, #F1F2FB 0%, #E2E6F6 54%, #CFD7F0 100%);
+    padding: clamp(22px, 3vw, 40px);
+    display: grid;
+    gap: clamp(16px, 2.4vw, 32px);
+    align-items: center;
+    justify-items: center;
+  }
+  .showcase.cols-3 { grid-template-columns: repeat(3, 158px); justify-content: center; }
+  .showcase.cols-2 { grid-template-columns: repeat(2, 188px); justify-content: center; }
+  .showcase.cols-1 { grid-template-columns: 1fr; }
+  .showcase.cols-1 .phone-shot { max-width: 216px; }
+  .phone-shot {
+    border-radius: 30px;
+    padding: 7px;
+    background: #18181b;
+    box-shadow:
+      0 26px 50px -26px rgba(64, 76, 128, 0.45),
+      0 8px 18px -12px rgba(64, 76, 128, 0.3);
+    position: relative;
+  }
+  .phone-shot img { width: 100%; display: block; border-radius: 23px; }
+  .showcase .phone-shot { width: 100%; max-width: 188px; }
+  .showcase.cols-3 .phone-shot { max-width: 158px; }
+
+  .image-caption {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    display: flex;
+    gap: var(--s-3);
+    align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  /* =================== EXPERIMENTS =================== */
+  .experiments {
+    margin: var(--s-12) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+  }
+  .experiment {
+    padding: var(--s-7);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--bg-tint);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+  .experiment--win {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .experiment-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .experiment--win .experiment-tag { color: var(--accent-deep); }
+  .experiment-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-faint); display: inline-block; }
+  .experiment--win .experiment-tag .dot { background: var(--accent); }
+  .experiment-name {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 21px;
+    line-height: 1.22;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+    text-wrap: balance;
+  }
+  .experiment-name em { font-style: italic; color: var(--terra); font-variation-settings: "opsz" 60; }
+  .experiment--win .experiment-name em { color: var(--accent-deep); }
+  .experiment-desc { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+  .experiment-verdict {
+    margin-top: var(--s-2);
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .experiment-verdict strong { color: var(--ink); font-weight: 500; }
+  .experiment--win .experiment-verdict { border-top-color: rgba(84, 104, 165, 0.3); }
+
+  .journey {
+    margin: var(--s-12) 0 var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-5);
+  }
+  .journey-step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    padding-top: var(--s-4);
+    border-top: 2px solid var(--terra-tint);
+  }
+  .journey-step:last-child { border-top-color: var(--accent); }
+  .journey-tool {
+    font-family: var(--font-serif);
+    font-weight: 450;
+    font-size: 20px;
+    color: var(--ink);
+    font-variation-settings: "opsz" 60;
+  }
+  .journey-step:last-child .journey-tool { color: var(--accent-deep); }
+  .journey-meta { font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); }
+  .journey-desc { font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin-top: var(--s-1); }
+
+  /* =================== OUTCOME =================== */
+  .outcome {
+    margin-top: var(--s-24);
+    padding: var(--s-24) 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .outcome-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    padding-top: var(--s-3);
+  }
+  .outcome-body {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32;
+    color: var(--bg);
+    letter-spacing: -0.014em;
+    max-width: 38ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: var(--s-8);
+    text-wrap: pretty;
+  }
+  .outcome-body em { font-style: italic; color: var(--accent-light); font-variation-settings: "opsz" 90; }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-8);
+    margin-top: var(--s-10);
+    padding-top: var(--s-8);
+  }
+  .stat { display: flex; flex-direction: column; gap: var(--s-3); padding-top: var(--s-3); border-top: 1px solid var(--accent-light); }
+  .stat-value {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(44px, 5.5vw, 72px);
+    color: var(--bg);
+    line-height: 0.95;
+    letter-spacing: -0.028em;
+    font-variation-settings: "opsz" 144;
+    font-feature-settings: "tnum" on;
+  }
+  .stat-value em { font-style: italic; font-weight: 400; color: var(--accent-light); font-variation-settings: "opsz" 144; }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-light);
+    line-height: 1.45;
+  }
+
+  /* =================== RESPONSIVE =================== */
+  @media (max-width: 900px) {
+    .case-hero { padding: var(--s-12) 0 var(--s-16); margin-top: var(--s-5); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+    .section { padding: var(--s-16) 0 var(--s-3); }
+    .feature-grid { grid-template-columns: 1fr; gap: var(--s-5); }
+    .experiments { grid-template-columns: 1fr; gap: var(--s-4); }
+    .journey { grid-template-columns: 1fr; gap: var(--s-4); }
+    .showcase.cols-3 { grid-template-columns: 1fr 1fr; }
+    .outcome { padding: var(--s-16) 0; margin-top: var(--s-16); }
+    .outcome-inner { grid-template-columns: 1fr; gap: var(--s-6); }
+    .outcome-stats { grid-template-columns: 1fr; gap: var(--s-5); }
+  }
+
+  /* =================== ENTRANCE =================== */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .case-hero-label, .case-hero-title, .case-hero-lede {
+      opacity: 0; animation: rise 0.9s var(--ease) forwards;
+    }
+    .case-hero-label { animation-delay: 0.10s; }
+    .case-hero-title { animation-delay: 0.20s; }
+    .case-hero-lede  { animation-delay: 0.45s; }
+  }
+</style>
+
+<style id="more-cases-styles">
+  .more-cases { padding: var(--s-24) 0 var(--s-20); border-bottom: 1px solid var(--line); }
+  .more-cases-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: var(--s-12); padding-bottom: var(--s-4); border-bottom: 1px solid var(--line);
+  }
+  .more-cases-label, .more-cases-all {
+    font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em;
+  }
+  .more-cases-label { color: var(--ink-faint); }
+  .more-cases-all { color: var(--terra); text-decoration: none; transition: color 0.2s var(--ease); }
+  .more-cases-all:hover { color: var(--terra-deep); }
+  .more-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); }
+  .more-case { text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-4); }
+  .more-case-thumb {
+    aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); background: var(--bg-tint); border-radius: 12px;
+  }
+  .more-case-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s var(--ease);
+  }
+  .more-case:hover .more-case-thumb img { transform: scale(1.05); }
+  .more-case-meta {
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ink-faint);
+  }
+  .more-case-title {
+    font-family: var(--font-serif); font-weight: 400; font-size: 22px; line-height: 1.25;
+    color: var(--ink); transition: color 0.2s var(--ease); text-wrap: balance;
+  }
+  .more-case:hover .more-case-title { color: var(--terra); }
+  .more-case-title em { font-style: italic; color: var(--terra); }
+  .more-case-cta {
+    margin-top: var(--s-1);
+    font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--terra); display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s var(--ease), color 0.2s var(--ease);
+  }
+  .more-case-cta .cta-arrow { display: inline-block; transition: transform 0.3s var(--ease); }
+  .more-case:hover .more-case-cta { color: var(--terra-deep); }
+  .more-case:hover .more-case-cta .cta-arrow { transform: translateX(5px); }
+  @media (max-width: 768px) {
+    .more-cases { padding: var(--s-16) 0 var(--s-12); }
+    .more-cases-head { margin-bottom: var(--s-8); }
+    .more-cases-grid { grid-template-columns: 1fr; gap: var(--s-10); }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== TOP BAR =================== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="wordmark" href="index.html">
+      <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 26px; width: auto; display: block;">
+    </a>
+    <nav class="topbar-meta">
+      <a href="index.html#work">Work</a>
+      <a href="mailto:ledkthu@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BREADCRUMB =================== -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="index.html#work">Work</a><span class="sep">/</span>Built with Claude<span class="sep">/</span>The Lists
+  </div>
+</div>
+
+<!-- =================== HERO =================== -->
+<section class="case-hero">
+  <div class="container container--narrow">
+    <div class="case-hero-label">Built with Claude — The Lists mobile app</div>
+    <h1 class="case-hero-title">A lists app built to be <em>reused</em>, not thrown away.</h1>
+    <p class="case-hero-lede">
+      The Lists is my first vibe-coding experiment — a mobile app I designed and built end to end with <em>Claude Code</em> to solve my own problem: every to-do app I tried could check a list off, but none could reset and reuse it. So I built the one I always wanted.
+    </p>
+  </div>
+</section>
+
+<!-- =================== HERO SHOWCASE =================== -->
+<section class="hero-showcase">
+  <div class="hero-showcase-row">
+    <div class="phone-shot"><img src="assets/thelists/01.png" alt="The Lists home screen." loading="lazy"></div>
+    <div class="phone-shot"><img src="assets/thelists/04.png" alt="My Lists overview." loading="lazy"></div>
+    <div class="phone-shot"><img src="assets/thelists/08.png" alt="A reusable checklist mid-use." loading="lazy"></div>
+    <div class="phone-shot"><img src="assets/thelists/11.png" alt="The Magic Generator." loading="lazy"></div>
+  </div>
+</section>
+
+<!-- =================== META STRIP =================== -->
+<section class="meta-strip">
+  <div class="container container--narrow">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Designer &amp; builder</strong><br>Solo, end to end</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>2026</strong><br>In daily use</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Built with</div>
+        <div class="meta-value">Claude Code<br>Design + build loop</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Surface</div>
+        <div class="meta-value">Mobile<br>iOS &amp; Android</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Scope</div>
+        <div class="meta-value">Product UX<br>Visual design<br>Build &amp; ship</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 01 · WHY =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Why I built it</div>
+    <h2 class="section-title">A list is most useful the <em>second</em> time you need it.</h2>
+
+    <p class="body-copy">
+      Every checklist app I tried optimized for the same moment: type a list, check it off, watch it disappear. But the lists I actually repeat never went away — they just had to be rebuilt from scratch each time. When I had my daughter, I prepared the <strong>same bag of items</strong> every time we went out. The same went for recipes, the weekly grocery run, a day at the park.
+    </p>
+    <p class="body-copy">
+      I'd always wanted an app that could simply <em>reset and reuse</em> a list. So I started building one with AI — a way to put my design skills and AI's capabilities together and turn the idea into something I could really use every day.
+    </p>
+
+    <blockquote class="pullquote">
+      The list stays useful long after it's complete. That's the whole point of the app.
+    </blockquote>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-num">01</div>
+        <div class="feature-name">Reusable lists</div>
+        <div class="feature-desc">Create, check off, reset, repeat. One list serves every weekend trip, every grocery run.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">02</div>
+        <div class="feature-name">Templates</div>
+        <div class="feature-desc">Curated, ready-made lists across parenting, travel, relationships, and lifestyle.</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">03</div>
+        <div class="feature-name">Magic Lists</div>
+        <div class="feature-desc">Describe a situation and the app generates a complete checklist for it. (Premium.)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 02 · THE APP =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — The app</div>
+    <h2 class="section-title">One warm home for every kind of list.</h2>
+
+    <p class="body-copy">
+      Home greets you by name and shows your lists, pinned favorites, and quick ways to start a new one. Everything sits in one calm, consistent look — a cream background, one warm accent, generous type — so the app feels personal rather than purely functional. Lists are organized by category, searchable, and a tap away from the full library.
+    </p>
+
+    <div class="showcase cols-3">
+      <div class="phone-shot"><img src="assets/thelists/01.png" alt="The Lists home — greeting, search, and a grid of saved lists." loading="lazy"></div>
+      <div class="phone-shot"><img src="assets/thelists/12.png" alt="Navigation drawer — Home, Explore, My Lists, Pinned, and categories." loading="lazy"></div>
+      <div class="phone-shot"><img src="assets/thelists/04.png" alt="My Lists — Active, Drafts, and Archive tabs with category filters." loading="lazy"></div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 01</span><span>Home · navigation · my lists — one personal system organized by category, pin, and status.</span></div>
+  </div>
+</section>
+
+<!-- =================== 03 · REUSABLE =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Reusable lists</div>
+    <h2 class="section-title">Check it off. Reset it. Use it <em>again</em>.</h2>
+
+    <p class="body-copy">
+      The core interaction. Items can be dragged to reorder and checked off as you go, and each list tracks its own progress — <strong>3 of 7 completed</strong>. When the trip or the day is over, one tap on <em>reset</em> clears every checkbox and the list is ready for next time. Pin the ones you reach for most so they stay at the top.
+    </p>
+
+    <div class="showcase cols-1">
+      <div class="phone-shot"><img src="assets/thelists/reset.gif" alt="The 'out with Chloe' diaper-bag list, fully checked off at 16 of 16, then reset to zero in a single tap — ready to reuse next time." loading="lazy"></div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 02</span><span>Reuse in action — a completed list, checked off, then reset to zero with one tap.</span></div>
+
+    <p class="body-copy">
+      The same model carries any kind of list — a grocery week, a recipe, a packing run, a day at the park. Each keeps its category, its emoji, and its place in your library.
+    </p>
+
+    <div class="showcase cols-2">
+      <div class="phone-shot"><img src="assets/thelists/05.png" alt="Weekly grocery list — 14 produce and pantry items." loading="lazy"></div>
+      <div class="phone-shot"><img src="assets/thelists/06.png" alt="Oatmeal pancake recipe list with ingredients and quantities." loading="lazy"></div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 03</span><span>Grocery · recipe — one reusable model, many everyday jobs.</span></div>
+  </div>
+</section>
+
+<!-- =================== 04 · TEMPLATES =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — Templates</div>
+    <h2 class="section-title">Start from a template, not a <em>blank screen</em>.</h2>
+
+    <p class="body-copy">
+      Explore is a curated library of ready-made lists organized by category — <strong>parenting, travel, relationships, lifestyle, food, holidays &amp; events</strong>. Going out with baby, flying with kids, ski-trip packing, date night, house moving, birthday planning. Save a template, customize it to your life, and it becomes one of your reusable lists.
+    </p>
+
+    <div class="showcase cols-2">
+      <div class="phone-shot"><img src="assets/thelists/09.png" alt="Explore — browse templates by category: Travel, Food & Dining, Parenting, Home & Living." loading="lazy"></div>
+      <div class="phone-shot"><img src="assets/thelists/10.png" alt="Holidays & Events templates: Thanksgiving Dinner Prep, Kid's Birthday Party, Holiday Gift Tracker." loading="lazy"></div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 04</span><span>Explore library — curated templates for every occasion, ready to save and reuse.</span></div>
+  </div>
+</section>
+
+<!-- =================== 05 · MAGIC =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">05 — Magic Lists · Premium</div>
+    <h2 class="section-title">Describe the situation. Get the <em>checklist</em>.</h2>
+
+    <p class="body-copy">
+      Magic Lists is the premium, AI-powered part. Describe what you're planning — <em>“flying from San Francisco to Vietnam with a toddler”</em> — pick who it's for, and the app builds a complete, sensible checklist in seconds. Travel prep, event planning, parenting situations, packing, life events. It's the fastest way to go from a vague plan to a list you can act on.
+    </p>
+
+    <div class="showcase cols-2">
+      <div class="phone-shot"><img src="assets/thelists/11.png" alt="Magic Generator — describe what you're planning and who it's for, then generate a checklist." loading="lazy"></div>
+      <div class="phone-shot"><img src="assets/thelists/03.png" alt="The create menu — Start from Blank, Use a Template, or the Magic Generator." loading="lazy"></div>
+    </div>
+    <div class="image-caption"><span class="num">FIG. 05</span><span>Three ways to start — blank, a template, or a Magic List generated from a sentence.</span></div>
+  </div>
+</section>
+
+<!-- =================== 06 · HOW I BUILT IT =================== -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">06 — How I built it</div>
+    <h2 class="section-title">Two experiments in vibe coding.</h2>
+
+    <p class="body-copy">
+      I ran the build as a deliberate side-by-side test — same app idea, two very different ways of working with AI. The results made the case for treating AI like a teammate you brief, not a tool you prompt one task at a time.
+    </p>
+
+    <div class="experiments">
+      <div class="experiment">
+        <div class="experiment-tag"><span class="dot"></span>Experiment 01 — Just prompt it</div>
+        <div class="experiment-name">Let the AI build everything on its own</div>
+        <div class="experiment-desc">A single, simple prompt describing the app, and let the model make every product and visual decision from there.</div>
+        <div class="experiment-verdict"><strong>Result:</strong> a generic app full of AI slop. The UI drifted from screen to screen and never felt like one product.</div>
+      </div>
+      <div class="experiment experiment--win">
+        <div class="experiment-tag"><span class="dot"></span>Experiment 02 — Brief it properly</div>
+        <div class="experiment-name">A <em>defined plan</em>: brand toolkit, voice &amp; tone, refined prompts</div>
+        <div class="experiment-desc">I gave the AI a real brief — a brand toolkit, voice and tone, and prompts I refined with ChatGPT first. I used my own personal brand, so you'll see the resemblance to this portfolio.</div>
+        <div class="experiment-verdict"><strong>Result:</strong> a much stronger app — a consistent identity and features that are far more intuitive.</div>
+      </div>
+    </div>
+
+    <p class="body-copy">
+      I also switched tools partway through. I started in <strong>Gemini on the Antigravity IDE</strong> — Claude wasn't the obvious choice yet — then moved to <strong>Claude Code</strong>, which was much better at building the product end to end and followed my instructions closely.
+    </p>
+
+    <div class="journey">
+      <div class="journey-step">
+        <div class="journey-meta">Start</div>
+        <div class="journey-tool">Gemini · Antigravity</div>
+        <div class="journey-desc">First builds, before Claude was the obvious pick.</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-meta">Method</div>
+        <div class="journey-tool">Brand-led briefs</div>
+        <div class="journey-desc">Toolkit, voice &amp; tone, and ChatGPT-refined prompts.</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-meta">Ship</div>
+        <div class="journey-tool">Claude Code</div>
+        <div class="journey-desc">End-to-end build that followed the brief faithfully.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== OUTCOME =================== -->
+<section class="outcome">
+  <div class="container container--narrow">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          The Lists is my own product — designed, built, and used every day, and shipped end to end with <em>Claude Code</em>. The whole process in my own hands: framing the problem, structuring it, designing the interactions and the look, and building it.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>3</em></div>
+            <div class="stat-label">Ways to start — blank, template, or magic</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>6</em></div>
+            <div class="stat-label">Template categories, curated</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>1</em></div>
+            <div class="stat-label">Designer &amp; builder, end to end</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== MORE CASES =================== -->
+<section class="more-cases">
+  <div class="container">
+    <div class="more-cases-head">
+      <div class="more-cases-label">More projects</div>
+      <a href="index.html#work" class="more-cases-all">All work →</a>
+    </div>
+    <div class="more-cases-grid">
+      <a href="JSQ Product Viz Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/jsq/Dashboard.gif" alt="Juniper Square dashboard visualization" loading="lazy"></div>
+        <div class="more-case-meta">Brand × Product · B2B SaaS</div>
+        <div class="more-case-title">Juniper Square product visualizations</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="DSLeague Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="assets/dsleague/DSL_Add.gif" alt="DSLeague add-player flow in motion" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Live product</div>
+        <div class="more-case-title">DSLeague <em>·</em> Founding Designer</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+      <a href="Daiverse Case Study.html" target="_blank" rel="noopener" class="more-case">
+        <div class="more-case-thumb"><img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/5c084176-3297-4033-9e94-1f6ddc016c2c/big+picture_DS.jpg" alt="Daiverse design system overview" loading="lazy"></div>
+        <div class="more-case-meta">Design system · Enterprise</div>
+        <div class="more-case-title">Daiverse <em>·</em> design system for DAI</div>
+        <div class="more-case-cta">View more <span class="cta-arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu LeNoll</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

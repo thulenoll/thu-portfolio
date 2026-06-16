@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhotoBooker — Thu Le</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAEFE3;
+    --bg-deep: #F8D2C5;
+    --bg-tint: #FDF7EE;
+    --ink: #221A15;
+    --ink-soft: #574A41;
+    --ink-faint: #6F635A;
+    --line: #E8D5BE;
+    --accent: #5468A5;
+    --accent-deep: #3D4F85;
+    --accent-light: #B0BEE3;
+    --accent-soft: rgba(84, 104, 165, 0.10);
+    --terra: #5C3F28;
+    --terra-deep: #3D2A1A;
+    --terra-soft: rgba(92, 63, 40, 0.08);
+    --terra-tint: #EDDFD1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400; line-height: 1.55;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .container--narrow { max-width: 920px; }
+
+  /* TOP BAR */
+  .topbar {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+  }
+  .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .wordmark { display: flex; align-items: center; gap: 12px; }
+  .wordmark-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Literata', serif;
+    font-style: italic; font-weight: 500;
+    font-size: 16px; letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 60;
+  }
+  .wordmark-name {
+    font-family: 'Literata', serif;
+    font-weight: 500; font-size: 21px;
+    letter-spacing: -0.012em;
+    font-variation-settings: "opsz" 60;
+  }
+  .topbar-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-soft);
+    display: flex; gap: 32px;
+  }
+  .topbar-meta a { color: inherit; text-decoration: none; }
+  .topbar-meta a:hover { color: var(--terra); }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    padding: 28px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+  }
+  .breadcrumb a {
+    color: var(--terra); text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 2px;
+  }
+  .breadcrumb a:hover { border-color: var(--terra); color: var(--terra-deep); }
+  .breadcrumb .sep { margin: 0 10px; color: var(--ink-faint); }
+
+  /* HERO */
+  .case-hero {
+    padding: 72px 0 96px;
+    background: var(--terra-deep);
+    color: var(--bg);
+    margin-top: 32px;
+  }
+  .case-hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent-light);
+    margin-bottom: 32px;
+  }
+  .case-hero-title {
+    font-family: 'Literata', serif;
+    font-weight: 350;
+    font-size: clamp(40px, 6vw, 78px);
+    line-height: 1.02; letter-spacing: -0.022em;
+    color: var(--bg); margin-bottom: 28px;
+    font-variation-settings: "opsz" 144;
+    max-width: 18ch;
+  }
+  .case-hero-title em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 144;
+  }
+  .case-hero-lede {
+    font-size: 21px; line-height: 1.5;
+    color: var(--bg);
+    max-width: 60ch;
+  }
+  .case-hero-lede em {
+    font-style: italic; color: var(--accent-light);
+    font-family: 'Literata', serif;
+    font-variation-settings: "opsz" 60;
+  }
+
+  /* META STRIP */
+  .meta-strip {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 32px;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 6px; }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+  }
+  .meta-value {
+    font-size: 14px; color: var(--ink);
+    line-height: 1.4;
+  }
+  .meta-value strong { font-weight: 500; }
+  .meta-value a {
+    color: var(--terra); text-decoration: none;
+    border-bottom: 1px solid var(--terra-soft);
+    padding-bottom: 1px;
+  }
+  .meta-value a:hover { color: var(--terra-deep); border-color: var(--terra); }
+
+  /* OVERVIEW IMAGE */
+  .overview-image { margin: 64px 0 0; }
+  .overview-image img {
+    width: 100%; display: block;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .overview-caption {
+    padding: 16px 0 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-faint);
+    display: flex; gap: 12px; align-items: baseline;
+  }
+  .overview-caption .num { color: var(--terra); }
+
+  /* SECTION */
+  .section { padding: 96px 0 16px; }
+  .section + .section { padding-top: 48px; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Literata', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 28px;
+    font-variation-settings: "opsz" 90;
+    max-width: 22ch;
+  }
+  .section-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .body-copy {
+    font-size: 18px; line-height: 1.65;
+    color: var(--ink-soft); max-width: 62ch;
+  }
+  .body-copy + .body-copy { margin-top: 1em; }
+  .body-copy strong { color: var(--ink); font-weight: 500; }
+  .body-copy em {
+    font-family: 'Literata', serif; font-style: italic;
+    color: var(--terra); font-size: 1.03em;
+    font-variation-settings: "opsz" 30;
+  }
+
+  /* PULL QUOTE */
+  .pullquote {
+    margin: 56px 0 16px;
+    padding-left: 24px;
+    border-left: 3px solid var(--terra);
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.3; color: var(--ink);
+    letter-spacing: -0.014em;
+    font-variation-settings: "opsz" 90;
+    max-width: 32ch;
+  }
+  .pullquote em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .pullquote-cite {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--ink-faint);
+  }
+
+  /* SUB-LABEL */
+  .sub-label {
+    margin: 56px 0 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--terra);
+  }
+
+  /* IMAGE BLOCKS */
+  .image-block { margin: 40px 0 16px; }
+  .image-block img {
+    width: 100%; display: block;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+  .image-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--ink-faint);
+    margin-top: 12px;
+    display: flex; gap: 12px; align-items: baseline;
+  }
+  .image-caption .num { color: var(--terra); }
+
+  .image-grid {
+    margin: 40px 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .image-grid img {
+    width: 100%; display: block;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+  }
+
+  /* TWO-SIDED CALLOUT */
+  .two-sided {
+    margin: 48px 0 16px;
+    padding: 28px;
+    background: var(--terra-tint);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .two-sided-side {
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+  .two-sided-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--terra);
+    margin-bottom: 8px;
+  }
+  .two-sided-name {
+    font-family: 'Literata', serif;
+    font-weight: 450; font-size: 19px;
+    color: var(--ink); margin-bottom: 4px;
+    font-variation-settings: "opsz" 60;
+  }
+  .two-sided-name em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 60;
+  }
+  .two-sided-desc {
+    font-size: 14px; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* OUTCOME (dark) */
+  .outcome {
+    padding: 96px 0;
+    background: var(--terra-deep);
+    color: var(--bg);
+    margin-top: 96px;
+  }
+  .outcome-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px; align-items: start;
+  }
+  .outcome-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--accent-light);
+    padding-top: 12px;
+  }
+  .outcome-body {
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.32; color: var(--bg);
+    letter-spacing: -0.014em; max-width: 36ch;
+    font-variation-settings: "opsz" 90;
+    margin-bottom: 24px;
+  }
+  .outcome-body em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .outcome-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(176, 190, 227, 0.2);
+    max-width: 620px;
+  }
+  .stat { display: flex; flex-direction: column; gap: 6px; }
+  .stat-value {
+    font-family: 'Literata', serif; font-weight: 400;
+    font-size: clamp(28px, 3vw, 38px);
+    color: var(--bg); line-height: 1;
+    letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 90;
+  }
+  .stat-value em {
+    font-style: italic; color: var(--accent-light);
+    font-variation-settings: "opsz" 90;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--accent-light);
+  }
+
+  /* NEXT CASE */
+  .next-case {
+    padding: 96px 0 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .next-case-link {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; text-decoration: none; color: inherit;
+    padding: 8px 0 32px;
+    transition: padding 0.3s ease;
+  }
+  .next-case-link:hover { padding-right: 12px; }
+  .next-case-link:hover .next-case-title { color: var(--terra); }
+  .next-case-link:hover .next-case-cta { background: var(--terra-deep); color: var(--bg); border-color: var(--terra-deep); }
+  .next-case-link:hover .next-case-cta .cta-arrow { transform: translateX(6px); }
+  .next-case-text { display: flex; flex-direction: column; gap: 8px; }
+  .next-case-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--ink-faint);
+  }
+  .next-case-title {
+    font-family: 'Literata', serif; font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.1; letter-spacing: -0.018em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 90;
+    transition: color 0.2s;
+  }
+  .next-case-title em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 90;
+  }
+  .next-case-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--terra);
+    border: 1px solid var(--terra);
+    padding: 10px 18px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .next-case-cta .cta-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  /* FOOTER */
+  .footer { padding: 80px 0 40px; }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: end;
+    margin-bottom: 60px; gap: 32px; flex-wrap: wrap;
+  }
+  .footer-headline {
+    font-family: 'Literata', serif; font-weight: 350;
+    font-size: clamp(28px, 3.8vw, 50px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    max-width: 18ch;
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-headline em {
+    font-style: italic; color: var(--terra);
+    font-variation-settings: "opsz" 144;
+  }
+  .footer-contact a {
+    font-family: 'Literata', serif; font-size: 22px;
+    color: var(--ink); text-decoration: none;
+    display: block; margin-bottom: 4px;
+    transition: color 0.2s;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-contact a:hover {
+    color: var(--terra); font-style: italic;
+    font-variation-settings: "opsz" 60;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid var(--line);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    gap: 12px; flex-wrap: wrap;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .container { padding: 0 22px; }
+    .topbar-meta { display: none; }
+    .case-hero { padding: 48px 0 64px; margin-top: 20px; }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .section { padding: 64px 0 12px; }
+    .image-grid { grid-template-columns: 1fr; gap: 12px; }
+    .two-sided { grid-template-columns: 1fr; padding: 20px; }
+    .outcome { padding: 64px 0; margin-top: 64px; }
+    .outcome-inner { grid-template-columns: 1fr; gap: 24px; }
+    .outcome-stats { grid-template-columns: 1fr; gap: 20px; }
+    .next-case { padding: 64px 0 12px; }
+    .next-case-link { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .case-hero-label, .case-hero-title, .case-hero-lede {
+    opacity: 0;
+    animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .case-hero-label { animation-delay: 0.1s; }
+  .case-hero-title { animation-delay: 0.2s; }
+  .case-hero-lede { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="wordmark">
+      <div class="wordmark-circle">th</div>
+      <div class="wordmark-name">Thu Le</div>
+    </div>
+    <div class="topbar-meta">
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="#">Work</a><span class="sep">/</span>Brand × Product<span class="sep">/</span>PhotoBooker at Zenfolio
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="case-hero">
+  <div class="container">
+    <div class="case-hero-label">Case study, 06 — Brand × Product</div>
+    <h1 class="case-hero-title">One marketplace. Two audiences. Designed <em>together</em>.</h1>
+    <p class="case-hero-lede">
+      Brand, product UI, and acquisition design for <em>PhotoBooker</em> — Zenfolio's two-sided marketplace matching local photographers with their clients. Three years of bridge work between brand and product as Visual Design Lead.
+    </p>
+  </div>
+</section>
+
+<!-- META STRIP -->
+<section class="meta-strip">
+  <div class="container">
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value"><strong>Visual Design Lead</strong><br>Brand + Product UI<br>+ Marketing</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        <div class="meta-value"><strong>Oct 2018 — Jun 2020</strong><br>20 months · Alpha → Beta → US-wide</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Team</div>
+        <div class="meta-value">Exec team<br>Product team<br>Marketing<br>Engineering<br>Design agency</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Deliverables</div>
+        <div class="meta-value">Brand identity + guidelines<br>Product UI<br>Landing pages<br>A/B test assets<br>Email · Social · Ads</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Context</div>
+        <div class="meta-value">Part of <strong>3-year role</strong> at Zenfolio<br>Visual Design Lead<br>Apr 2017 — Jun 2020</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW IMAGE -->
+<div class="overview-image">
+  <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/696f1a0f-9aa7-45ad-a23c-7ac835a86a35/pb-homepage.jpg" alt="The PhotoBooker homepage at launch — brand and product UI in one frame.">
+  <div class="container">
+    <div class="overview-caption">
+      <span class="num">FIG. 00</span><span>PhotoBooker homepage at launch — brand and product UI, in one frame.</span>
+    </div>
+  </div>
+</div>
+
+<!-- 01 CONTEXT -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">01 — Context</div>
+    <h2 class="section-title">Launching a marketplace is launching <em>two products</em> at once.</h2>
+
+    <p class="body-copy">
+      In 2018, Zenfolio — a 100,000+ photographer platform — started building a new marketplace product to connect those photographers with the clients looking to book them. The product became <em>PhotoBooker</em>: search a photographer by style, location, and schedule; review their portfolio and pricing; book and pay in one place.
+    </p>
+
+    <p class="body-copy">
+      A marketplace is two products bolted together — one for the supply side, one for the demand side — that have to feel like one experience. Each side gets its own onboarding, its own value proposition, its own marketing — but a shared brand and a shared product surface. <strong>Brand and product had to launch as one thing on day one.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- 02 TWO AUDIENCES -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">02 — The two sides</div>
+    <h2 class="section-title">Photographers <em>and</em> the people who hire them.</h2>
+
+    <p class="body-copy">
+      Two distinct audiences, served by the same brand from the same surface. We named, mapped, and designed for them separately — then reconciled the experience into one product.
+    </p>
+
+    <div class="two-sided">
+      <div class="two-sided-side">
+        <div class="two-sided-label">Supply side</div>
+        <div class="two-sided-name"><em>Photographers</em></div>
+        <div class="two-sided-desc">Showcase their portfolio, get discovered, get booked, get paid. Already familiar with Zenfolio's flagship product.</div>
+      </div>
+      <div class="two-sided-side">
+        <div class="two-sided-label">Demand side</div>
+        <div class="two-sided-name"><em>Clients</em></div>
+        <div class="two-sided-desc">Find a local photographer by style, schedule, and budget for a specific occasion. Often booking a photographer for the first time.</div>
+      </div>
+    </div>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/2a3824ae-9a89-4b3f-9c80-ee810a188b66/PhotoBooker+personas.png" alt="PhotoBooker personas — both photographer and client.">
+      <div class="image-caption"><span class="num">FIG. 01</span><span>Personas for both sides — different needs, one product to serve them both.</span></div>
+    </div>
+
+    <p class="body-copy">
+      The core flow — search, filter, browse, book — was the same regardless of side. The way each side <em>entered</em> that flow was completely different.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/11df2698-3944-478f-aa15-c3328e61f511/PB-mobile-steps.jpg" alt="PhotoBooker mobile flow — search, filter, choose, book.">
+      <div class="image-caption"><span class="num">FIG. 02</span><span>Mobile flow — search by style, schedule, and location → browse and filter → choose → book and pay.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 BRAND + PRODUCT TOGETHER -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — Brand × Product</div>
+    <h2 class="section-title">No version where the brand shipped <em>after</em> the product.</h2>
+
+    <p class="body-copy">
+      As Visual Design Lead, I worked between marketing and product. Brand identity, voice and tone, logo concepts, brand guidelines, the UI for the marketplace itself, the landing pages, the campaign assets — all of it was one design problem. There was no version where we shipped the product and "figured out the brand later," and no version where we built the brand without the product behind it.
+    </p>
+
+    <blockquote class="pullquote">
+      A marketplace has to launch as a brand <em>and</em> a product on day one. That made every design decision a brand decision and a product decision at the same time.
+      <div class="pullquote-cite">From the bridge years at Zenfolio</div>
+    </blockquote>
+
+    <p class="body-copy">
+      The brand guidelines were written for internal use across product, marketing, social, blog, and tradeshow surfaces — so the same identity carried whether a user landed on the marketplace, opened an email, or saw an ad on Instagram. The product UI used the same vocabulary as those surfaces, so a click-through didn't feel like a context switch.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/dc07a6b9-ef01-404e-ab44-9eccd9fdd8c7/pb-photographer-profile-page.jpg" alt="PhotoBooker photographer profile page — product UI carrying brand vocabulary.">
+      <div class="image-caption"><span class="num">FIG. 03</span><span>Photographer detail page — product UI carrying the brand vocabulary unchanged.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ACQUISITION -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">04 — Acquisition at marketplace scale</div>
+    <h2 class="section-title">Cold-starting both sides of a marketplace.</h2>
+
+    <p class="body-copy">
+      The cold-start problem of marketplaces: photographers won't sign up if there are no clients, clients won't book if there are no photographers. Zenfolio's existing 100,000+ photographer base was the advantage — convert as many of them into PhotoBooker users as possible, then bring the clients in city by city.
+    </p>
+
+    <p class="body-copy">
+      I designed the assets across every channel we used to reach both sides: in-product placements on the Zenfolio flagship, recurring email invites, dedicated landing pages, paid social and display ads, geo-targeted creative for each city as we rolled out. Every asset was both a brand surface and a conversion surface — A/B tested for both signal at once.
+    </p>
+
+    <div class="sub-label">Landing pages &amp; A/B testing</div>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1661837577514-54LC17145MQ38HVDUR11/PB_HP+Tests_V2_desktop.jpg" alt="Landing page A/B tests for the alpha launch of PhotoBooker.">
+      <div class="image-caption"><span class="num">FIG. 04</span><span>Alpha-launch landing page variants — A/B tested for both brand affinity and conversion.</span></div>
+    </div>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1661837542248-VFYJ8X8STSDORNN4IIG4/Photobooker_For+cosumer_LP_V0.1%401x.jpg" alt="PhotoBooker landing page for the consumer side.">
+      <div class="image-caption"><span class="num">FIG. 05</span><span>Consumer-side landing page — different message, same brand.</span></div>
+    </div>
+
+    <div class="sub-label">Email invites &amp; geo-targeted launches</div>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1661837160142-ROXROEPE7218CTB8JXYC/Email_Invite_New-Market.jpg" alt="Email invite announcing PhotoBooker in new cities.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1661837159309-UHN6UQWNRJYMMDYSTFN8/PB_NorCal_Email-invite.jpg" alt="Email banner for Sacramento, CA photographers.">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 06</span><span>Email invites — new-market announcement (left) and geo-targeted banner for Sacramento (right).</span></div>
+
+    <div class="sub-label">Paid social &amp; display</div>
+
+    <div class="image-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1661836636995-XT9U0BXW88PUUC6N9CGD/PB_San-Jose_ad.jpg" alt="Ad targeting photographers in San Jose, CA.">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/1af99e5b-23b6-4a26-82f9-ecc5995e2eb9/PB_Ad_Consumer_OCT19_V1.jpg" alt="Ad targeting consumers booking photographers for the holiday season.">
+    </div>
+    <div class="image-caption"><span class="num">FIG. 07</span><span>Geo + audience-targeted creative — San Jose photographers (left), holiday-season consumers (right).</span></div>
+  </div>
+</section>
+
+<!-- 05 BOOKME -->
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">05 — In parallel</div>
+    <h2 class="section-title">Launching a feature for the flagship at the <em>same time</em>.</h2>
+
+    <p class="body-copy">
+      Alongside PhotoBooker, we launched <strong>BookMe</strong> — a new booking feature inside the existing Zenfolio flagship product. Same bridge work: dedicated landing page, social posts, paid ads, promo placements across the Zenfolio site, and in-product promos. Same Visual Design Lead, same brand voice carrying across two product lines at once.
+    </p>
+
+    <div class="image-block">
+      <img src="https://images.squarespace-cdn.com/content/v1/5668cec8a2bab8239215bea5/45e6e0aa-c001-4433-a744-1e7554587914/BookMe+new+feature.png" alt="BookMe — a new booking feature for Zenfolio's flagship product.">
+      <div class="image-caption"><span class="num">FIG. 08</span><span>BookMe — the parallel feature launch on Zenfolio's flagship product.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOME -->
+<section class="outcome">
+  <div class="container">
+    <div class="outcome-inner">
+      <div class="outcome-label">Outcome</div>
+      <div>
+        <p class="outcome-body">
+          PhotoBooker launched <em>alpha → beta → US-wide</em> over 20 months. Beyond the product itself, it became my earliest sustained run at bridge work — brand and product, designed together, across <em>three years</em> at Zenfolio.
+        </p>
+
+        <div class="outcome-stats">
+          <div class="stat">
+            <div class="stat-value"><em>2</em></div>
+            <div class="stat-label">Audiences, one brand and product</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>100K+</em></div>
+            <div class="stat-label">Existing photographer base to convert</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value"><em>3 yrs</em></div>
+            <div class="stat-label">Of bridge work at Zenfolio total</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT CASE -->
+<section class="next-case">
+  <div class="container container--narrow">
+    <a href="#" class="next-case-link">
+      <div class="next-case-text">
+        <div class="next-case-label">Next case, 07</div>
+        <div class="next-case-title">Personal mobile app, built with <em>Claude Code</em></div>
+      </div>
+      <div class="next-case-cta">View case<span class="cta-arrow">→</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>
+      <div class="footer-contact">
+        <a href="mailto:ledkthu@gmail.com">ledkthu@gmail.com</a>
+        <a href="https://linkedin.com/in/ledkthu">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Thu Le</span>
+      <span>Made with Claude Design</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card" style="padding: 0; overflow: hidden;">
+  <div style="background: var(--terra-deep); color: var(--bg); padding: var(--s-12) var(--s-8);">
+    <div style="display: grid; grid-template-columns: 160px 1fr; gap: var(--s-8); align-items: start;">
+      <div style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-light); padding-top: var(--s-2);">Outcome</div>
+      <div>
+        <p style="font-family: var(--font-serif); font-weight: 350; font-size: 22px; line-height: 1.32; color: var(--bg); max-width: 36ch; margin-bottom: var(--s-6); font-variation-settings: 'opsz' 90;">
+          A live product with real users — the design system is the <em style="font-style: italic; color: var(--accent-light);">spine</em> of a shipping platform.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-8); padding-top: var(--s-5); border-top: 1px solid rgba(176,190,227,0.2);">
+          
+            <div style="display: flex; flex-direction: column; gap: var(--s-2);">
+              <div style="font-family: var(--font-serif); font-size: 32px; font-weight: 400; line-height: 1; color: var(--bg);"><em style="font-style: italic; color: var(--accent-light);">100+</em></div>
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-light);">Monthly users</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--s-2);">
+              <div style="font-family: var(--font-serif); font-size: 32px; font-weight: 400; line-height: 1; color: var(--bg);"><em style="font-style: italic; color: var(--accent-light);">10</em></div>
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-light);">Sports, one system</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--s-2);">
+              <div style="font-family: var(--font-serif); font-size: 32px; font-weight: 400; line-height: 1; color: var(--bg);"><em style="font-style: italic; color: var(--accent-light);">2</em></div>
+              <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-light);">Modes baked in</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

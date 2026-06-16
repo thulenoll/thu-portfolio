@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-meta">Case study meta strip · 5-column row</div>
+  <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-6); margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px solid var(--line);">
+    <div style="display:flex; flex-direction:column; gap: var(--s-2);">
+        <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Role</div>
+        <div style="font-size: 13px; color: var(--ink); line-height: 1.45;"><strong style="font-weight: 500;">Founding Designer</strong><br>Brand + system</div>
+      </div><div style="display:flex; flex-direction:column; gap: var(--s-2);">
+        <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Year</div>
+        <div style="font-size: 13px; color: var(--ink); line-height: 1.45;"><strong style="font-weight: 500;">Aug 2024 — Now</strong><br>Live and shipping</div>
+      </div><div style="display:flex; flex-direction:column; gap: var(--s-2);">
+        <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Team</div>
+        <div style="font-size: 13px; color: var(--ink); line-height: 1.45;"><strong style="font-weight: 500;">Founders</strong><br>Designer<br>Developers</div>
+      </div><div style="display:flex; flex-direction:column; gap: var(--s-2);">
+        <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Deliverables</div>
+        <div style="font-size: 13px; color: var(--ink); line-height: 1.45;"><strong style="font-weight: 500;">Brand</strong><br>System<br>Components</div>
+      </div><div style="display:flex; flex-direction:column; gap: var(--s-2);">
+        <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-faint);">Status</div>
+        <div style="font-size: 13px; color: var(--ink); line-height: 1.45;"><strong style="font-weight: 500;">Live on Vercel</strong><br>100+ users</div>
+      </div>
+  </div>
+</div>
+</body>
+</html>

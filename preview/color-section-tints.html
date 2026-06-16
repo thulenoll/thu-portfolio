@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../design-system.css">
+<style>
+  body { padding: var(--s-5); }
+  .card { padding: var(--s-5); }
+  .card-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+  }
+  .swatches { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-meta">Section accent bullets · cool / warm / terra</div>
+  <div style="display: flex; flex-direction: column; gap: var(--s-3); margin-top: var(--s-4);">
+    <div style="display: flex; align-items: center; gap: var(--s-2);">
+      <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--accent);"></span>
+      <span class="mono" style="color: var(--ink-faint);">01 — Design systems × AI</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: var(--s-2);">
+      <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--terra);"></span>
+      <span class="mono" style="color: var(--ink-faint);">02 — Brand × Product</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: var(--s-2);">
+      <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--terra-deep);"></span>
+      <span class="mono" style="color: var(--ink-faint);">03 — Experiments & side projects</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
