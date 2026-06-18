@@ -28,11 +28,12 @@
 /photobooker%20case%20study   /photobooker   301
 /photobooker%20case%20study.html   /photobooker   301
 
-# Old Lists App case-study URL → new /lists slug
-/The%20Lists%20App%20Case%20Study   /lists   301
-/The%20Lists%20App%20Case%20Study.html   /lists   301
-/the%20lists%20app%20case%20study   /lists   301
-/the%20lists%20app%20case%20study.html   /lists   301
+# Old Lists App case-study URL → new /thelists-app slug
+/The%20Lists%20App%20Case%20Study   /thelists-app   301
+/The%20Lists%20App%20Case%20Study.html   /thelists-app   301
+/the%20lists%20app%20case%20study   /thelists-app   301
+/the%20lists%20app%20case%20study.html   /thelists-app   301
+/lists   /thelists-app   301
 
 # Old JSQ Brand System case-study URL → new /jsq-brand-system slug
 /JSQ%20Brand%20System%20Case%20Study   /jsq-brand-system   301
