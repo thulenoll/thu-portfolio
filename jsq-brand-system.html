@@ -835,6 +835,39 @@
   </div>
 </section>
 
+<!-- =================== DESIGN TOKENS EMBED =================== -->
+<style>
+  .tokens-embed {
+    margin-top: var(--s-10);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-tint);
+  }
+  .tokens-embed iframe { display: block; width: 100%; height: 760px; border: 0; }
+  .tokens-link {
+    color: var(--accent-deep);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+    white-space: nowrap;
+  }
+  .tokens-link:hover { color: var(--accent); border-color: var(--accent); }
+  @media (max-width: 700px) { .tokens-embed iframe { height: 560px; } }
+</style>
+<section class="section">
+  <div class="container container--narrow">
+    <div class="section-label">03 — The tokens, live</div>
+    <h2 class="section-title">The whole system, <em>on one page</em>.</h2>
+    <p class="body-copy">
+      Color, type, and spacing tokens across both the web and slide-deck tracks, plus the brand guidelines — gathered into a single living reference. <a href="assets/jsq/jsq-design-tokens.html" target="_blank" rel="noopener" class="tokens-link">Open the full page →</a>
+    </p>
+    <div class="tokens-embed">
+      <iframe src="assets/jsq/jsq-design-tokens.html" title="Juniper Square design tokens reference" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
 <!-- =================== MORE CASES =================== -->
 <section class="more-cases">
   <div class="container">
