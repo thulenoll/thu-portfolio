@@ -616,11 +616,14 @@
       <style>
         /* Render the demo at a fixed single-phone logical size and scale-to-fit, so the whole
            phone always composes nicely. Capped at native size so on wide screens it stays a
-           centred single phone (the bundle's two-column "flow steps" layout never kicks in). */
+           centred single phone (the bundle's two-column "flow steps" layout never kicks in).
+           The wrapper owns the one gradient; the iframe's own background is made transparent
+           (see script) so it shows through seamlessly with no side seam. */
         .demo-embed { margin: var(--s-10) 0 var(--s-4); border-radius: 24px; overflow: hidden;
           position: relative;
-          background: linear-gradient(135deg, #F1F2FB 0%, #E2E6F6 54%, #CFD7F0 100%); }
-        .demo-embed iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: top left; }
+          background: linear-gradient(135deg, #F0F1FA 0%, #DCE1F4 48%, #D0D8F0 100%); }
+        .demo-embed iframe { position: absolute; top: 0; left: 0; border: 0;
+          background: transparent; transform-origin: top left; }
       </style>
       <iframe src="assets/thelists/check-off-and-reset.html" loading="lazy" scrolling="no"
               title="Animated demo — create a list, check it off, then reset and reuse it."></iframe>
@@ -643,6 +646,27 @@
           fit();
           if (window.ResizeObserver) new ResizeObserver(fit).observe(fig);
           window.addEventListener('resize', fit);
+
+          /* Drop the demo's own gradient (so the wrapper's shows through with no seam) and hide
+             its narration/flow-steps block. The bundle rebuilds its DOM after unpacking, so
+             re-apply the override for a few seconds until it sticks. Same-origin; guarded. */
+          function patchDemo() {
+            try {
+              var d = frame.contentDocument;
+              if (!d || !d.body) return;
+              if (!d.getElementById('demoFix')) {
+                var st = d.createElement('style');
+                st.id = 'demoFix';
+                st.textContent = 'html,body{background:transparent !important}' +
+                                 '[data-dc-tpl="104"]{display:none !important}';
+                (d.head || d.documentElement).appendChild(st);
+              }
+            } catch (e) { /* cross-origin or not ready — ignore */ }
+          }
+          frame.addEventListener('load', function () {
+            patchDemo();
+            var n = 0, iv = setInterval(function () { patchDemo(); if (++n > 40) clearInterval(iv); }, 150);
+          });
         })();
       </script>
     </figure>
