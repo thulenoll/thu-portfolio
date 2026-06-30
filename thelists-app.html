@@ -664,6 +664,24 @@
                                  '[data-dc-tpl="104"]{display:none !important}';
                 (d.head || d.documentElement).appendChild(st);
               }
+              /* The whole iframe is scaled by K, which also shrinks the title. Counter-scale the
+                 eyebrow (13px) and headline (38px) by 1/K so they render at the same on-page size
+                 as the Magic Generator demo. Letter-spacing is in em, so it scales with font-size.
+                 Hardcoded bases keep this idempotent across the re-apply interval. */
+              var eb = [].find.call(d.querySelectorAll('div'), function (el) {
+                return el.children.length === 0 && /^The Lists/i.test(el.textContent.trim()) && el.textContent.trim().length < 40;
+              });
+              if (eb) {
+                eb.style.fontSize = (13 / K) + 'px';
+                var hl = eb.nextElementSibling;
+                if (hl) {
+                  hl.style.fontSize = (38 / K) + 'px';
+                  /* this headline is longer than the Magic Generator's, so at 38px it wraps —
+                     balance it into two even lines instead of orphaning the last word */
+                  hl.style.textWrap = 'balance';
+                  hl.style.lineHeight = '1.12';
+                }
+              }
             } catch (e) { /* cross-origin or not ready — ignore */ }
           }
           frame.addEventListener('load', function () {
