@@ -719,7 +719,7 @@
         (function () {
           var fig = document.currentScript.closest('.demo-embed');
           var frame = fig.querySelector('iframe');
-          var DW = 680, DH = 860, lastW = -1;
+          var DW = 680, DH = 748, lastW = -1;
           function fit() {
             var cw = fig.clientWidth;
             if (cw === lastW) return;       /* guard the ResizeObserver loop when we set height */
@@ -735,9 +735,10 @@
           if (window.ResizeObserver) new ResizeObserver(fit).observe(fig);
           window.addEventListener('resize', fit);
 
-          /* Drop the demo's own gradient (so the wrapper's shows through with no seam) and hide
-             its title block, so it reads as a clean single phone — matching the reuse demo above.
-             The bundle rebuilds its DOM after unpacking, so re-apply until it sticks. Same-origin. */
+          /* Drop the demo's own gradient (so the wrapper's shows through with no seam) and pull the
+             centred flex column up to the top with a tight pad, so the title + phone sit snug with
+             no big empty band below. The bundle rebuilds its DOM after unpacking, so re-apply until
+             it sticks. Same-origin. */
           function patchDemo() {
             try {
               var d = frame.contentDocument;
@@ -748,12 +749,17 @@
                 st.textContent = 'html,body{background:transparent !important}';
                 (d.head || d.documentElement).appendChild(st);
               }
-              /* hide the demo's internal title block (first child of the centred flex column) */
+              /* top-align the centred column so the bottom whitespace collapses */
               var col = [].find.call(d.querySelectorAll('div'), function (el) {
                 var cs = d.defaultView.getComputedStyle(el);
                 return cs.display === 'flex' && cs.flexDirection === 'column' && parseInt(cs.minHeight) >= 600;
               });
-              if (col && col.firstElementChild) col.firstElementChild.style.display = 'none';
+              if (col) {
+                col.style.minHeight = '0';
+                col.style.justifyContent = 'flex-start';
+                col.style.gap = '28px';
+                col.style.padding = '40px 20px 28px';
+              }
             } catch (e) { /* cross-origin or not ready — ignore */ }
           }
           frame.addEventListener('load', function () {
