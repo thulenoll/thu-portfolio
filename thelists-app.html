@@ -631,19 +631,21 @@
         (function () {
           var fig = document.currentScript.closest('.demo-embed');
           var frame = fig.querySelector('iframe');
-          /* K shrinks this demo's phone (natively 322px wide) to match the Magic Generator
-             demo's 264px phone — 264/322 ≈ 0.82. Logical width stays 680 so the single-phone
-             layout is preserved; only the on-page scale is reduced. */
-          var DW = 680, DH = 900, K = 0.82, lastW = -1;
+          /* LW is the logical render width — 720 (vs the bundle's native 680) gives the headline
+             enough room to stay on one line, while staying narrow enough that the single-phone
+             layout holds (the two-column flow-steps layout never kicks in). REF (680) is the
+             shared scale reference so the phone and headline track the Magic Generator demo at
+             every width; K shrinks the phone (natively 322px) to that demo's 264px — 264/322 ≈ 0.82. */
+          var LW = 720, DH = 900, REF = 680, K = 0.82, lastW = -1;
           function fit() {
             var cw = fig.clientWidth;
             if (cw === lastW) return;       /* guard the ResizeObserver loop when we set height */
             lastW = cw;
-            var s = Math.min(cw / DW, 1) * K;   /* match the Magic Generator phone size */
-            frame.style.width = DW + 'px';
+            var s = Math.min(cw / REF, 1) * K;   /* match the Magic Generator phone + headline size */
+            frame.style.width = LW + 'px';
             frame.style.height = DH + 'px';
             frame.style.transform = 'scale(' + s + ')';
-            frame.style.left = ((cw - DW * s) / 2) + 'px';  /* centre the scaled phone */
+            frame.style.left = ((cw - LW * s) / 2) + 'px';  /* centre the scaled phone */
             fig.style.height = (DH * s) + 'px';
           }
           fit();
@@ -673,14 +675,7 @@
               });
               if (eb) {
                 eb.style.fontSize = (13 / K) + 'px';
-                var hl = eb.nextElementSibling;
-                if (hl) {
-                  hl.style.fontSize = (38 / K) + 'px';
-                  /* this headline is longer than the Magic Generator's, so at 38px it wraps —
-                     balance it into two even lines instead of orphaning the last word */
-                  hl.style.textWrap = 'balance';
-                  hl.style.lineHeight = '1.12';
-                }
+                if (eb.nextElementSibling) eb.nextElementSibling.style.fontSize = (38 / K) + 'px';
               }
             } catch (e) { /* cross-origin or not ready — ignore */ }
           }
