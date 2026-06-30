@@ -614,13 +614,34 @@
 
     <figure class="demo-embed">
       <style>
+        /* Render the demo at a fixed logical size and scale-to-fit the frame, so the whole
+           phone always composes nicely instead of reflowing huge/cut on narrow screens.
+           Mobile uses a portrait single-phone layout; desktop the wider two-column one. */
         .demo-embed { margin: var(--s-10) 0 var(--s-4); border-radius: 24px; overflow: hidden;
+          position: relative; aspect-ratio: 680 / 900;
           background: linear-gradient(135deg, #F1F2FB 0%, #E2E6F6 54%, #CFD7F0 100%); }
-        .demo-embed iframe { display: block; width: 100%; aspect-ratio: 5 / 4; border: 0; }
-        @media (max-width: 768px) { .demo-embed iframe { aspect-ratio: 4 / 5; } }
+        @media (min-width: 768px) { .demo-embed { aspect-ratio: 1000 / 820; } }
+        .demo-embed iframe { position: absolute; top: 0; left: 0; border: 0; transform-origin: top left; }
       </style>
       <iframe src="assets/thelists/check-off-and-reset.html" loading="lazy" scrolling="no"
               title="Animated demo — create a list, check it off, then reset and reuse it."></iframe>
+      <script>
+        (function () {
+          var fig = document.currentScript.closest('.demo-embed');
+          var frame = fig.querySelector('iframe');
+          var wide = window.matchMedia('(min-width: 768px)');
+          function fit() {
+            var d = wide.matches ? { w: 1000, h: 820 } : { w: 680, h: 900 };
+            frame.style.width = d.w + 'px';
+            frame.style.height = d.h + 'px';
+            frame.style.transform = 'scale(' + (fig.clientWidth / d.w) + ')';
+          }
+          fit();
+          if (window.ResizeObserver) new ResizeObserver(fit).observe(fig);
+          window.addEventListener('resize', fit);
+          wide.addEventListener ? wide.addEventListener('change', fit) : wide.addListener(fit);
+        })();
+      </script>
     </figure>
     <div class="image-caption"><span class="num">FIG. 02</span><span>Reuse in action — create a list, check it off, then reset to zero and use it again.</span></div>
 
