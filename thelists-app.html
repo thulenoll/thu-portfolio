@@ -187,8 +187,13 @@
   .feature-grid {
     margin: var(--s-12) 0 var(--s-4);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--s-8);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-6);
+  }
+  /* Below the full container width the 4 columns get too narrow (the longest name wraps),
+     so drop to a balanced 2×2. The max-width:900 rule below takes over and stacks to one. */
+  @media (max-width: 1040px) {
+    .feature-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-8); }
   }
   .feature {
     display: flex;
@@ -575,6 +580,11 @@
         <div class="feature-num">03</div>
         <div class="feature-name">Magic Lists</div>
         <div class="feature-desc">Describe a situation and the app generates a complete checklist for it. (Premium.)</div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">04</div>
+        <div class="feature-name">Share &amp; collaborate</div>
+        <div class="feature-desc">Share a list and build it together. Hosting a potluck? Everyone adds what they're bringing.</div>
       </div>
     </div>
   </div>
