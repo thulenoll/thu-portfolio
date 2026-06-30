@@ -59,6 +59,7 @@
     --terra-deep:   #3D2A1A;
     --terra-soft:   #9A7C5C;
     --terra-tint:   #EDDFD1;
+    --hero-navy:    #232A42;
 
     --tint-cool:    #E5E8F0;
     --tint-warm:    #F2DECF;
@@ -181,7 +182,29 @@
     background: var(--terra-deep);
     color: var(--bg);
     padding: var(--s-16) 0 var(--s-16);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    animation: hero-breathe 8s ease-in-out infinite;
   }
+  /* Slow cross-fade between terra brown and deep navy beneath the contours */
+  @keyframes hero-breathe {
+    0%, 100% { background-color: #3D2A1A; }
+    50%      { background-color: #232A42; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero { animation: none; background-color: var(--terra-deep); }
+  }
+  .hero .container { position: relative; z-index: 1; }
+  /* Faint periwinkle topographic contour motif, anchored to the right */
+  .hero-contours {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    color: var(--accent-light);
+  }
+  .hero-contours-canvas { width: 100%; height: 100%; display: block; }
   .hero-label {
     font-family: var(--font-mono);
     font-size: 12px;
@@ -664,7 +687,10 @@
 </header>
 
 <!-- =================== HERO =================== -->
-<section class="hero" style="background-color: rgb(61, 42, 26)">
+<section class="hero">
+  <div class="hero-contours" aria-hidden="true">
+    <canvas class="hero-contours-canvas"></canvas>
+  </div>
   <div class="container">
     <div class="hero-label">A portfolio, 2014 — Present</div>
     <h1 class="hero-headline">
@@ -851,6 +877,7 @@
   </div>
 </footer>
 <script src="assets/nav-mobile.js"></script>
+<script src="assets/hero-contours.js"></script>
 
 </body>
 </html>
