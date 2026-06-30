@@ -41,7 +41,6 @@
       var el = node.parentElement;
       var cs = getComputedStyle(el);
       var fontSize = parseFloat(cs.fontSize) || 16;
-      var lh = cs.lineHeight === 'normal' ? fontSize * 1.2 : (parseFloat(cs.lineHeight) || fontSize * 1.2);
       var fontDecl = cs.fontStyle + ' ' + cs.fontWeight + ' ' + fontSize + 'px ' + cs.fontFamily;
       var ls = (cs.letterSpacing && cs.letterSpacing !== 'normal') ? cs.letterSpacing : '0px';
       var n = txt.length, i = 0;
@@ -62,7 +61,10 @@
           lines.push({
             text: s,
             x: lr.left - o.left,
-            y: (lr.top - o.top) + (lh - fontSize) / 2, // glyph em-box top
+            top: lr.top - o.top,    // real glyph-ink box top
+            width: lr.width,        // real rendered ink width
+            height: lr.height,      // real rendered ink height
+            fontSize: fontSize,
             font: fontDecl,
             ls: ls
           });
@@ -108,12 +110,44 @@
     var mctx = mask.getContext('2d');
     mctx.scale(Q, Q);
     mctx.fillStyle = '#fff';
-    mctx.textBaseline = 'top';
+    // Render each line to a scratch canvas, find its actual ink box, then blit
+    // it stretched to the real DOM rect. Metric-independent, so variable fonts
+    // (Literata opsz/weight) can't shift the mask off the real glyphs.
+    var tmp = document.createElement('canvas');
+    var tctx = tmp.getContext('2d');
     for (var li = 0; li < lines.length; li++) {
       var ln = lines[li];
-      mctx.font = ln.font;
-      try { mctx.letterSpacing = ln.ls; } catch (e) {}
-      mctx.fillText(ln.text, ln.x, ln.y);
+      tctx.font = ln.font;
+      try { tctx.letterSpacing = ln.ls; } catch (e) {}
+      var mw = Math.ceil(tctx.measureText(ln.text).width) + 4;
+      tmp.width = Math.max(2, mw);
+      tmp.height = Math.ceil(ln.fontSize * 2.2) + 4;
+      // resizing clears state — re-apply
+      tctx.font = ln.font;
+      try { tctx.letterSpacing = ln.ls; } catch (e) {}
+      tctx.textBaseline = 'alphabetic';
+      tctx.fillStyle = '#fff';
+      tctx.fillText(ln.text, 2, Math.round(ln.fontSize * 1.5));
+
+      var td = tctx.getImageData(0, 0, tmp.width, tmp.height).data;
+      var minX = tmp.width, minY = tmp.height, maxX = -1, maxY = -1, tx, ty;
+      for (ty = 0; ty < tmp.height; ty++) {
+        for (tx = 0; tx < tmp.width; tx++) {
+          if (td[(ty * tmp.width + tx) * 4 + 3] > 40) {
+            if (tx < minX) minX = tx;
+            if (tx > maxX) maxX = tx;
+            if (ty < minY) minY = ty;
+            if (ty > maxY) maxY = ty;
+          }
+        }
+      }
+      if (maxX < 0) continue; // no ink
+
+      // Map the scratch ink box straight onto the real glyph-ink rect.
+      mctx.drawImage(
+        tmp, minX, minY, (maxX - minX + 1), (maxY - minY + 1),
+        ln.x, ln.top, ln.width, ln.height
+      );
     }
 
     // ---- Distance field ------------------------------------------------
