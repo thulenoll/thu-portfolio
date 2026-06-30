@@ -712,11 +712,64 @@
       Magic Lists is the premium, AI-powered part. Describe what you're planning — <em>“flying from San Francisco to Vietnam with a toddler”</em> — pick who it's for, and the app builds a complete, sensible checklist in seconds. Travel prep, event planning, parenting situations, packing, life events. It's the fastest way to go from a vague plan to a list you can act on.
     </p>
 
+    <figure class="demo-embed">
+      <iframe src="assets/thelists/magic-generator-flow.html" loading="lazy" scrolling="no"
+              title="Animated demo — describe a situation, generate a checklist, and save it as a reusable list."></iframe>
+      <script>
+        (function () {
+          var fig = document.currentScript.closest('.demo-embed');
+          var frame = fig.querySelector('iframe');
+          var DW = 680, DH = 860, lastW = -1;
+          function fit() {
+            var cw = fig.clientWidth;
+            if (cw === lastW) return;       /* guard the ResizeObserver loop when we set height */
+            lastW = cw;
+            var s = Math.min(cw / DW, 1);   /* never upscale past the phone's native size */
+            frame.style.width = DW + 'px';
+            frame.style.height = DH + 'px';
+            frame.style.transform = 'scale(' + s + ')';
+            frame.style.left = ((cw - DW * s) / 2) + 'px';  /* centre when capped */
+            fig.style.height = (DH * s) + 'px';
+          }
+          fit();
+          if (window.ResizeObserver) new ResizeObserver(fit).observe(fig);
+          window.addEventListener('resize', fit);
+
+          /* Drop the demo's own gradient (so the wrapper's shows through with no seam) and hide
+             its title block, so it reads as a clean single phone — matching the reuse demo above.
+             The bundle rebuilds its DOM after unpacking, so re-apply until it sticks. Same-origin. */
+          function patchDemo() {
+            try {
+              var d = frame.contentDocument;
+              if (!d || !d.body) return;
+              if (!d.getElementById('demoFix')) {
+                var st = d.createElement('style');
+                st.id = 'demoFix';
+                st.textContent = 'html,body{background:transparent !important}';
+                (d.head || d.documentElement).appendChild(st);
+              }
+              /* hide the demo's internal title block (first child of the centred flex column) */
+              var col = [].find.call(d.querySelectorAll('div'), function (el) {
+                var cs = d.defaultView.getComputedStyle(el);
+                return cs.display === 'flex' && cs.flexDirection === 'column' && parseInt(cs.minHeight) >= 600;
+              });
+              if (col && col.firstElementChild) col.firstElementChild.style.display = 'none';
+            } catch (e) { /* cross-origin or not ready — ignore */ }
+          }
+          frame.addEventListener('load', function () {
+            patchDemo();
+            var n = 0, iv = setInterval(function () { patchDemo(); if (++n > 40) clearInterval(iv); }, 150);
+          });
+        })();
+      </script>
+    </figure>
+    <div class="image-caption"><span class="num">FIG. 05</span><span>Magic Lists in action — describe a situation, generate a checklist, then save it as a reusable list.</span></div>
+
     <div class="showcase cols-2">
       <div class="phone-shot"><img src="assets/thelists/11.png" alt="Magic Generator — describe what you're planning and who it's for, then generate a checklist." loading="lazy"></div>
       <div class="phone-shot"><img src="assets/thelists/03.png" alt="The create menu — Start from Blank, Use a Template, or the Magic Generator." loading="lazy"></div>
     </div>
-    <div class="image-caption"><span class="num">FIG. 05</span><span>Three ways to start — blank, a template, or a Magic List generated from a sentence.</span></div>
+    <div class="image-caption"><span class="num">FIG. 06</span><span>Three ways to start — blank, a template, or a Magic List generated from a sentence.</span></div>
   </div>
 </section>
 
