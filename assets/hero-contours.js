@@ -19,6 +19,7 @@
   var SOFTNESS  = 0.7;   // blur radius, css px
   var ALPHA     = 0.62;  // line opacity
   var Q         = 0.45;  // working resolution (lower = smoother)
+  var SMOOTH_PX = 26;    // distance-field blur, css px (straightens far rings)
   var INF       = 1e9;
 
   function cssVar(name, fallback) {
@@ -90,6 +91,29 @@
       d[q] = (q - v[k]) * (q - v[k]) + f[v[k]];
     }
     return d;
+  }
+
+  // Exact separable box blur (edge windows shrink), one pass.
+  function boxBlur(src, w, h, r) {
+    if (r < 1) return src;
+    var tmp = new Float64Array(w * h), out = new Float64Array(w * h);
+    var x, y, lo, hi, sum, pre = new Float64Array(Math.max(w, h) + 1);
+    for (y = 0; y < h; y++) {
+      var base = y * w;
+      for (x = 0; x < w; x++) pre[x + 1] = pre[x] + src[base + x];
+      for (x = 0; x < w; x++) {
+        lo = x - r < 0 ? 0 : x - r; hi = x + r > w - 1 ? w - 1 : x + r;
+        tmp[base + x] = (pre[hi + 1] - pre[lo]) / (hi - lo + 1);
+      }
+    }
+    for (x = 0; x < w; x++) {
+      for (y = 0; y < h; y++) pre[y + 1] = pre[y] + tmp[y * w + x];
+      for (y = 0; y < h; y++) {
+        lo = y - r < 0 ? 0 : y - r; hi = y + r > h - 1 ? h - 1 : y + r;
+        out[y * w + x] = (pre[hi + 1] - pre[lo]) / (hi - lo + 1);
+      }
+    }
+    return out;
   }
 
   function render() {
@@ -170,7 +194,13 @@
       for (x = 0; x < gw; x++) f[y * gw + x] = d[x];
     }
     var dist = new Float64Array(Ncells), maxd = 0;
-    for (p = 0; p < Ncells; p++) { var dv = Math.sqrt(f[p]); dist[p] = dv; if (dv > maxd) maxd = dv; }
+    for (p = 0; p < Ncells; p++) dist[p] = Math.sqrt(f[p]);
+
+    // Smooth the field so iso-lines lose their medial-axis kinks (two passes
+    // approximate a Gaussian). Far rings straighten; near rings stay tight.
+    var blurR = Math.round(SMOOTH_PX * Q);
+    if (blurR >= 1) { dist = boxBlur(dist, gw, gh, blurR); dist = boxBlur(dist, gw, gh, blurR); }
+    for (p = 0; p < Ncells; p++) if (dist[p] > maxd) maxd = dist[p];
 
     // ---- Marching-squares iso-lines ------------------------------------
     ctx.setTransform(1, 0, 0, 1, 0, 0);
