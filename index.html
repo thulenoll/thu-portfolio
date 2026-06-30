@@ -561,7 +561,24 @@
     padding: var(--s-20) 0 var(--s-10);
     background: var(--terra-deep);
     color: var(--bg);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    animation: hero-breathe 8s ease-in-out infinite;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .footer { animation: none; background-color: var(--terra-deep); }
+  }
+  .footer .container { position: relative; z-index: 1; }
+  /* Faint periwinkle topographic contour motif, hugging the footer text */
+  .footer-contours {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    color: var(--accent-light);
+  }
+  .footer-contours-canvas { width: 100%; height: 100%; display: block; }
   .footer-headline { color: var(--bg); }
   .footer-top {
     display: flex;
@@ -862,6 +879,9 @@
 
 <!-- =================== FOOTER =================== -->
 <footer class="footer">
+  <div class="footer-contours" aria-hidden="true">
+    <canvas class="footer-contours-canvas"></canvas>
+  </div>
   <div class="container">
     <div class="footer-top">
       <h2 class="footer-headline">Looking for someone who can <em>bridge</em> brand, product, and AI?</h2>

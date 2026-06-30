@@ -4,8 +4,9 @@
    iso-lines at increasing distances. The lines hug the letterforms and
    re-wrap whenever the text reflows. Drawn once per layout; static at rest. */
 (function () {
-  var hero = document.querySelector('.hero');
-  var canvas = document.querySelector('.hero-contours-canvas');
+  // Build an independent contour renderer for any dark section + canvas pair.
+  // Used for both the hero and the footer so they share one treatment.
+  function build(hero, canvas) {
   if (!hero || !canvas) return;
   var ctx = canvas.getContext('2d');
 
@@ -275,4 +276,8 @@
     clearTimeout(t);
     t = setTimeout(render, 150);
   });
+  }
+
+  build(document.querySelector('.hero'), document.querySelector('.hero-contours-canvas'));
+  build(document.querySelector('.footer'), document.querySelector('.footer-contours-canvas'));
 })();
