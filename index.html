@@ -679,7 +679,7 @@
       <img class="wordmark-logo" src="assets/brand/thuthu-periwinkle.png" alt="thuthu" style="height: 32px; width: auto; display: block;">
     </div>
     <nav class="topbar-meta">
-      <a href="#work">Work</a>
+      <a href="/work">Work</a>
       <a href="About.html">About</a>
       <a href="assets/Thu-LeNoll-Resume-2026.pdf" target="_blank" rel="noopener">Resume</a>
     </nav>
@@ -878,6 +878,27 @@
 </footer>
 <script src="assets/nav-mobile.js"></script>
 <script src="assets/hero-contours.js"></script>
+<script>
+  // Clean URL for the Work section: show /work in the address bar, still scroll to #work.
+  (function () {
+    function scrollToWork(smooth) {
+      var el = document.getElementById('work');
+      if (el) el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+    }
+    // Direct visit to /work (served as the homepage via Netlify rewrite): jump to the section.
+    if (location.pathname.replace(/\/+$/, '') === '/work') {
+      window.addEventListener('load', function () { scrollToWork(false); });
+    }
+    // Clicking a Work nav link: scroll smoothly and keep the URL clean, no reload.
+    document.querySelectorAll('a[href="/work"]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.pushState(null, '', '/work');
+        scrollToWork(true);
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
