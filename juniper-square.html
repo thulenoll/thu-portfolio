@@ -981,25 +981,6 @@
       </div>
     </div>
 
-    <div class="video-block">
-      <div class="video-frame">
-        <video
-          controls
-          preload="none"
-          poster="assets/jsq/jsq_WhatsNew_Jan_2026-poster.png"
-          playsinline>
-          <source src="assets/jsq/jsq_WhatsNew_Jan%202026.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="video-meta">
-        <div class="video-meta-left">
-          <div class="video-figure"><span class="num">VIDEO 03</span> · Monthly release · Jan 2026</div>
-          <div class="video-title">What's New at Juniper Square <em>·</em> January 2026</div>
-        </div>
-        <div class="video-meta-right">0:55 · 1080p</div>
-      </div>
-    </div>
-
     <p class="body-copy">
       The most recent video I made: Juniper Square&rsquo;s <em>Capital Intelligence</em> featuring Nasdaq eVestment&trade; Market Lens. I storyboarded, refined, and produced it end to end myself with AI, Figma, and Adobe, with no agency help.
     </p>
@@ -1007,16 +988,18 @@
     <div class="video-block video-block--portrait">
       <div class="video-frame video-frame--portrait">
         <video
+          data-autoplay-in-view
           controls
-          preload="none"
-          poster="assets/jsq/jsq_MarketLens_Sep_2026-poster.jpg"
-          playsinline>
+          muted
+          playsinline
+          preload="metadata"
+          poster="assets/jsq/jsq_MarketLens_Sep_2026-poster.jpg">
           <source src="assets/jsq/jsq_MarketLens_Sep_2026.mp4" type="video/mp4">
         </video>
       </div>
       <div class="video-meta">
         <div class="video-meta-left">
-          <div class="video-figure"><span class="num">VIDEO 04</span> · Feature launch · Sep 2026</div>
+          <div class="video-figure"><span class="num">VIDEO 03</span> · Feature launch · Sep 2026</div>
           <div class="video-title">Market Lens <em>·</em> market intelligence in the CRM</div>
         </div>
         <div class="video-meta-right">0:45 · 4:5</div>
@@ -1302,6 +1285,21 @@
 
     window.addEventListener('resize', fit);
     ifr.addEventListener('load', fit);
+  })();
+</script>
+<script>
+  // Autoplay (muted) videos once they scroll into view; pause when they leave.
+  (function () {
+    var vids = document.querySelectorAll('video[data-autoplay-in-view]');
+    if (!vids.length || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { v.play().catch(function () {}); }
+        else if (!v.paused) { v.pause(); }
+      });
+    }, { threshold: 0.5 });
+    vids.forEach(function (v) { v.muted = true; io.observe(v); });
   })();
 </script>
 <script src="assets/nav-mobile.js"></script>
