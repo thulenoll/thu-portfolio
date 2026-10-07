@@ -570,6 +570,9 @@
     border: 0;
     object-fit: cover;
   }
+  /* Portrait (4:5) social cut — centered, capped so it doesn't tower over the page */
+  .video-block--portrait { max-width: 432px; margin-left: auto; margin-right: auto; }
+  .video-frame--portrait { aspect-ratio: 4 / 5; }
   .video-meta {
     margin-top: var(--s-3);
     display: flex;
@@ -994,6 +997,29 @@
           <div class="video-title">What's New at Juniper Square <em>·</em> January 2026</div>
         </div>
         <div class="video-meta-right">0:55 · 1080p</div>
+      </div>
+    </div>
+
+    <p class="body-copy">
+      The most recent video I made: <em>Market Lens</em>, launched with Nasdaq eVestment. I storyboarded, refined, and produced it end to end myself with AI, Figma, and Adobe, with no agency help.
+    </p>
+
+    <div class="video-block video-block--portrait">
+      <div class="video-frame video-frame--portrait">
+        <video
+          controls
+          preload="none"
+          poster="assets/jsq/jsq_MarketLens_Sep_2026-poster.jpg"
+          playsinline>
+          <source src="assets/jsq/jsq_MarketLens_Sep_2026.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-meta">
+        <div class="video-meta-left">
+          <div class="video-figure"><span class="num">VIDEO 04</span> · Feature launch · Sep 2026</div>
+          <div class="video-title">Market Lens <em>·</em> market intelligence in the CRM</div>
+        </div>
+        <div class="video-meta-right">0:45 · 4:5</div>
       </div>
     </div>
   </div>
